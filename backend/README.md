@@ -17,8 +17,8 @@
 ## 启动
 
 ```bash
-cd /Users/huihuibuhui/Documents/my求职/去哪儿/backend
-UV_CACHE_DIR=/tmp/qunar-uv-cache /Users/huihuibuhui/.local/bin/uv sync --extra dev
+cd backend
+UV_CACHE_DIR=/tmp/hotel-refund-uv-cache uv sync --extra dev
 .venv/bin/python -m app.cli init-db --reset
 .venv/bin/uvicorn app.main:app --reload --port 8000
 ```
