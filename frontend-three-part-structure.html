@@ -1,0 +1,301 @@
+<section id="qunar-three-part-root" class="q3-root" aria-label="酒店退款 Agent 前端三模块框线原型">
+  <style>
+    #qunar-three-part-root {
+      color-scheme: light dark;
+      --q3-page: light-dark(#f5f6f3, #181a18);
+      --q3-surface: light-dark(#fcfdf9, #222522);
+      --q3-ink: light-dark(#20231f, #eef0ea);
+      --q3-muted: light-dark(#676d65, #b5bbb2);
+      --q3-line: light-dark(#c8cdc5, #565d54);
+      --q3-soft: light-dark(#eaede7, #30352f);
+      --q3-accent: light-dark(#176f66, #70c9bc);
+      --q3-accent-ink: light-dark(#f7fbf8, #102724);
+      width: 100%;
+      color: var(--q3-ink);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+    }
+    #qunar-three-part-root * { box-sizing: border-box; }
+    #qunar-three-part-root button { font: inherit; }
+    #qunar-three-part-root .q3-shell {
+      overflow: hidden;
+      border: 1px solid var(--q3-line);
+      border-radius: 12px;
+      background: var(--q3-surface);
+    }
+    #qunar-three-part-root .q3-topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      min-height: 62px;
+      padding: 10px 20px;
+      border-bottom: 1px solid var(--q3-line);
+    }
+    #qunar-three-part-root .q3-brand { display: flex; align-items: center; gap: 10px; font-weight: 500; }
+    #qunar-three-part-root .q3-dot { width: 10px; height: 10px; border-radius: 50%; background: var(--q3-accent); }
+    #qunar-three-part-root .q3-nav { display: flex; gap: 4px; }
+    #qunar-three-part-root .q3-nav button,
+    #qunar-three-part-root .q3-scenario-switch button {
+      min-height: 42px;
+      padding: 8px 13px;
+      border: 1px solid transparent;
+      border-radius: 8px;
+      background: transparent;
+      color: var(--q3-muted);
+      cursor: pointer;
+    }
+    #qunar-three-part-root .q3-nav button[aria-pressed="true"],
+    #qunar-three-part-root .q3-scenario-switch button[aria-pressed="true"] {
+      color: var(--q3-ink);
+      background: var(--q3-soft);
+      border-color: var(--q3-line);
+    }
+    #qunar-three-part-root .q3-mock { color: var(--q3-muted); font-size: 12px; white-space: nowrap; }
+    #qunar-three-part-root .q3-view { min-height: 650px; padding: 34px clamp(18px, 4vw, 54px) 42px; background: var(--q3-page); }
+    #qunar-three-part-root .q3-view[hidden] { display: none; }
+    #qunar-three-part-root .q3-heading { display: grid; gap: 8px; max-width: 760px; margin-bottom: 28px; }
+    #qunar-three-part-root .q3-eyebrow { color: var(--q3-accent); font-size: 12px; font-weight: 500; letter-spacing: .08em; }
+    #qunar-three-part-root h2,
+    #qunar-three-part-root h3,
+    #qunar-three-part-root p { margin: 0; }
+    #qunar-three-part-root h2 { font-size: 28px; font-weight: 500; }
+    #qunar-three-part-root h3 { font-size: 16px; font-weight: 500; }
+    #qunar-three-part-root .q3-subtitle { color: var(--q3-muted); max-width: 70ch; }
+    #qunar-three-part-root .q3-flow { display: grid; gap: 18px; }
+    #qunar-three-part-root .q3-mainline { display: grid; grid-template-columns: repeat(5, minmax(130px, 1fr)); gap: 24px; }
+    #qunar-three-part-root .q3-node {
+      position: relative;
+      min-height: 104px;
+      padding: 16px;
+      display: grid;
+      align-content: center;
+      gap: 7px;
+      border: 1px solid var(--q3-line);
+      border-radius: 9px;
+      background: var(--q3-surface);
+    }
+    #qunar-three-part-root .q3-node:not(:last-child)::after {
+      content: "→";
+      position: absolute;
+      right: -19px;
+      top: 40%;
+      color: var(--q3-muted);
+    }
+    #qunar-three-part-root .q3-tech { color: var(--q3-accent); font-size: 12px; }
+    #qunar-three-part-root .q3-purpose { color: var(--q3-muted); font-size: 12px; }
+    #qunar-three-part-root .q3-branches { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px; margin-left: 20%; }
+    #qunar-three-part-root .q3-branch { padding: 13px; border-top: 2px solid var(--q3-accent); background: var(--q3-soft); }
+    #qunar-three-part-root .q3-branch span { display: block; margin-top: 5px; color: var(--q3-muted); font-size: 12px; }
+    #qunar-three-part-root .q3-footer-action { display: flex; justify-content: flex-end; margin-top: 24px; }
+    #qunar-three-part-root .q3-primary,
+    #qunar-three-part-root .q3-secondary {
+      min-height: 44px;
+      padding: 10px 18px;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+    #qunar-three-part-root .q3-primary { border: 1px solid var(--q3-accent); background: var(--q3-accent); color: var(--q3-accent-ink); }
+    #qunar-three-part-root .q3-secondary { border: 1px solid var(--q3-line); background: transparent; color: var(--q3-ink); }
+    #qunar-three-part-root .q3-boundaries { display: flex; gap: 18px; margin-top: 22px; color: var(--q3-muted); font-size: 12px; flex-wrap: wrap; }
+    #qunar-three-part-root .q3-boundaries span::before { content: "✓ "; color: var(--q3-accent); }
+    #qunar-three-part-root .q3-scenario-switch { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 20px; }
+    #qunar-three-part-root .q3-sim-grid { display: grid; grid-template-columns: minmax(0, 1.75fr) minmax(250px, .9fr); gap: 18px; }
+    #qunar-three-part-root .q3-customer,
+    #qunar-three-part-root .q3-trace,
+    #qunar-three-part-root .q3-metric-definition,
+    #qunar-three-part-root .q3-trend,
+    #qunar-three-part-root .q3-breakdown {
+      border: 1px solid var(--q3-line);
+      border-radius: 10px;
+      background: var(--q3-surface);
+    }
+    #qunar-three-part-root .q3-panel-head { padding: 14px 16px; border-bottom: 1px solid var(--q3-line); display: flex; justify-content: space-between; gap: 12px; }
+    #qunar-three-part-root .q3-conversation { min-height: 390px; padding: 24px; display: grid; align-content: start; gap: 16px; }
+    #qunar-three-part-root .q3-user-line { justify-self: end; max-width: 75%; padding: 11px 13px; border-radius: 9px; background: var(--q3-soft); }
+    #qunar-three-part-root .q3-agent-answer { display: grid; gap: 12px; max-width: 86%; }
+    #qunar-three-part-root .q3-answer-result { font-size: 21px; font-weight: 500; }
+    #qunar-three-part-root .q3-expectation { padding: 12px; border: 1px dashed var(--q3-line); color: var(--q3-muted); }
+    #qunar-three-part-root .q3-conversation-action { margin-top: 4px; }
+    #qunar-three-part-root .q3-trace-body { padding: 18px; display: grid; gap: 0; }
+    #qunar-three-part-root .q3-trace-step { display: grid; grid-template-columns: 22px 1fr; gap: 10px; padding-bottom: 18px; }
+    #qunar-three-part-root .q3-trace-step:last-child { padding-bottom: 0; }
+    #qunar-three-part-root .q3-step-mark { width: 20px; height: 20px; border-radius: 50%; display: grid; place-items: center; background: var(--q3-soft); color: var(--q3-accent); font-size: 11px; }
+    #qunar-three-part-root .q3-trace-copy { display: grid; gap: 4px; }
+    #qunar-three-part-root .q3-trace-copy span { color: var(--q3-muted); font-size: 12px; }
+    #qunar-three-part-root .q3-metric-definition { display: grid; grid-template-columns: minmax(220px, .75fr) minmax(0, 1.5fr); margin-bottom: 18px; }
+    #qunar-three-part-root .q3-metric-name { padding: 22px; border-right: 1px solid var(--q3-line); display: grid; gap: 7px; align-content: center; }
+    #qunar-three-part-root .q3-metric-value { font-size: 32px; font-weight: 500; }
+    #qunar-three-part-root .q3-formula { padding: 22px; display: grid; gap: 8px; align-content: center; }
+    #qunar-three-part-root .q3-formula p { color: var(--q3-muted); }
+    #qunar-three-part-root .q3-dashboard-grid { display: grid; grid-template-columns: minmax(0, 1.35fr) minmax(280px, .9fr); gap: 18px; }
+    #qunar-three-part-root .q3-trend { padding: 18px; }
+    #qunar-three-part-root .q3-trend-head { display: flex; justify-content: space-between; gap: 12px; margin-bottom: 12px; }
+    #qunar-three-part-root .q3-chart { width: 100%; height: auto; color: var(--q3-accent); }
+    #qunar-three-part-root .q3-chart-grid { stroke: var(--q3-line); stroke-width: 1; }
+    #qunar-three-part-root .q3-chart-line { fill: none; stroke: currentColor; stroke-width: 3; }
+    #qunar-three-part-root .q3-chart-label { fill: var(--q3-muted); font-size: 11px; }
+    #qunar-three-part-root .q3-breakdown { padding: 18px; display: grid; gap: 14px; }
+    #qunar-three-part-root .q3-break-row { display: grid; grid-template-columns: 1fr auto; gap: 8px; padding-bottom: 10px; border-bottom: 1px solid var(--q3-line); }
+    #qunar-three-part-root .q3-break-row span { color: var(--q3-muted); font-size: 12px; }
+    #qunar-three-part-root .q3-guardrails { display: flex; gap: 18px; flex-wrap: wrap; margin-top: 18px; color: var(--q3-muted); }
+    #qunar-three-part-root .q3-guardrails strong { color: var(--q3-ink); font-weight: 500; }
+    #qunar-three-part-root .q3-action-line { margin-top: 18px; padding: 14px 0; border-top: 1px solid var(--q3-line); }
+    @media (max-width: 900px) {
+      #qunar-three-part-root .q3-topbar { align-items: flex-start; flex-wrap: wrap; }
+      #qunar-three-part-root .q3-nav { order: 3; width: 100%; }
+      #qunar-three-part-root .q3-nav button { flex: 1; }
+      #qunar-three-part-root .q3-mainline { grid-template-columns: 1fr; gap: 10px; }
+      #qunar-three-part-root .q3-node:not(:last-child)::after { content: "↓"; right: 50%; top: auto; bottom: -18px; }
+      #qunar-three-part-root .q3-branches { margin-left: 0; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      #qunar-three-part-root .q3-sim-grid,
+      #qunar-three-part-root .q3-dashboard-grid { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 560px) {
+      #qunar-three-part-root .q3-view { min-height: 0; padding: 24px 14px 30px; }
+      #qunar-three-part-root .q3-brand { width: calc(100% - 90px); }
+      #qunar-three-part-root .q3-nav { flex-direction: column; }
+      #qunar-three-part-root .q3-branches { grid-template-columns: 1fr; }
+      #qunar-three-part-root .q3-metric-definition { grid-template-columns: 1fr; }
+      #qunar-three-part-root .q3-metric-name { border-right: 0; border-bottom: 1px solid var(--q3-line); }
+    }
+  </style>
+
+  <div class="q3-shell">
+    <header class="q3-topbar">
+      <div class="q3-brand"><span class="q3-dot" aria-hidden="true"></span><span>酒店退款 Agent MVP</span></div>
+      <nav class="q3-nav" aria-label="主要页面">
+        <button type="button" data-view="design" aria-pressed="true">Agent 设计</button>
+        <button type="button" data-view="simulation" aria-pressed="false">场景模拟</button>
+        <button type="button" data-view="dashboard" aria-pressed="false">运营看板</button>
+      </nav>
+      <span class="q3-mock">Mock 数据</span>
+    </header>
+
+    <main>
+      <section class="q3-view" data-panel="design">
+        <header class="q3-heading">
+          <span class="q3-eyebrow">01 · 看懂系统</span>
+          <h2>酒店退款 Agent 如何完成一次售后任务</h2>
+          <p class="q3-subtitle">LLM 负责理解与表达，规则和 Tool 决定并推进真实业务状态。</p>
+        </header>
+        <div class="q3-flow">
+          <div class="q3-mainline">
+            <article class="q3-node"><h3>接收用户问题</h3><span class="q3-tech">会话入口 + Session Memory</span><span class="q3-purpose">建立任务与追踪标识</span></article>
+            <article class="q3-node"><h3>理解诉求与风险</h3><span class="q3-tech">LLM + 安全分类器</span><span class="q3-purpose">识别意图、原因、紧急度</span></article>
+            <article class="q3-node"><h3>确认订单与事实</h3><span class="q3-tech">订单 Tool + RAG</span><span class="q3-purpose">查询状态，辅助解释政策</span></article>
+            <article class="q3-node"><h3>检查并选择路径</h3><span class="q3-tech">规则引擎 + 状态机</span><span class="q3-purpose">决定金额、权限和路由</span></article>
+            <article class="q3-node"><h3>回复并记录结果</h3><span class="q3-tech">LLM + Case Memory</span><span class="q3-purpose">说明下一步，支持接续处理</span></article>
+          </div>
+          <div class="q3-branches" aria-label="四类业务路径">
+            <div class="q3-branch"><strong>自动退款</strong><span>方案 → 确认 → 执行</span></div>
+            <div class="q3-branch"><strong>退款查询</strong><span>资金状态 → 到账预期</span></div>
+            <div class="q3-branch"><strong>供应商协商</strong><span>创建工单 → 等待节点</span></div>
+            <div class="q3-branch"><strong>紧急／高风险</strong><span>恢复住宿 → 人工接管</span></div>
+          </div>
+        </div>
+        <div class="q3-boundaries"><span>LLM 不计算退款金额</span><span>写操作必须二次确认</span><span>高风险场景完整转人工</span></div>
+        <div class="q3-footer-action"><button class="q3-primary" type="button" data-go="simulation">开始场景模拟</button></div>
+      </section>
+
+      <section class="q3-view" data-panel="simulation" hidden>
+        <header class="q3-heading">
+          <span class="q3-eyebrow">02 · 体验能力</span>
+          <h2>选择一个场景，观察 Agent 如何处理</h2>
+          <p class="q3-subtitle">左侧是 C 端体验，右侧只展示可审计的决策依据，不展示模型隐性推理。</p>
+        </header>
+        <div class="q3-scenario-switch" aria-label="模拟场景">
+          <button type="button" data-scenario="cancel" aria-pressed="true">免费取消</button>
+          <button type="button" data-scenario="refund" aria-pressed="false">退款进度</button>
+          <button type="button" data-scenario="urgent" aria-pressed="false">到店无房</button>
+        </div>
+        <div class="q3-sim-grid" aria-live="polite">
+          <section class="q3-customer" aria-label="用户交互">
+            <div class="q3-panel-head"><h3>用户体验</h3><span class="q3-mock" id="q3-scenario-goal">验证自动报价与执行</span></div>
+            <div class="q3-conversation" id="q3-conversation"></div>
+          </section>
+          <aside class="q3-trace" aria-label="Agent 决策轨迹">
+            <div class="q3-panel-head"><h3>Agent 决策轨迹</h3><span class="q3-mock">演示模式</span></div>
+            <div class="q3-trace-body" id="q3-trace"></div>
+          </aside>
+        </div>
+        <div class="q3-footer-action"><button class="q3-primary" type="button" data-go="dashboard">查看运营结果</button></div>
+      </section>
+
+      <section class="q3-view" data-panel="dashboard" hidden>
+        <header class="q3-heading">
+          <span class="q3-eyebrow">03 · 验证价值</span>
+          <h2>智能客服是否真正解决了用户问题</h2>
+          <p class="q3-subtitle">演示数据 · 近 8 周 · 仅统计 MVP 可处理范围内的有效会话</p>
+        </header>
+        <section class="q3-metric-definition">
+          <div class="q3-metric-name"><span class="q3-tech">北极星指标</span><h3>有效自助解决率</h3><strong class="q3-metric-value">62.4%</strong><span class="q3-purpose">较上周 +2.8 个百分点</span></div>
+          <div class="q3-formula"><h3>什么才算“有效解决”</h3><p>Agent 独立推动业务状态成功完成，且 72 小时内没有转人工，也没有因同一问题重复进线。</p></div>
+        </section>
+        <div class="q3-dashboard-grid">
+          <section class="q3-trend">
+            <div class="q3-trend-head"><h3>近 8 周趋势</h3><span class="q3-mock">54.1% → 62.4%</span></div>
+            <svg class="q3-chart" viewBox="0 0 620 220" role="img" aria-label="有效自助解决率近八周由54.1%上升至62.4%">
+              <line class="q3-chart-grid" x1="48" y1="40" x2="594" y2="40"></line>
+              <line class="q3-chart-grid" x1="48" y1="105" x2="594" y2="105"></line>
+              <line class="q3-chart-grid" x1="48" y1="170" x2="594" y2="170"></line>
+              <polyline class="q3-chart-line" points="48,159 126,145 204,151 282,126 360,111 438,96 516,82 594,61"></polyline>
+              <text class="q3-chart-label" x="48" y="198">W1</text><text class="q3-chart-label" x="282" y="198">W4</text><text class="q3-chart-label" x="574" y="198">W8</text>
+              <text class="q3-chart-label" x="5" y="44">65%</text><text class="q3-chart-label" x="5" y="109">58%</text><text class="q3-chart-label" x="5" y="174">52%</text>
+            </svg>
+          </section>
+          <section class="q3-breakdown">
+            <h3>按场景拆解</h3>
+            <div class="q3-break-row"><div><strong>免费取消</strong><span>规则清晰，可自动执行</span></div><strong>81.6%</strong></div>
+            <div class="q3-break-row"><div><strong>退款进度</strong><span>受支付渠道状态影响</span></div><strong>68.2%</strong></div>
+            <div class="q3-break-row"><div><strong>到店无房</strong><span>优先恢复住宿，人工协同多</span></div><strong>29.4%</strong></div>
+            <div class="q3-action-line"><span class="q3-tech">本周产品动作</span><p>优化到店无房的替代住宿推荐与专员接入 SLA。</p></div>
+          </section>
+        </div>
+        <div class="q3-guardrails"><span>错误执行率 <strong>0.08%</strong></span><span>72 小时重复进线率 <strong>11.7%</strong></span></div>
+      </section>
+    </main>
+  </div>
+
+  <script>
+    (() => {
+      const root = document.getElementById('qunar-three-part-root');
+      const navButtons = [...root.querySelectorAll('.q3-nav button')];
+      const panels = [...root.querySelectorAll('[data-panel]')];
+      const scenarios = {
+        cancel: {
+          goal: '验证自动报价与执行',
+          conversation: '<div class="q3-user-line">我想取消下周上海的酒店</div><div class="q3-agent-answer"><span class="q3-tech">酒店售后 Agent</span><strong class="q3-answer-result">当前可免费取消，预计退款 ¥1,268</strong><p>取消费 ¥0，退款将原路退回。</p><div class="q3-expectation">提交后预计 1–3 个工作日到账，实际时间以支付渠道为准。</div><div class="q3-conversation-action"><button class="q3-primary" type="button">确认取消并申请退款</button></div></div>',
+          trace: [['LLM', '识别“取消并退款”意图'], ['订单 Tool', '确认唯一订单与待入住状态'], ['规则引擎', '命中免费取消，计算退款金额'], ['安全机制', '等待用户二次确认后写入']]
+        },
+        refund: {
+          goal: '验证状态查询与预期管理',
+          conversation: '<div class="q3-user-line">退款怎么还没到账？</div><div class="q3-agent-answer"><span class="q3-tech">酒店售后 Agent</span><strong class="q3-answer-result">退款已发起，正在等待支付渠道处理</strong><p>¥1,268 已于今天 10:19 原路退回。</p><div class="q3-expectation">预计 1–3 个工作日到账。最晚 9月7日 18:00 更新，超时将自动升级。</div><div class="q3-conversation-action"><button class="q3-primary" type="button">查看最新进度</button></div></div>',
+          trace: [['LLM', '识别“退款进度”意图'], ['退款 Tool', '读取退款单和支付渠道状态'], ['状态机', '判定为“渠道处理中”'], ['预期管理', '给出等待方、时间点与超时兜底']]
+        },
+        urgent: {
+          goal: '验证目标重排与人工兜底',
+          conversation: '<div class="q3-user-line">我已经到酒店了，前台说没有房</div><div class="q3-agent-answer"><span class="q3-tech">酒店售后 Agent</span><strong class="q3-answer-result">先帮你解决今晚住哪里</strong><p>紧急专员预计 3 分钟内接入，同时搜索附近可入住房源。</p><div class="q3-expectation">退款责任稍后处理；任何额外费用都会先征得你确认。</div><div class="q3-conversation-action"><button class="q3-primary" type="button">联系紧急专员</button></div></div>',
+          trace: [['安全分类器', '识别到店无房和今晚入住'], ['状态机', '目标从退款切换为恢复住宿'], ['供应 Tool', '搜索附近可入住房源'], ['Human-in-the-loop', '携带订单与核实结果转紧急专员']]
+        }
+      };
+
+      function showView(name) {
+        panels.forEach((panel) => { panel.hidden = panel.dataset.panel !== name; });
+        navButtons.forEach((button) => { button.setAttribute('aria-pressed', String(button.dataset.view === name)); });
+      }
+
+      function showScenario(name) {
+        const data = scenarios[name];
+        root.querySelector('#q3-scenario-goal').textContent = data.goal;
+        root.querySelector('#q3-conversation').innerHTML = data.conversation;
+        root.querySelector('#q3-trace').innerHTML = data.trace.map((step, index) => `<div class="q3-trace-step"><span class="q3-step-mark">${index + 1}</span><div class="q3-trace-copy"><strong>${step[0]}</strong><span>${step[1]}</span></div></div>`).join('');
+        root.querySelectorAll('[data-scenario]').forEach((button) => { button.setAttribute('aria-pressed', String(button.dataset.scenario === name)); });
+      }
+
+      navButtons.forEach((button) => button.addEventListener('click', () => showView(button.dataset.view)));
+      root.querySelectorAll('[data-go]').forEach((button) => button.addEventListener('click', () => showView(button.dataset.go)));
+      root.querySelectorAll('[data-scenario]').forEach((button) => button.addEventListener('click', () => showScenario(button.dataset.scenario)));
+      showScenario('cancel');
+    })();
+  </script>
+</section>

@@ -1,0 +1,18 @@
+{
+  "schema_version": "1.0",
+  "mock": true,
+  "users": [
+    {"user_id":"USR-A","display_name":"林女士","mobile_masked":"138****1021","identity_status":"VERIFIED"},
+    {"user_id":"USR-B","display_name":"陈先生","mobile_masked":"139****2042","identity_status":"VERIFIED"},
+    {"user_id":"USR-C","display_name":"赵女士","mobile_masked":"136****3308","identity_status":"VERIFIED"},
+    {"user_id":"USR-D","display_name":"王先生","mobile_masked":"137****4820","identity_status":"VERIFIED"},
+    {"user_id":"USR-E","display_name":"周女士","mobile_masked":"135****5512","identity_status":"VERIFIED"},
+    {"user_id":"USR-F","display_name":"孙先生","mobile_masked":"188****6024","identity_status":"VERIFIED"},
+    {"user_id":"USR-G","display_name":"唐女士","mobile_masked":"186****7186","identity_status":"VERIFIED"},
+    {"user_id":"USR-H","display_name":"吴先生","mobile_masked":"185****8241","identity_status":"VERIFIED"},
+    {"user_id":"USR-I","display_name":"郑女士","mobile_masked":"189****9315","identity_status":"VERIFIED"},
+    {"user_id":"USR-J","display_name":"钱先生","mobile_masked":"133****0462","identity_status":"VERIFIED"},
+    {"user_id":"USR-K","display_name":"徐女士","mobile_masked":"132****1548","identity_status":"VERIFIED"},
+    {"user_id":"USR-L","display_name":"示例科技差旅负责人","mobile_masked":"131****2680","identity_status":"VERIFIED","account_type":"CORPORATE"}
+  ]
+}

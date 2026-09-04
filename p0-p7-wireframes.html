@@ -1,0 +1,315 @@
+<section id="qunar-wireframes-root" class="qw-root" aria-labelledby="qw-heading">
+  <style>
+    #qunar-wireframes-root {
+      color-scheme: light dark;
+      --qw-canvas: light-dark(#f4f4f2, #171817);
+      --qw-surface: light-dark(#ffffff, #232422);
+      --qw-ink: light-dark(#191a18, #f2f2ef);
+      --qw-muted: light-dark(#676963, #b8bab4);
+      --qw-line: light-dark(#b8bab4, #62645f);
+      --qw-soft: light-dark(#e9eae6, #30322f);
+      --qw-strong: light-dark(#2c2d2a, #e8e9e4);
+      --qw-on-strong: light-dark(#ffffff, #171817);
+      --qw-radius: 10px;
+      width: 100%;
+      color: var(--qw-ink);
+      font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+    #qunar-wireframes-root * { box-sizing: border-box; }
+    #qunar-wireframes-root .qw-toolbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      margin-bottom: 14px;
+      flex-wrap: wrap;
+    }
+    #qunar-wireframes-root h2,
+    #qunar-wireframes-root h3,
+    #qunar-wireframes-root p { margin: 0; }
+    #qunar-wireframes-root .qw-heading-group { display: grid; gap: 4px; }
+    #qunar-wireframes-root .qw-kicker,
+    #qunar-wireframes-root .qw-caption,
+    #qunar-wireframes-root .qw-meta { color: var(--qw-muted); font-size: 12px; }
+    #qunar-wireframes-root .qw-stepper {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+    #qunar-wireframes-root .qw-step {
+      min-width: 42px;
+      min-height: 38px;
+      border: 1px solid var(--qw-line);
+      border-radius: 8px;
+      background: transparent;
+      color: var(--qw-ink);
+      font: inherit;
+      cursor: pointer;
+    }
+    #qunar-wireframes-root .qw-step[aria-pressed="true"] {
+      background: var(--qw-strong);
+      color: var(--qw-on-strong);
+      border-color: var(--qw-strong);
+    }
+    #qunar-wireframes-root .qw-workbench {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(220px, 280px);
+      gap: 18px;
+      align-items: start;
+    }
+    #qunar-wireframes-root .qw-window {
+      min-width: 0;
+      overflow: hidden;
+      border: 1px solid var(--qw-line);
+      border-radius: var(--qw-radius);
+      background: var(--qw-surface);
+    }
+    #qunar-wireframes-root .qw-chrome {
+      min-height: 54px;
+      padding: 12px 18px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      border-bottom: 1px solid var(--qw-line);
+    }
+    #qunar-wireframes-root .qw-brand { font-weight: 500; letter-spacing: .02em; }
+    #qunar-wireframes-root .qw-stage-label {
+      padding: 4px 8px;
+      border: 1px dashed var(--qw-line);
+      border-radius: 6px;
+      color: var(--qw-muted);
+      font-size: 12px;
+    }
+    #qunar-wireframes-root .qw-page {
+      min-height: 570px;
+      padding: 28px clamp(18px, 5vw, 54px) 34px;
+      background-image: linear-gradient(to right, color-mix(in srgb, var(--qw-line) 18%, transparent) 1px, transparent 1px), linear-gradient(to bottom, color-mix(in srgb, var(--qw-line) 18%, transparent) 1px, transparent 1px);
+      background-size: 24px 24px;
+    }
+    #qunar-wireframes-root .qw-page-inner { max-width: 720px; margin: 0 auto; display: grid; gap: 18px; }
+    #qunar-wireframes-root .qw-page-header { display: grid; gap: 8px; }
+    #qunar-wireframes-root .qw-title { font-size: clamp(22px, 3vw, 30px); font-weight: 500; }
+    #qunar-wireframes-root .qw-lead { color: var(--qw-muted); max-width: 62ch; }
+    #qunar-wireframes-root .qw-box,
+    #qunar-wireframes-root .qw-option,
+    #qunar-wireframes-root .qw-alert,
+    #qunar-wireframes-root .qw-timeline-item {
+      position: relative;
+      background: var(--qw-surface);
+      border: 1px dashed var(--qw-line);
+      border-radius: var(--qw-radius);
+      padding: 16px;
+    }
+    #qunar-wireframes-root .qw-box { display: grid; gap: 12px; }
+    #qunar-wireframes-root .qw-label {
+      position: absolute;
+      top: -9px;
+      left: 12px;
+      padding: 1px 6px;
+      background: var(--qw-surface);
+      border: 1px solid var(--qw-line);
+      border-radius: 999px;
+      color: var(--qw-muted);
+      font-size: 11px;
+    }
+    #qunar-wireframes-root .qw-choice-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; }
+    #qunar-wireframes-root .qw-choice {
+      min-height: 78px;
+      padding: 12px;
+      border: 1px solid var(--qw-line);
+      border-radius: 8px;
+      background: var(--qw-soft);
+      color: var(--qw-ink);
+      text-align: left;
+      font: inherit;
+    }
+    #qunar-wireframes-root .qw-choice strong { display: block; margin-bottom: 6px; font-weight: 500; }
+    #qunar-wireframes-root .qw-input {
+      width: 100%;
+      min-height: 82px;
+      resize: vertical;
+      border: 1px solid var(--qw-line);
+      border-radius: 8px;
+      padding: 12px;
+      background: var(--qw-surface);
+      color: var(--qw-ink);
+      font: inherit;
+    }
+    #qunar-wireframes-root .qw-order { display: grid; grid-template-columns: 76px 1fr auto; gap: 14px; align-items: center; }
+    #qunar-wireframes-root .qw-thumb { height: 64px; border-radius: 7px; background: repeating-linear-gradient(135deg, var(--qw-soft), var(--qw-soft) 7px, var(--qw-surface) 7px, var(--qw-surface) 14px); border: 1px solid var(--qw-line); }
+    #qunar-wireframes-root .qw-order-copy { display: grid; gap: 5px; }
+    #qunar-wireframes-root .qw-order-copy strong { font-weight: 500; }
+    #qunar-wireframes-root .qw-radio { width: 22px; height: 22px; border: 1px solid var(--qw-line); border-radius: 50%; }
+    #qunar-wireframes-root .qw-result { display: grid; gap: 8px; border-left: 5px solid var(--qw-strong); }
+    #qunar-wireframes-root .qw-result strong { font-size: 20px; font-weight: 500; }
+    #qunar-wireframes-root .qw-options { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+    #qunar-wireframes-root .qw-option { display: grid; gap: 8px; }
+    #qunar-wireframes-root .qw-option h3 { font-size: 16px; font-weight: 500; }
+    #qunar-wireframes-root .qw-keyvals { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px 16px; }
+    #qunar-wireframes-root .qw-keyval { display: grid; gap: 3px; }
+    #qunar-wireframes-root .qw-keyval span { color: var(--qw-muted); font-size: 12px; }
+    #qunar-wireframes-root .qw-actions { display: flex; justify-content: flex-end; gap: 10px; flex-wrap: wrap; }
+    #qunar-wireframes-root .qw-primary,
+    #qunar-wireframes-root .qw-secondary {
+      min-height: 44px;
+      padding: 10px 18px;
+      border-radius: 8px;
+      border: 1px solid var(--qw-strong);
+      font: inherit;
+      cursor: pointer;
+    }
+    #qunar-wireframes-root .qw-primary { background: var(--qw-strong); color: var(--qw-on-strong); }
+    #qunar-wireframes-root .qw-secondary { background: transparent; color: var(--qw-ink); }
+    #qunar-wireframes-root .qw-link { border: 0; background: transparent; color: var(--qw-ink); text-decoration: underline; font: inherit; padding: 4px; }
+    #qunar-wireframes-root .qw-alert { display: grid; gap: 7px; border-style: solid; }
+    #qunar-wireframes-root .qw-alert strong { font-weight: 500; }
+    #qunar-wireframes-root .qw-timeline { display: grid; gap: 10px; }
+    #qunar-wireframes-root .qw-timeline-item { display: grid; grid-template-columns: 82px 1fr; gap: 12px; }
+    #qunar-wireframes-root .qw-timeline-item[data-state="done"]::before {
+      content: "✓";
+      position: absolute;
+      left: -11px;
+      top: 18px;
+      width: 22px;
+      height: 22px;
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+      background: var(--qw-strong);
+      color: var(--qw-on-strong);
+      font-size: 12px;
+    }
+    #qunar-wireframes-root .qw-sidebar {
+      display: grid;
+      gap: 12px;
+      border: 1px dashed var(--qw-line);
+      border-radius: var(--qw-radius);
+      padding: 16px;
+      background: var(--qw-canvas);
+    }
+    #qunar-wireframes-root .qw-sidebar h3 { font-size: 16px; font-weight: 500; }
+    #qunar-wireframes-root .qw-note { display: grid; gap: 4px; padding-bottom: 12px; border-bottom: 1px solid var(--qw-line); }
+    #qunar-wireframes-root .qw-note:last-child { border-bottom: 0; padding-bottom: 0; }
+    #qunar-wireframes-root .qw-note dt { color: var(--qw-muted); font-size: 12px; }
+    #qunar-wireframes-root .qw-note dd { margin: 0; }
+    #qunar-wireframes-root .qw-divider { height: 1px; background: var(--qw-line); }
+    #qunar-wireframes-root details { border-top: 1px solid var(--qw-line); padding-top: 12px; }
+    #qunar-wireframes-root summary { cursor: pointer; }
+    @media (max-width: 760px) {
+      #qunar-wireframes-root .qw-workbench { grid-template-columns: 1fr; }
+      #qunar-wireframes-root .qw-page { min-height: 0; padding: 24px 16px; }
+      #qunar-wireframes-root .qw-choice-grid,
+      #qunar-wireframes-root .qw-options,
+      #qunar-wireframes-root .qw-keyvals { grid-template-columns: 1fr; }
+      #qunar-wireframes-root .qw-order { grid-template-columns: 64px 1fr; }
+      #qunar-wireframes-root .qw-radio { grid-column: 2; }
+      #qunar-wireframes-root .qw-actions { justify-content: stretch; }
+      #qunar-wireframes-root .qw-actions button { flex: 1 1 100%; }
+    }
+  </style>
+
+  <div class="qw-toolbar">
+    <div class="qw-heading-group">
+      <span class="qw-kicker">结构验证 · 非最终 UI</span>
+      <h2 id="qw-heading">酒店退款 Agent｜P0–P7 低保真线框图</h2>
+    </div>
+    <nav class="qw-stepper" aria-label="选择页面">
+      <button class="qw-step" type="button" data-page="0" aria-pressed="true">P0</button>
+      <button class="qw-step" type="button" data-page="1" aria-pressed="false">P1</button>
+      <button class="qw-step" type="button" data-page="2" aria-pressed="false">P2</button>
+      <button class="qw-step" type="button" data-page="3" aria-pressed="false">P3</button>
+      <button class="qw-step" type="button" data-page="4" aria-pressed="false">P4</button>
+      <button class="qw-step" type="button" data-page="5" aria-pressed="false">P5</button>
+      <button class="qw-step" type="button" data-page="6" aria-pressed="false">P6</button>
+      <button class="qw-step" type="button" data-page="7" aria-pressed="false">P7</button>
+    </nav>
+  </div>
+
+  <div class="qw-workbench" aria-live="polite">
+    <article class="qw-window" aria-label="当前页面线框图">
+      <header class="qw-chrome">
+        <span class="qw-brand">去哪儿｜酒店售后</span>
+        <span class="qw-stage-label" id="qw-stage-label">P0 · 演示入口</span>
+      </header>
+      <main class="qw-page" id="qw-page"></main>
+    </article>
+    <aside class="qw-sidebar" aria-label="页面设计说明">
+      <h3>页面判断卡</h3>
+      <dl class="qw-note"><dt>唯一页面目的</dt><dd id="qw-purpose"></dd></dl>
+      <dl class="qw-note"><dt>唯一主操作</dt><dd id="qw-primary-action"></dd></dl>
+      <dl class="qw-note"><dt>C 端用户先看到</dt><dd id="qw-user-first"></dd></dl>
+      <dl class="qw-note"><dt>预期管理重点</dt><dd id="qw-expectation"></dd></dl>
+      <dl class="qw-note"><dt>面试官应读出的能力</dt><dd id="qw-interviewer"></dd></dl>
+    </aside>
+  </div>
+
+  <script>
+    (() => {
+      const root = document.getElementById('qunar-wireframes-root');
+      const page = root.querySelector('#qw-page');
+      const stageLabel = root.querySelector('#qw-stage-label');
+      const fields = {
+        purpose: root.querySelector('#qw-purpose'),
+        primary: root.querySelector('#qw-primary-action'),
+        userFirst: root.querySelector('#qw-user-first'),
+        expectation: root.querySelector('#qw-expectation'),
+        interviewer: root.querySelector('#qw-interviewer')
+      };
+
+      const screens = [
+        {
+          label: 'P0 · 演示入口', purpose: '让面试官快速选择一条可验证的业务链路。', primary: '开始推荐场景', userFirst: 'MVP 能处理什么，以及这次将演示什么。', expectation: '明确数据、政策与接口均为 Mock，不伪装生产能力。', interviewer: '范围控制、演示叙事与验证意识。',
+          html: `<div class="qw-page-inner"><header class="qw-page-header"><span class="qw-meta">MVP DEMO</span><h3 class="qw-title">选择一条酒店售后场景</h3><p class="qw-lead">用真实业务结构演示 Agent 如何识别问题、核对订单、给出可执行方案并闭环。</p></header><section class="qw-alert"><span class="qw-label">L1 · 能力边界</span><strong>本演示使用模拟订单、政策、接口与工单状态</strong><p class="qw-caption">用于验证产品与 Agent 设计，不代表去哪儿线上规则。</p></section><section class="qw-box"><span class="qw-label">L2 · 场景选择</span><div class="qw-choice-grid"><button class="qw-choice" type="button"><strong>可免费取消</strong><span class="qw-caption">自动报价并申请退款</span></button><button class="qw-choice" type="button"><strong>不可取消</strong><span class="qw-caption">发起酒店协商</span></button><button class="qw-choice" type="button"><strong>到店无房</strong><span class="qw-caption">优先恢复今晚住宿</span></button></div></section><div class="qw-actions"><button class="qw-primary" type="button">开始推荐场景</button></div></div>`
+        },
+        {
+          label: 'P1 · 售后入口', purpose: '让用户用最低成本说清当前问题。', primary: '发送问题', userFirst: '三个高频任务入口和自然语言输入。', expectation: '先判断问题与紧急度，不提前承诺退款结果。', interviewer: '意图收敛、任务分类和紧急入口设计。',
+          html: `<div class="qw-page-inner"><header class="qw-page-header"><h3 class="qw-title">这笔酒店订单遇到了什么问题？</h3><p class="qw-lead">可以直接选择，也可以用自己的话描述。</p></header><section class="qw-box"><span class="qw-label">L1 · 高频意图</span><div class="qw-choice-grid"><button class="qw-choice" type="button"><strong>取消并退款</strong><span class="qw-caption">查看是否可退与金额</span></button><button class="qw-choice" type="button"><strong>查询退款进度</strong><span class="qw-caption">查看当前处理节点</span></button><button class="qw-choice" type="button"><strong>酒店无法入住</strong><span class="qw-caption">到店无房或拒绝接待</span></button></div></section><section class="qw-box"><span class="qw-label">L2 · 自由表达</span><label for="qw-message" class="qw-caption">补充发生了什么</label><textarea id="qw-message" class="qw-input" placeholder="例如：我今晚到店，但前台说没有房间……"></textarea></section><section class="qw-alert"><span class="qw-label">紧急入口</span><strong>今晚无法入住？</strong><p class="qw-caption">进入紧急恢复流程，优先协助找到可入住方案。</p><div><button class="qw-link" type="button">立即处理今晚住宿</button></div></section><div class="qw-actions"><button class="qw-primary" type="button">发送问题</button></div></div>`
+        },
+        {
+          label: 'P2 · 确认订单', purpose: '把自然语言问题绑定到唯一订单。', primary: '确认处理这笔订单', userFirst: '订单关键识别信息，而非政策判断。', expectation: '确认前不查询敏感详情、不执行任何售后动作。', interviewer: '身份边界、订单消歧和防误操作。',
+          html: `<div class="qw-page-inner"><header class="qw-page-header"><h3 class="qw-title">确认要处理的订单</h3><p class="qw-lead">我找到 2 笔可能相关的订单，请选择一笔。</p></header><section class="qw-box"><span class="qw-label">L1 · 候选订单</span><div class="qw-order"><div class="qw-thumb" aria-hidden="true"></div><div class="qw-order-copy"><strong>上海静安示例酒店</strong><span class="qw-caption">9月12日–9月14日 · 大床房 · ¥1,268</span><span class="qw-caption">待入住 · 上海</span></div><div class="qw-radio" aria-hidden="true"></div></div><div class="qw-divider"></div><div class="qw-order"><div class="qw-thumb" aria-hidden="true"></div><div class="qw-order-copy"><strong>杭州西湖示例酒店</strong><span class="qw-caption">10月2日–10月3日 · 双床房 · ¥698</span><span class="qw-caption">待入住 · 杭州</span></div><div class="qw-radio" aria-hidden="true"></div></div></section><section class="qw-alert"><span class="qw-label">预期说明</span><p>下一步只会读取所选订单的成交政策与售后状态。</p></section><div class="qw-actions"><button class="qw-primary" type="button">确认处理这笔订单</button></div></div>`
+        },
+        {
+          label: 'P3 · 方案说明', purpose: '让用户看懂结论，并在有限选项中做决定。', primary: '选择推荐方案', userFirst: '能否退款、可退金额、当前状态和时间预期。', expectation: '分清确定事实与条件性结果；最多展示两个方案。', interviewer: '规则可解释性与决策降噪。',
+          html: `<div class="qw-page-inner"><header class="qw-page-header"><h3 class="qw-title">这笔订单可以免费取消</h3><p class="qw-lead">依据下单时的成交政策，当前取消预计退回全部房费。</p></header><section class="qw-box qw-result"><span class="qw-label">L1 · 结论</span><strong>预计退款 ¥1,268</strong><span>取消费 ¥0 · 原支付渠道退回</span><span class="qw-caption">提交后约 1–3 个工作日到账，具体以支付渠道为准。</span></section><section class="qw-options"><article class="qw-option"><span class="qw-label">推荐</span><h3>现在取消并退款</h3><p>立即提交申请，房间将不再保留。</p><button class="qw-primary" type="button">选择推荐方案</button></article><article class="qw-option"><h3>暂不取消</h3><p>订单保持不变，可稍后回来处理。</p><button class="qw-secondary" type="button">保留订单</button></article></section><details><summary>查看政策依据与订单摘要</summary><p class="qw-caption">成交政策版本、免费取消截止时间、适用房型与订单号。</p></details></div>`
+        },
+        {
+          label: 'P4 · 操作确认', purpose: '在不可逆写操作前获得清晰、有效的用户确认。', primary: '确认取消并申请退款', userFirst: '将发生什么、退多少钱、多久到以及不可逆后果。', expectation: '点击后房间不再保留；金额与到账时间使用“预计”。', interviewer: '高风险动作防错、二次确认和幂等意识。',
+          html: `<div class="qw-page-inner"><header class="qw-page-header"><h3 class="qw-title">确认取消并申请退款</h3><p class="qw-lead">请最后核对。提交成功后，这笔订单将无法恢复。</p></header><section class="qw-box"><span class="qw-label">L1 · 操作对象</span><div class="qw-keyvals"><div class="qw-keyval"><span>酒店</span><strong>上海静安示例酒店</strong></div><div class="qw-keyval"><span>入住日期</span><strong>9月12日–14日</strong></div><div class="qw-keyval"><span>预计退款</span><strong>¥1,268</strong></div><div class="qw-keyval"><span>预计到账</span><strong>1–3 个工作日</strong></div></div></section><section class="qw-alert"><span class="qw-label">L2 · 不可逆提示</span><strong>提交后房间立即释放，订单不能恢复</strong><p class="qw-caption">退款将原路退回。实际到账时间取决于支付渠道。</p></section><div class="qw-actions"><button class="qw-secondary" type="button">返回修改</button><button class="qw-primary" type="button">确认取消并申请退款</button></div></div>`
+        },
+        {
+          label: 'P5 · 处理进度', purpose: '让用户知道事情推进到哪、在等谁、何时再更新。', primary: '查看最新进度', userFirst: '业务状态时间线和下一次更新时间。', expectation: '不用虚假百分比；明确外部等待与超时兜底。', interviewer: '长流程状态设计和闭环运营意识。',
+          html: `<div class="qw-page-inner"><header class="qw-page-header"><h3 class="qw-title">退款申请处理中</h3><p class="qw-lead">当前无需你操作。我们正在等待支付渠道返回结果。</p></header><section class="qw-timeline"><article class="qw-timeline-item" data-state="done"><strong>10:18</strong><div><strong>取消申请已提交</strong><p class="qw-caption">系统已收到申请，订单不可恢复。</p></div></article><article class="qw-timeline-item" data-state="done"><strong>10:19</strong><div><strong>退款已发起</strong><p class="qw-caption">¥1,268 已提交至原支付渠道。</p></div></article><article class="qw-timeline-item"><strong>当前</strong><div><strong>等待支付渠道处理</strong><p class="qw-caption">预计 1–3 个工作日到账。</p></div></article></section><section class="qw-alert"><span class="qw-label">下一节点</span><strong>最晚 9月7日 18:00 前更新</strong><p class="qw-caption">若届时仍无结果，将自动创建人工工单，无需重复联系客服。</p></section><div class="qw-actions"><button class="qw-primary" type="button">查看最新进度</button></div></div>`
+        },
+        {
+          label: 'P6 · 紧急恢复', purpose: '到店无法入住时，先恢复今晚住宿，再处理退款责任。', primary: '联系紧急专员', userFirst: '当前保障目标和可以立刻执行的动作。', expectation: '不把协商中说成已解决；说明替代方案与费用确认边界。', interviewer: '目标重排、危机场景与 Human-in-the-loop。',
+          html: `<div class="qw-page-inner"><header class="qw-page-header"><span class="qw-meta">紧急场景 · 今晚入住</span><h3 class="qw-title">先帮你解决今晚住哪里</h3><p class="qw-lead">退款责任稍后处理；现在优先核实酒店并寻找可入住方案。</p></header><section class="qw-alert"><span class="qw-label">L1 · 当前状态</span><strong>酒店无法确认原房间</strong><p>紧急专员预计 3 分钟内接入。你无需重新描述订单信息。</p></section><section class="qw-box"><span class="qw-label">L2 · 并行处理</span><div class="qw-keyvals"><div class="qw-keyval"><span>酒店核实</span><strong>正在联系前台</strong></div><div class="qw-keyval"><span>替代住宿</span><strong>搜索同区域可住房</strong></div><div class="qw-keyval"><span>费用边界</span><strong>确认后再产生额外费用</strong></div><div class="qw-keyval"><span>原单处理</span><strong>住宿稳定后继续</strong></div></div></section><section class="qw-alert"><span class="qw-label">请准备</span><p>若方便，可上传前台告知无房的聊天或现场凭证；没有凭证也可先求助。</p></section><div class="qw-actions"><button class="qw-primary" type="button">联系紧急专员</button></div></div>`
+        },
+        {
+          label: 'P7 · 人工接管', purpose: '完成可追踪、上下文不丢失的人工移交。', primary: '查看工单进度', userFirst: '已移交什么、为什么移交、多久响应。', expectation: '人工接入不等于问题已解决；给出 SLA 与下一动作。', interviewer: 'Agent 边界、失败兜底和上下文交接协议。',
+          html: `<div class="qw-page-inner"><header class="qw-page-header"><h3 class="qw-title">已为你转交人工专员</h3><p class="qw-lead">专员会接着当前进度处理，你不需要再次说明情况。</p></header><section class="qw-box qw-result"><span class="qw-label">L1 · 移交回执</span><strong>工单 QNR-260904-0186</strong><span>预计 10 分钟内首次响应</span><span class="qw-caption">移交原因：供应商协商超时，需要人工判断例外处理。</span></section><section class="qw-box"><span class="qw-label">L2 · 已携带上下文</span><div class="qw-keyvals"><div class="qw-keyval"><span>订单</span><strong>上海静安示例酒店</strong></div><div class="qw-keyval"><span>用户诉求</span><strong>取消并全额退款</strong></div><div class="qw-keyval"><span>已核实</span><strong>成交政策、酒店回复</strong></div><div class="qw-keyval"><span>待处理</span><strong>例外退款授权</strong></div></div></section><section class="qw-alert"><span class="qw-label">下一步</span><p>专员接入后会在当前会话回复；超过预计时间将自动升级，无需重复提交。</p></section><div class="qw-actions"><button class="qw-primary" type="button">查看工单进度</button></div></div>`
+        }
+      ];
+
+      function render(index) {
+        const item = screens[index];
+        stageLabel.textContent = item.label;
+        page.innerHTML = item.html;
+        fields.purpose.textContent = item.purpose;
+        fields.primary.textContent = item.primary;
+        fields.userFirst.textContent = item.userFirst;
+        fields.expectation.textContent = item.expectation;
+        fields.interviewer.textContent = item.interviewer;
+        root.querySelectorAll('.qw-step').forEach((button) => {
+          button.setAttribute('aria-pressed', String(Number(button.dataset.page) === index));
+        });
+      }
+
+      root.querySelectorAll('.qw-step').forEach((button) => {
+        button.addEventListener('click', () => render(Number(button.dataset.page)));
+      });
+      render(0);
+    })();
+  </script>
+</section>

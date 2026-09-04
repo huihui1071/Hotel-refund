@@ -1,0 +1,18 @@
+{
+  "schema_version":"1.0",
+  "mock":true,
+  "cases":[
+    {"case_id":"CASE-A-001","scenario_id":"A","user_id":"USR-A","order_id":"ORD-A-001","conversation_state":"START","case_status":"NEW","risk_level":"L1","waiting_for":"NONE"},
+    {"case_id":"CASE-B-001","scenario_id":"B","user_id":"USR-B","order_id":"ORD-B-001","conversation_state":"START","case_status":"NEW","risk_level":"L1","waiting_for":"NONE"},
+    {"case_id":"CASE-C-001","scenario_id":"C","user_id":"USR-C","order_id":"ORD-C-001","conversation_state":"START","case_status":"AWAITING_PAYMENT","risk_level":"L1","waiting_for":"PAYMENT_CHANNEL"},
+    {"case_id":"CASE-D-001","scenario_id":"D","user_id":"USR-D","order_id":"ORD-D-001","conversation_state":"START","case_status":"NEW","risk_level":"L3","waiting_for":"HOTEL"},
+    {"case_id":"CASE-E-001","scenario_id":"E","user_id":"USR-E","order_id":"ORD-E-001","conversation_state":"START","case_status":"NEW","risk_level":"L3","waiting_for":"HOTEL"},
+    {"case_id":"CASE-F-001","scenario_id":"F","user_id":"USR-F","order_id":"ORD-F-001","conversation_state":"START","case_status":"NEW","risk_level":"L2","waiting_for":"NONE"},
+    {"case_id":"CASE-G-001","scenario_id":"G","user_id":"USR-G","order_id":"ORD-G-001","conversation_state":"START","case_status":"NEW","risk_level":"L2","waiting_for":"USER"},
+    {"case_id":"CASE-H-001","scenario_id":"H","user_id":"USR-H","order_id":"ORD-H-001","conversation_state":"START","case_status":"NEW","risk_level":"L3","waiting_for":"USER"},
+    {"case_id":"CASE-I-001","scenario_id":"I","user_id":"USR-I","order_id":"ORD-I-001","conversation_state":"START","case_status":"NEW","risk_level":"L1","waiting_for":"NONE"},
+    {"case_id":"CASE-J-001","scenario_id":"J","user_id":"USR-J","order_id":"ORD-J-001","conversation_state":"START","case_status":"NEW","risk_level":"L3","waiting_for":"FINANCE"},
+    {"case_id":"CASE-K-001","scenario_id":"K","user_id":"USR-K","order_id":"ORD-K-001","conversation_state":"START","case_status":"NEW","risk_level":"L3","waiting_for":"HUMAN_SPECIALIST"},
+    {"case_id":"CASE-L-001","scenario_id":"L","user_id":"USR-L","order_id":"ORD-L-001","conversation_state":"START","case_status":"NEW","risk_level":"L3","waiting_for":"HUMAN_SPECIALIST"}
+  ]
+}

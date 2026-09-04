@@ -1,0 +1,21 @@
+{
+  "schema_version": "1.0",
+  "mock": true,
+  "hotels": [
+    {"hotel_id":"HTL-A","name":"杭州湖滨示例酒店","city":"杭州","country":"CN","star_level":4},
+    {"hotel_id":"HTL-B","name":"上海虹桥示例酒店","city":"上海","country":"CN","star_level":4},
+    {"hotel_id":"HTL-C","name":"苏州园区示例酒店","city":"苏州","country":"CN","star_level":4},
+    {"hotel_id":"HTL-D","name":"南京南站示例酒店","city":"南京","country":"CN","star_level":4},
+    {"hotel_id":"HTL-E","name":"成都春熙示例酒店","city":"成都","country":"CN","star_level":4},
+    {"hotel_id":"HTL-F","name":"厦门海岸示例酒店","city":"厦门","country":"CN","star_level":5},
+    {"hotel_id":"HTL-G","name":"广州机场示例酒店","city":"广州","country":"CN","star_level":4},
+    {"hotel_id":"HTL-H","name":"三亚湾示例度假酒店","city":"三亚","country":"CN","star_level":5},
+    {"hotel_id":"HTL-I","name":"北京国贸示例酒店","city":"北京","country":"CN","star_level":4},
+    {"hotel_id":"HTL-J","name":"深圳会展示例酒店","city":"深圳","country":"CN","star_level":4},
+    {"hotel_id":"HTL-K","name":"东京湾示例酒店","city":"东京","country":"JP","star_level":4},
+    {"hotel_id":"HTL-L","name":"青岛国际示例酒店","city":"青岛","country":"CN","star_level":4},
+    {"hotel_id":"HTL-D-ALT-1","name":"南京南站安心酒店","city":"南京","country":"CN","star_level":4},
+    {"hotel_id":"HTL-D-ALT-2","name":"南京雨花商务酒店","city":"南京","country":"CN","star_level":4},
+    {"hotel_id":"HTL-E-ALT-1","name":"成都太古里安心酒店","city":"成都","country":"CN","star_level":4}
+  ]
+}

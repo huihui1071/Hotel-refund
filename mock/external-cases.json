@@ -1,0 +1,15 @@
+{
+  "schema_version":"1.0",
+  "mock":true,
+  "external_cases":[
+    {"external_case_id":"FIN-C-001","case_id":"CASE-C-001","type":"PAYMENT_INVESTIGATION","fixture_phase":"expected_on_sla_breach","status":"OPEN","waiting_for":"FINANCE","response_due_at":"2026-09-08T18:00:00+08:00"},
+    {"external_case_id":"HND-D-001","case_id":"CASE-D-001","type":"URGENT_HUMAN_HANDOFF","fixture_phase":"expected_after_route","status":"QUEUED","waiting_for":"HUMAN_SPECIALIST","response_due_at":"2026-09-04T15:25:00+08:00"},
+    {"external_case_id":"HND-E-001","case_id":"CASE-E-001","type":"URGENT_HUMAN_HANDOFF","fixture_phase":"expected_after_route","status":"QUEUED","waiting_for":"HUMAN_SPECIALIST","response_due_at":"2026-09-04T21:08:00+08:00"},
+    {"external_case_id":"SUP-F-001","case_id":"CASE-F-001","type":"SUPPLIER_NEGOTIATION","fixture_phase":"expected_after_submit","status":"RESPONDED","waiting_for":"USER","response_due_at":"2026-09-05T14:00:00+08:00","offers":[{"offer_id":"OFF-F-REFUND","type":"PARTIAL_REFUND","refund_amount":1000,"currency":"CNY","valid_until":"2026-09-06T18:00:00+08:00"},{"offer_id":"OFF-F-CHANGE","type":"FREE_DATE_CHANGE","change_fee":0,"valid_until":"2026-09-06T18:00:00+08:00"}]},
+    {"external_case_id":"REV-G-001","case_id":"CASE-G-001","type":"SPECIAL_EXCEPTION_REVIEW","fixture_phase":"expected_after_evidence","status":"QUEUED","waiting_for":"HUMAN_SPECIALIST","response_due_at":"2026-09-05T18:00:00+08:00"},
+    {"external_case_id":"DSP-H-001","case_id":"CASE-H-001","type":"SERVICE_DISPUTE","fixture_phase":"expected_after_evidence","status":"OPEN","waiting_for":"HOTEL","response_due_at":"2026-09-04T18:30:00+08:00"},
+    {"external_case_id":"FIN-J-001","case_id":"CASE-J-001","type":"PAYMENT_ANOMALY","fixture_phase":"expected_after_route","status":"OPEN","waiting_for":"FINANCE","response_due_at":"2026-09-05T18:00:00+08:00"},
+    {"external_case_id":"HND-K-001","case_id":"CASE-K-001","type":"CROSS_BORDER_SPECIALIST","fixture_phase":"expected_after_route","status":"QUEUED","waiting_for":"HUMAN_SPECIALIST","response_due_at":"2026-09-05T09:00:00+08:00"},
+    {"external_case_id":"HND-L-001","case_id":"CASE-L-001","type":"CORPORATE_GROUP_SPECIALIST","fixture_phase":"expected_after_route","status":"QUEUED","waiting_for":"HUMAN_SPECIALIST","response_due_at":"2026-09-05T10:00:00+08:00"}
+  ]
+}

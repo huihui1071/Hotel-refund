@@ -1,0 +1,10 @@
+{
+  "schema_version":"1.0",
+  "mock":true,
+  "refunds":[
+    {"refund_id":"RFD-C-001","order_id":"ORD-C-001","payment_id":"PAY-C-001","fixture_phase":"initial","status":"CHANNEL_PROCESSING","amount":860,"currency":"CNY","initiated_at":"2026-09-02T14:30:00+08:00","channel":"WECHAT_PAY","sla_due_at":"2026-09-07T18:00:00+08:00","waiting_for":"PAYMENT_CHANNEL"},
+    {"refund_id":"RFD-A-001","order_id":"ORD-A-001","payment_id":"PAY-A-001","fixture_phase":"expected_after_action","status":"REFUND_INITIATED","amount":688,"currency":"CNY","initiated_at":"2026-09-04T15:26:00+08:00","channel":"WECHAT_PAY","sla_due_at":"2026-09-09T18:00:00+08:00","waiting_for":"PAYMENT_CHANNEL"},
+    {"refund_id":"RFD-B-001","order_id":"ORD-B-001","payment_id":"PAY-B-001","fixture_phase":"expected_after_action","status":"REFUND_INITIATED","amount":600,"currency":"CNY","initiated_at":"2026-09-04T15:30:00+08:00","channel":"ALIPAY","sla_due_at":"2026-09-09T18:00:00+08:00","waiting_for":"PAYMENT_CHANNEL"},
+    {"refund_id":"RFD-F-001","order_id":"ORD-F-001","payment_id":"PAY-F-001","fixture_phase":"expected_after_supplier_offer","status":"REFUND_INITIATED","amount":1000,"currency":"CNY","initiated_at":"2026-09-05T11:00:00+08:00","channel":"WECHAT_PAY","sla_due_at":"2026-09-10T18:00:00+08:00","waiting_for":"PAYMENT_CHANNEL"}
+  ]
+}

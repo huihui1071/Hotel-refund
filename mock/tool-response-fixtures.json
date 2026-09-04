@@ -1,0 +1,31 @@
+{
+  "schema_version":"1.0",
+  "mock":true,
+  "responses":{
+    "calculate_refund_quote":[
+      {"fixture_id":"QUOTE-A","order_id":"ORD-A-001","data":{"quote_id":"QT-A-001","expires_at":"2026-09-04T15:30:00+08:00","paid_amount":688,"refund_amount":688,"cancellation_fee":0,"currency":"CNY","refund_route":"WECHAT_ORIGINAL_ROUTE","estimated_arrival":"1-3 business days","policy_id":"POL-A-FREE-CANCEL","requires_human":false}},
+      {"fixture_id":"QUOTE-B","order_id":"ORD-B-001","data":{"quote_id":"QT-B-001","expires_at":"2026-09-04T15:30:00+08:00","paid_amount":1200,"refund_amount":600,"cancellation_fee":600,"currency":"CNY","refund_route":"ALIPAY_ORIGINAL_ROUTE","estimated_arrival":"1-3 business days","policy_id":"POL-B-TIERED-CANCEL","requires_human":false}}
+    ],
+    "get_guarantee_quote":[
+      {"fixture_id":"GUARANTEE-D","order_id":"ORD-D-001","alternative_hotel_id":"HTL-D-ALT-1","data":{"eligible":true,"maximum_supported_amount":140,"currency":"CNY","requires_human_confirmation":true,"policy_id":"POL-D-PREARRIVAL-GUARANTEE"}},
+      {"fixture_id":"GUARANTEE-E","order_id":"ORD-E-001","alternative_hotel_id":"HTL-E-ALT-1","data":{"eligible":true,"maximum_supported_amount":200,"currency":"CNY","requires_human_confirmation":true,"policy_id":"POL-E-ONSITE-GUARANTEE"}}
+    ],
+    "get_change_quote":[
+      {"fixture_id":"CHANGE-I","order_id":"ORD-I-001","data":{"change_quote_id":"CHQ-I-001","expires_at":"2026-09-04T15:35:00+08:00","change_allowed":true,"price_difference":80,"currency":"CNY","new_order_summary":{"check_in":"2026-09-13","check_out":"2026-09-14","room_type":"高级大床房"},"cancellation_comparison":{"refund_amount":600,"cancellation_fee":300},"requires_human":false}}
+    ],
+    "get_responsibility_chain":[
+      {"fixture_id":"CHAIN-K","order_id":"ORD-K-001","data":{"merchant_of_record":"SUP-OVERSEA-1","supplier_chain":["SUP-OVERSEA-1","SUP-OVERSEA-2"],"refund_executor":"SUP-OVERSEA-1","transaction_currency":"USD","hotel_timezone":"Asia/Tokyo","customer_facing_summary":"平台受理并跟踪；海外批发商负责退款执行；酒店当地时点以日本时间计算。"}}
+    ],
+    "get_group_order_breakdown":[
+      {"fixture_id":"GROUP-L","order_id":"ORD-L-001","data":{"payer":"示例科技有限公司","authorized_roles":["TRAVEL_MANAGER","CORPORATE_ADMIN"],"operator_authorized":true,"invoice_status":"NOT_ISSUED","room_items":[{"room_item_id":"L-R1","amount":1100,"selected_for_cancel":true},{"room_item_id":"L-R2","amount":1100,"selected_for_cancel":true},{"room_item_id":"L-R3","amount":1100,"selected_for_cancel":true},{"room_item_id":"L-R4","amount":1100,"selected_for_cancel":false},{"room_item_id":"L-R5","amount":1100,"selected_for_cancel":false},{"room_item_id":"L-R6","amount":1100,"selected_for_cancel":false},{"room_item_id":"L-R7","amount":1100,"selected_for_cancel":false},{"room_item_id":"L-R8","amount":1100,"selected_for_cancel":false}]}}
+    ],
+    "get_partial_cancel_quote":[
+      {"fixture_id":"PARTIAL-L","order_id":"ORD-L-001","data":{"quote_id":"PCQ-L-001","refund_amount":3000,"cancellation_fee":300,"discount_reallocation":300,"invoice_impact":"Recalculate invoice for remaining five rooms","requires_specialist":true}}
+    ],
+    "validate_action_permission":[
+      {"fixture_id":"PERMISSION-A","order_id":"ORD-A-001","data":{"allowed":true,"risk_level":"L1","denial_reasons":[],"confirmation_required":true}},
+      {"fixture_id":"PERMISSION-B","order_id":"ORD-B-001","data":{"allowed":true,"risk_level":"L1","denial_reasons":[],"confirmation_required":true}},
+      {"fixture_id":"PERMISSION-L","order_id":"ORD-L-001","data":{"allowed":false,"risk_level":"L3","denial_reasons":["CORPORATE_PARTIAL_CANCEL_REQUIRES_SPECIALIST"],"confirmation_required":false}}
+    ]
+  }
+}

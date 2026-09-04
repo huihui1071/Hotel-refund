@@ -1,0 +1,22 @@
+{
+  "$schema":"https://json-schema.org/draft/2020-12/schema",
+  "$id":"https://mock.local/schemas/case-event.schema.json",
+  "title":"Append-only Case Event",
+  "type":"object",
+  "additionalProperties":false,
+  "required":["event_id","case_id","event_type","actor_type","occurred_at","trace_id","public_summary","source_refs"],
+  "properties":{
+    "event_id":{"type":"string"},
+    "case_id":{"type":"string"},
+    "event_type":{"enum":["SESSION_STARTED","INTENT_CLASSIFIED","ORDER_CONFIRMED","FACTS_READ","INFORMATION_REQUESTED","EVIDENCE_ATTACHED","OPTION_PRESENTED","USER_CONFIRMED","TOOL_CALLED","ACTION_SUBMITTED","EXTERNAL_WAIT_STARTED","EXTERNAL_RESPONSE_RECEIVED","REFUND_STATUS_CHANGED","ORDER_CHANGED","RECOVERY_UPDATED","HUMAN_HANDOFF_CREATED","CASE_RESOLVED","CASE_ESCALATED"]},
+    "actor_type":{"enum":["USER","AGENT_LLM","RULE_ENGINE","TOOL","SUPPLIER","PAYMENT_CHANNEL","HUMAN"]},
+    "occurred_at":{"type":"string","format":"date-time"},
+    "trace_id":{"type":"string"},
+    "from_case_status":{"type":["string","null"]},
+    "to_case_status":{"type":["string","null"]},
+    "public_summary":{"type":"string"},
+    "internal_reason_codes":{"type":"array","items":{"type":"string"}},
+    "source_refs":{"type":"array","items":{"type":"string"}},
+    "idempotency_key":{"type":["string","null"]}
+  }
+}

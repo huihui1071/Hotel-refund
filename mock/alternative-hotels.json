@@ -1,0 +1,9 @@
+{
+  "schema_version":"1.0",
+  "mock":true,
+  "alternatives":[
+    {"source_order_id":"ORD-D-001","hotel_id":"HTL-D-ALT-1","distance_km":1.2,"available":true,"nightly_price":920,"currency":"CNY","price_difference":140,"mock_hold_minutes":10},
+    {"source_order_id":"ORD-D-001","hotel_id":"HTL-D-ALT-2","distance_km":2.4,"available":true,"nightly_price":760,"currency":"CNY","price_difference":-20,"mock_hold_minutes":10},
+    {"source_order_id":"ORD-E-001","hotel_id":"HTL-E-ALT-1","distance_km":1.5,"available":true,"nightly_price":1380,"currency":"CNY","price_difference":200,"mock_hold_minutes":10}
+  ]
+}

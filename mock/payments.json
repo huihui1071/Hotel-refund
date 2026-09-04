@@ -1,0 +1,23 @@
+{
+  "schema_version":"1.0",
+  "mock":true,
+  "payments":[
+    {"payment_id":"PAY-A-001","order_id":"ORD-A-001","channel":"WECHAT_PAY","status":"CAPTURED","amount":688,"currency":"CNY","paid_at":"2026-09-01T09:11:00+08:00"},
+    {"payment_id":"PAY-B-001","order_id":"ORD-B-001","channel":"ALIPAY","status":"CAPTURED","amount":1200,"currency":"CNY","paid_at":"2026-08-28T12:01:00+08:00"},
+    {"payment_id":"PAY-C-001","order_id":"ORD-C-001","channel":"WECHAT_PAY","status":"REFUND_IN_PROGRESS","amount":860,"currency":"CNY","paid_at":"2026-08-20T18:21:00+08:00"},
+    {"payment_id":"PAY-D-001","order_id":"ORD-D-001","channel":"ALIPAY","status":"CAPTURED","amount":780,"currency":"CNY","paid_at":"2026-08-30T10:11:00+08:00"},
+    {"payment_id":"PAY-E-001","order_id":"ORD-E-001","channel":"WECHAT_PAY","status":"CAPTURED","amount":1180,"currency":"CNY","paid_at":"2026-08-25T20:01:00+08:00"},
+    {"payment_id":"PAY-F-001","order_id":"ORD-F-001","channel":"WECHAT_PAY","status":"CAPTURED","amount":1280,"currency":"CNY","paid_at":"2026-09-04T10:01:00+08:00"},
+    {"payment_id":"PAY-G-001","order_id":"ORD-G-001","channel":"ALIPAY","status":"CAPTURED","amount":520,"currency":"CNY","paid_at":"2026-08-29T08:41:00+08:00"},
+    {"payment_id":"PAY-H-001","order_id":"ORD-H-001","channel":"CREDIT_CARD","status":"CAPTURED","amount":2200,"currency":"CNY","paid_at":"2026-08-18T14:01:00+08:00","card_last4":"4821"},
+    {"payment_id":"PAY-I-001","order_id":"ORD-I-001","channel":"WECHAT_PAY","status":"CAPTURED","amount":900,"currency":"CNY","paid_at":"2026-09-04T15:01:00+08:00"},
+    {"payment_id":"PAY-J-001","order_id":"ORD-J-001","channel":"CREDIT_CARD","status":"CAPTURED","amount":1600,"currency":"CNY","paid_at":"2026-08-20T09:01:00+08:00","card_last4":"0462","related_events":["PEV-J-CAPTURE","PEV-J-AUTH-HOLD"]},
+    {"payment_id":"PAY-K-001","order_id":"ORD-K-001","channel":"CREDIT_CARD","status":"CAPTURED","amount":490,"currency":"USD","paid_at":"2026-08-15T11:31:00+08:00","card_last4":"1548"},
+    {"payment_id":"PAY-L-001","order_id":"ORD-L-001","channel":"CORPORATE_TRANSFER","status":"CAPTURED","amount":8800,"currency":"CNY","paid_at":"2026-08-12T16:30:00+08:00"}
+  ],
+  "payment_events":[
+    {"event_id":"PEV-C-REFUND","payment_id":"PAY-C-001","type":"REFUND_SUBMITTED_TO_CHANNEL","amount":860,"occurred_at":"2026-09-02T14:30:00+08:00"},
+    {"event_id":"PEV-J-CAPTURE","payment_id":"PAY-J-001","type":"CAPTURE","amount":1600,"occurred_at":"2026-08-20T09:01:00+08:00"},
+    {"event_id":"PEV-J-AUTH-HOLD","payment_id":"PAY-J-001","type":"PREAUTHORIZATION_HOLD","amount":500,"occurred_at":"2026-08-30T14:10:00+08:00","status":"REVERSAL_PENDING","release_due_at":"2026-09-09T23:59:59+08:00"}
+  ]
+}

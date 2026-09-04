@@ -1,0 +1,9 @@
+{
+  "schema_version":"1.0",
+  "mock":true,
+  "evidence_items":[
+    {"evidence_id":"EVD-G-001","case_id":"CASE-G-001","type":"TRANSPORT_CANCELLATION_NOTICE","fixture_phase":"expected_after_upload","storage":"METADATA_ONLY","fields":{"traveler_name_masked":"唐*","transport_reference_masked":"MU****","event_date":"2026-09-06","status":"CANCELLED"},"user_confirmed":true},
+    {"evidence_id":"EVD-H-001","case_id":"CASE-H-001","type":"ISSUE_PHOTO","fixture_phase":"expected_after_upload","storage":"MOCK_REFERENCE","fields":{"captured_at":"2026-09-04T16:10:00+08:00","category":"ROOM_CLEANLINESS"},"user_confirmed":true},
+    {"evidence_id":"EVD-H-002","case_id":"CASE-H-001","type":"HOTEL_CONTACT_RESULT","fixture_phase":"expected_after_upload","storage":"METADATA_ONLY","fields":{"contacted_at":"2026-09-04T16:15:00+08:00","result":"NO_REMEDY_OFFERED"},"user_confirmed":true}
+  ]
+}

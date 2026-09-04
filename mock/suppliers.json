@@ -1,0 +1,12 @@
+{
+  "schema_version": "1.0",
+  "mock": true,
+  "suppliers": [
+    {"supplier_id":"SUP-DIRECT","name":"平台直连示例渠道","type":"DIRECT","timezone":"Asia/Shanghai","default_sla_hours":2},
+    {"supplier_id":"SUP-CN-A","name":"国内代理示例 A","type":"AGENT","timezone":"Asia/Shanghai","default_sla_hours":4},
+    {"supplier_id":"SUP-CN-B","name":"国内代理示例 B","type":"AGENT","timezone":"Asia/Shanghai","default_sla_hours":6},
+    {"supplier_id":"SUP-OVERSEA-1","name":"海外批发商示例","type":"WHOLESALER","timezone":"Asia/Tokyo","default_sla_hours":12},
+    {"supplier_id":"SUP-OVERSEA-2","name":"海外渠道商示例","type":"SUB_SUPPLIER","timezone":"Asia/Tokyo","default_sla_hours":12},
+    {"supplier_id":"SUP-CORP","name":"企业协议示例渠道","type":"CORPORATE","timezone":"Asia/Shanghai","default_sla_hours":8}
+  ]
+}

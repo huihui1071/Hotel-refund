@@ -1,0 +1,15 @@
+.DS_Store
+.idea/
+.vscode/
+frontend/node_modules/
+frontend/dist/
+frontend/*.tsbuildinfo
+frontend/vite.config.js
+frontend/vite.config.d.ts
+backend/.venv/
+backend/.pytest_cache/
+backend/**/__pycache__/
+backend/data/*.db-shm
+backend/data/*.db-wal
+backend/data/*.db
+*.pyc

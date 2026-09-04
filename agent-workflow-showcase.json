@@ -1,0 +1,64 @@
+{
+  "schema_version": 2,
+  "diagram_type": "workflow",
+  "meta": { "title": "酒店退款 Agent 整体链路", "locale": "zh-CN", "animation": "none", "quality_profile": "showcase" },
+  "lanes": [
+    { "id": "ui", "label": "用户与会话" },
+    { "id": "agent", "label": "Agent 决策" },
+    { "id": "policy", "label": "权限与人工兜底", "variant": "exception" },
+    { "id": "tools", "label": "Tool 执行与证据" }
+  ],
+  "phases": [
+    { "id": "intake", "label": "理解", "fromCol": 0, "toCol": 1 },
+    { "id": "decision", "label": "核实与决策", "fromCol": 2, "toCol": 3, "variant": "emphasis" },
+    { "id": "closure", "label": "执行与闭环", "fromCol": 4, "toCol": 5, "variant": "dashed" }
+  ],
+  "groups": [
+    { "id": "decision_loop", "label": "确定性决策", "lane": "agent", "fromCol": 2, "toCol": 3, "variant": "emphasis" },
+    { "id": "safety_stop", "label": "安全阻断或人工接管", "lane": "policy", "fromCol": 3, "toCol": 5, "variant": "security" },
+    { "id": "evidence", "label": "Memory 与审计证据", "lane": "tools", "fromCol": 1, "toCol": 2, "variant": "dashed" },
+    { "id": "tool_work", "label": "三类业务出口", "lane": "tools", "fromCol": 4, "toCol": 5, "variant": "dashed" }
+  ],
+  "mainPath": ["request", "session", "interpret", "route", "access_gate", "tool", "business", "result"],
+  "semanticChecks": {
+    "allowedRoots": ["request", "memory"],
+    "allowedTerminals": ["result", "handoff", "trace"],
+    "requiredPaths": [
+      { "from": "request", "to": "access_gate" },
+      { "from": "access_gate", "to": "result" },
+      { "from": "access_gate", "to": "blocked" },
+      { "from": "business", "to": "trace" }
+    ]
+  },
+  "nodes": [
+    { "id": "request", "lane": "ui", "col": 0, "type": "external", "label": "用户问题", "sublabel": "退款或售后问题", "width": 132 },
+    { "id": "session", "lane": "ui", "col": 1, "type": "frontend", "label": "会话与订单确认", "sublabel": "Session Memory + 唯一订单", "width": 132 },
+    { "id": "result", "lane": "ui", "col": 5, "type": "backend", "label": "结果与下一步", "sublabel": "金额、状态、等待方、SLA", "width": 132 },
+    { "id": "interpret", "lane": "agent", "col": 2, "type": "backend", "label": "理解诉求与风险", "sublabel": "LLM + 安全分类器", "width": 132 },
+    { "id": "route", "lane": "agent", "col": 3, "type": "backend", "label": "核实事实并选择路径", "sublabel": "READ Tool + RAG + 规则引擎", "width": 132 },
+    { "id": "access_gate", "lane": "policy", "col": 3, "type": "security", "label": "Tool 权限门", "sublabel": "身份、订单、状态、风险", "tag": "READ / WRITE", "width": 132 },
+    { "id": "blocked", "lane": "policy", "col": 4, "type": "security", "label": "阻断", "sublabel": "结构化错误，不执行动作", "width": 132 },
+    { "id": "handoff", "lane": "policy", "col": 5, "type": "external", "label": "人工接管", "sublabel": "继承事实、材料与处理记录", "width": 132 },
+    { "id": "tool", "lane": "tools", "col": 4, "type": "messagebus", "label": "业务 Tool", "sublabel": "查询 / 交易 / 协同", "tag": "structured result", "width": 132 },
+    { "id": "business", "lane": "tools", "col": 5, "type": "cloud", "label": "模拟业务系统", "sublabel": "订单、退款、支付、工单", "width": 132 },
+    { "id": "memory", "lane": "tools", "col": 1, "type": "database", "label": "Case Memory", "sublabel": "跨会话案件状态", "width": 132 },
+    { "id": "trace", "lane": "tools", "col": 2, "type": "database", "label": "Trace Log", "sublabel": "事实、规则、回执、迁移", "width": 132 }
+  ],
+  "edges": [
+    { "id": "request_session", "from": "request", "to": "session", "role": "main" },
+    { "id": "session_interpret", "from": "session", "to": "interpret", "label": "订单已确认", "role": "main", "variant": "emphasis" },
+    { "id": "interpret_route", "from": "interpret", "to": "route", "role": "main" },
+    { "id": "route_gate", "from": "route", "to": "access_gate", "label": "调用前统一校验", "role": "main", "variant": "security" },
+    { "id": "gate_tool", "from": "access_gate", "to": "tool", "label": "允许", "role": "main", "variant": "emphasis" },
+    { "id": "gate_blocked", "from": "access_gate", "to": "blocked", "label": "拒绝", "role": "error", "variant": "security" },
+    { "id": "blocked_handoff", "from": "blocked", "to": "handoff", "label": "高风险或需核验", "role": "branch" },
+    { "id": "tool_business", "from": "tool", "to": "business", "role": "main" },
+    { "id": "business_result", "from": "business", "to": "result", "label": "事实校验后反馈", "role": "return", "fromSide": "right", "toSide": "right", "variant": "emphasis", "width": 1.2 },
+    { "id": "business_trace", "from": "business", "to": "trace", "label": "记录回执与状态", "role": "return", "fromSide": "bottom", "toSide": "bottom", "route": "bottom-channel", "labelSegment": 1, "variant": "dashed" },
+    { "id": "memory_trace", "from": "memory", "to": "trace", "label": "恢复上下文并留痕", "variant": "dashed" }
+  ],
+  "cards": [
+    { "dot": "cyan", "title": "三条业务出口", "items": ["只读查询：查询状态后直接反馈", "确定性交易：报价、二次确认、写入", "外部协同：创建工单或人工接管"] },
+    { "dot": "rose", "title": "关键边界", "items": ["LLM 只理解与解释，不计算金额和决定权限", "写操作绑定 confirmation_token、版本和幂等键"] }
+  ]
+}

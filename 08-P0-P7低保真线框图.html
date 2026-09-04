@@ -1,0 +1,1594 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="referrer" content="no-referrer">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'unsafe-inline' 'unsafe-eval' 'wasm-unsafe-eval' blob: data: https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://esm.sh https://fonts.bunny.net https://fonts.googleapis.com https://fonts.gstatic.com https://unpkg.com; style-src 'unsafe-inline' blob: data: https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://esm.sh https://fonts.bunny.net https://fonts.googleapis.com https://fonts.gstatic.com https://unpkg.com; img-src blob: data: https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://esm.sh https://fonts.bunny.net https://fonts.googleapis.com https://fonts.gstatic.com https://unpkg.com; font-src blob: data: https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://esm.sh https://fonts.bunny.net https://fonts.googleapis.com https://fonts.gstatic.com https://unpkg.com; media-src blob: data: https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://esm.sh https://fonts.bunny.net https://fonts.googleapis.com https://fonts.gstatic.com https://unpkg.com; worker-src blob:; connect-src blob: data:; frame-src 'self'; object-src 'none'; base-uri 'none'; form-action 'none'">
+<title>P0 P7 Wireframes</title>
+<style>:root{color-scheme:light dark;background:light-dark(rgb(255 255 255), rgb(24 24 24))}html,body{margin:0}body{box-sizing:border-box;padding:1rem;background:inherit}iframe{display:block;width:100%;height:calc(100vh - 2rem);margin:0 auto;border:0}</style>
+</head>
+<body>
+<iframe sandbox="allow-scripts" referrerpolicy="no-referrer" title="P0 P7 Wireframes" srcdoc="&lt;!doctype html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+&lt;head&gt;
+&lt;meta charset=&quot;utf-8&quot;&gt;
+&lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1&quot;&gt;
+&lt;meta name=&quot;referrer&quot; content=&quot;no-referrer&quot;&gt;
+&lt;meta http-equiv=&quot;Content-Security-Policy&quot; content=&quot;default-src &#x27;none&#x27;; script-src &#x27;unsafe-inline&#x27; &#x27;unsafe-eval&#x27; &#x27;wasm-unsafe-eval&#x27; blob: data: https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://esm.sh https://fonts.bunny.net https://fonts.googleapis.com https://fonts.gstatic.com https://unpkg.com; style-src &#x27;unsafe-inline&#x27; blob: data: https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://esm.sh https://fonts.bunny.net https://fonts.googleapis.com https://fonts.gstatic.com https://unpkg.com; img-src blob: data: https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://esm.sh https://fonts.bunny.net https://fonts.googleapis.com https://fonts.gstatic.com https://unpkg.com; font-src blob: data: https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://esm.sh https://fonts.bunny.net https://fonts.googleapis.com https://fonts.gstatic.com https://unpkg.com; media-src blob: data: https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://esm.sh https://fonts.bunny.net https://fonts.googleapis.com https://fonts.gstatic.com https://unpkg.com; worker-src blob:; connect-src blob: data:; frame-src &#x27;none&#x27;; object-src &#x27;none&#x27;; base-uri &#x27;none&#x27;; form-action &#x27;none&#x27;&quot;&gt;
+&lt;title&gt;P0 P7 Wireframes&lt;/title&gt;
+&lt;style&gt;:root {
+  color-scheme: light dark;
+  background-color: var(
+    --background,
+    var(--color-background-primary, light-dark(rgb(255 255 255), rgb(24 24 24)))
+  ) !important;
+
+  /* Agent-facing contract; keep in sync with SKILL.md. */
+  --background: var(
+    --color-background-primary,
+    light-dark(rgb(255 255 255), rgb(24 24 24))
+  );
+  --foreground: var(
+    --color-text-primary,
+    light-dark(rgb(26 28 31), rgb(255 255 255))
+  );
+  --card: color-mix(in oklab, var(--foreground) 5%, var(--background));
+  --card-foreground: var(
+    --color-text-primary,
+    light-dark(rgb(26 28 31), rgb(255 255 255))
+  );
+  --popover: var(
+    --color-background-secondary,
+    light-dark(rgb(255 255 255), rgb(45 45 45))
+  );
+  --popover-foreground: var(
+    --color-text-primary,
+    light-dark(rgb(26 28 31), rgb(255 255 255))
+  );
+  --primary: var(
+    --color-text-info,
+    light-dark(rgb(51 156 255), rgb(131 195 255))
+  );
+  --primary-foreground: var(
+    --color-text-inverse,
+    light-dark(rgb(255 255 255), rgb(13 13 13))
+  );
+  --secondary: var(
+    --color-background-secondary,
+    light-dark(rgb(255 255 255 / 96%), rgb(54 54 54 / 96%))
+  );
+  --secondary-foreground: var(
+    --color-text-primary,
+    light-dark(rgb(26 28 31), rgb(255 255 255))
+  );
+  --muted: color-mix(in srgb, var(--foreground) 10%, transparent);
+  --muted-foreground: var(
+    --color-text-secondary,
+    light-dark(rgb(26 28 31 / 49.4%), rgb(255 255 255 / 49.8%))
+  );
+  --accent: var(
+    --color-background-info,
+    light-dark(rgb(229 242 255), rgb(13 39 63))
+  );
+  --accent-foreground: var(
+    --color-text-info,
+    light-dark(rgb(51 156 255), rgb(131 195 255))
+  );
+  --destructive: var(
+    --color-text-warning,
+    light-dark(rgb(226 85 7), rgb(255 133 73))
+  );
+  --border: var(
+    --color-border-secondary,
+    light-dark(rgb(26 28 31 / 8%), rgb(255 255 255 / 8.2%))
+  );
+  --input: var(
+    --color-border-primary,
+    light-dark(
+      rgb(26 28 31 / 11.8%),
+      color-mix(in oklab, rgb(0 0 0) 10%, transparent)
+    )
+  );
+  --ring: var(
+    --color-ring-primary,
+    light-dark(rgb(51 156 255), rgb(131 195 255 / 76%))
+  );
+  --font-size-base: var(--font-text-md-size, 14px);
+  --blue: light-dark(rgb(51 156 255), rgb(51 156 255));
+  --orange: light-dark(rgb(226 85 7), rgb(251 106 34));
+  --green: light-dark(rgb(0 162 64), rgb(64 201 119));
+  --red: light-dark(rgb(224 46 42), rgb(255 103 100));
+  --purple: light-dark(rgb(146 79 247), rgb(173 123 249));
+  --yellow: light-dark(rgb(255 195 0), rgb(255 210 64));
+  --viz-series-1: var(--primary);
+  --viz-series-2: light-dark(rgb(243 136 59), rgb(245 154 86));
+  --viz-series-3: light-dark(rgb(93 201 119), rgb(116 213 139));
+  --viz-series-4: light-dark(rgb(235 119 177), rgb(240 143 192));
+  --viz-series-5: light-dark(rgb(155 121 236), rgb(170 145 239));
+  --viz-series-6: light-dark(rgb(58 185 177), rgb(90 203 194));
+
+  /* Internal implementation variables; not part of the agent contract. */
+  --font-sans: -apple-system, system-ui, &quot;Segoe UI&quot;, sans-serif;
+  --font-mono:
+    ui-monospace, SFMono-Regular, &quot;SF Mono&quot;, Menlo, Consolas, &quot;Liberation Mono&quot;,
+    monospace;
+  --font-size-normal: max(11px, var(--font-size-base));
+  --font-size-tooltip: calc(var(--font-size-base) - 1px);
+  --font-size-small: max(11px, calc(var(--font-size-base) - 2px));
+  --font-size-h1: calc(var(--font-size-normal) * 1.7142857143);
+  --font-size-h2: calc(var(--font-size-normal) * 1.4285714286);
+  --font-size-h3: calc(var(--font-size-normal) * 1.2857142857);
+  --font-weight-normal: 430;
+  --font-weight-medium: 500;
+  --line-height-normal: calc(var(--font-size-normal) * 1.5);
+  --line-height-tooltip: calc(var(--font-size-tooltip) * 1.4285714286);
+  --line-height-small: calc(var(--font-size-small) + 4px);
+  --radius: var(--border-radius-lg, 12.5px);
+  --radius-sm: calc(var(--radius) * 0.6);
+  --radius-md: calc(var(--radius) * 0.8);
+  --radius-lg: var(--radius);
+  --radius-2xl: calc(var(--radius) * 1.6);
+  --radius-full: 9999px;
+  --shadow-sm: 0 1px 2px -1px rgb(0 0 0 / 8%);
+  --checkmark-image: url(&quot;data:image/svg+xml,%3Csvg xmlns=&#x27;http://www.w3.org/2000/svg&#x27; viewBox=&#x27;0 0 17 17&#x27;%3E%3Cpath d=&#x27;M12.8961 3.64101C13.1297 3.41418 13.4984 3.37523 13.7779 3.56581C14.0571 3.75635 14.1554 4.11331 14.0299 4.41347L13.9615 4.53847L7.71151 13.7045C7.59411 13.8767 7.4063 13.9877 7.19881 14.0072C6.99136 14.0267 6.78564 13.9533 6.63826 13.806L2.88826 10.056L2.79842 9.9457C2.6192 9.67407 2.64927 9.30496 2.88826 9.06581C3.12738 8.82669 3.49647 8.79676 3.76815 8.97597L3.8785 9.06581L7.03084 12.2182L12.8053 3.74941L12.8961 3.64101Z&#x27;/%3E%3C/svg%3E&quot;);
+
+  /* Legacy aliases; not part of the current agent contract. */
+  --viz-bg: transparent;
+  --viz-panel: var(--card);
+  --viz-border: var(--border);
+  --viz-text: var(--foreground);
+  --viz-muted: var(--muted-foreground);
+  --viz-accent: var(--primary);
+  --viz-accent-text: var(--primary-foreground);
+  --viz-accent-bg: var(--accent);
+  --viz-font-size: var(--font-size-base);
+  --viz-warning: var(--destructive);
+}
+
+:root[data-theme=&quot;light&quot;] {
+  color-scheme: light;
+}
+
+:root[data-theme=&quot;dark&quot;] {
+  color-scheme: dark;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html &gt; body {
+  /* Preserve MCP aliases for older inline renderers without creating :root cycles. */
+  --color-background-primary: var(
+    --background,
+    light-dark(rgb(255 255 255), rgb(24 24 24))
+  );
+  --color-text-primary: var(
+    --foreground,
+    light-dark(rgb(26 28 31), rgb(255 255 255))
+  );
+  --color-border-secondary: var(
+    --border,
+    light-dark(rgb(26 28 31 / 8%), rgb(255 255 255 / 8.2%))
+  );
+
+  margin: 0;
+  padding: 5px;
+  color: var(--foreground);
+  background: transparent !important;
+  font-family: var(--font-sans) !important;
+  font-size: var(--font-size-normal);
+  font-weight: var(--font-weight-normal);
+  line-height: var(--line-height-normal);
+}
+
+a {
+  color: color-mix(in srgb, var(--viz-accent) 80%, var(--viz-text) 20%);
+  cursor: pointer;
+  font-weight: var(--font-weight-medium, 500);
+  text-decoration: none;
+  text-underline-offset: 2px;
+}
+
+a:is(:hover, :focus-visible) {
+  text-decoration-line: underline;
+  text-decoration-style: dashed;
+  text-decoration-thickness: 0.5px;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
+  margin-block: 0;
+}
+
+h1 {
+  font-size: var(--font-size-h1);
+  font-weight: var(--font-weight-medium);
+  line-height: 1.25;
+}
+
+h2 {
+  font-size: var(--font-size-h2);
+  font-weight: var(--font-weight-medium);
+  line-height: 1.25;
+}
+
+h3,
+h4,
+h5,
+h6 {
+  font-size: var(--font-size-h3);
+  font-weight: var(--font-weight-medium);
+  line-height: 1.3;
+}
+
+b,
+strong,
+th {
+  font-weight: var(--font-weight-medium);
+}
+
+code:not(pre code) {
+  display: inline;
+  padding: 1px 6px;
+  border-radius: var(--radius-sm);
+  corner-shape: superellipse(1.5);
+  background: var(--muted);
+  font-family: var(--font-mono);
+  font-size: 0.92em;
+  overflow-wrap: anywhere;
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+  word-break: break-word;
+}
+
+.table-responsive {
+  width: 100%;
+  overflow-x: auto;
+  scrollbar-width: thin;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  color: var(--foreground);
+  font: inherit;
+  text-align: start;
+}
+
+.table :is(th, td) {
+  padding-block: 10px;
+  padding-inline: 0 24px;
+  overflow-wrap: anywhere;
+  border-bottom: 1px solid var(--border);
+  text-align: start;
+  vertical-align: top;
+}
+
+.table-responsive &gt; .table :is(th, td) {
+  overflow-wrap: break-word;
+}
+
+.table :is(th, td):last-child {
+  padding-inline-end: 0;
+}
+
+.table :is(caption, thead th) {
+  font-weight: 600;
+}
+
+.table thead th {
+  padding-block: 8px;
+  border-bottom-color: color-mix(in srgb, var(--foreground) 16%, transparent);
+}
+
+.table tbody tr:last-child :is(th, td) {
+  border-bottom: 0;
+}
+
+.table.table-sm :is(th, td) {
+  padding-block: 6px;
+}
+
+.table.table-sm :is(th, td):not(:last-child) {
+  padding-inline-end: 16px;
+}
+
+.table :is(.text-end, [align=&quot;right&quot;]) {
+  text-align: end;
+  font-variant-numeric: tabular-nums;
+}
+
+.table :is(.text-center, [align=&quot;center&quot;]) {
+  text-align: center;
+}
+
+.table .text-nowrap {
+  white-space: nowrap;
+}
+
+#widget {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 100%;
+  padding: 0;
+  background: transparent !important;
+}
+
+.card {
+  min-width: 0;
+  padding: 12px;
+  overflow: hidden;
+  overflow-wrap: break-word;
+  border-radius: var(--radius-2xl);
+  corner-shape: superellipse(1.5);
+  color: var(--card-foreground);
+  background: var(--card);
+}
+
+#widget &gt; :not(.card, .progress) {
+  width: 100% !important;
+  max-width: none !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+.tooltip {
+  position: fixed;
+  z-index: 50;
+  top: 0;
+  left: 0;
+  width: max-content;
+  max-width: min(
+    20rem,
+    var(--tooltip-available-width, calc(100vw - 10px)),
+    calc(100vw - 10px)
+  );
+  max-height: min(
+    var(--tooltip-available-height, calc(100vh - 10px)),
+    calc(100vh - 10px)
+  );
+  padding: 4px 8px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  corner-shape: superellipse(1.5);
+  color: var(--popover-foreground);
+  background: var(--popover);
+  box-shadow: none;
+  font-size: var(--font-size-tooltip);
+  line-height: var(--line-height-tooltip);
+  overflow-wrap: break-word;
+  white-space: normal;
+  pointer-events: none;
+  user-select: none;
+}
+
+.viz-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(max(180px, 24%), 1fr));
+  gap: 10px;
+}
+
+.viz-stat {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.viz-stat-value {
+  font-size: var(--font-size-h2);
+  font-weight: var(--font-weight-medium);
+  line-height: 1.25;
+}
+
+.viz-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+}
+
+.progress {
+  display: flex;
+  height: 6px;
+  margin-block: calc((var(--line-height-normal, 1.5em) - 6px) / 2);
+  overflow: hidden;
+  border: 0;
+  border-radius: var(--radius-full);
+  background: var(--muted);
+}
+
+.progress-bar {
+  height: 100%;
+  flex-shrink: 0;
+  border: 0;
+  background: var(--viz-series-1);
+}
+
+.viz-badge {
+  padding: 3px 8px;
+  border-radius: var(--radius-full);
+  color: var(--accent-foreground);
+  background: var(--accent);
+  font-weight: var(--font-weight-medium);
+}
+
+small,
+.text-small,
+.viz-badge {
+  font-size: var(--font-size-small);
+  line-height: var(--line-height-small);
+}
+
+.text-muted {
+  color: var(--muted-foreground);
+}
+
+.tabular-nums {
+  font-variant-numeric: tabular-nums;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.viz-controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+}
+
+.viz-controls &gt; .form-label {
+  display: grid;
+  min-width: min(100%, 260px);
+  flex: 1 1 280px;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: baseline;
+  gap: 2px 12px;
+  margin-bottom: 0;
+}
+
+.viz-controls &gt; .form-label &gt; :is(.form-control, .form-range, .form-select) {
+  grid-column: 1 / -1;
+}
+
+.btn,
+.form-check-input,
+.form-control,
+.form-range,
+.form-select {
+  font: inherit;
+}
+
+.btn {
+  appearance: button;
+  display: inline-flex;
+  inline-size: fit-content;
+  max-inline-size: 100%;
+  min-height: 28px;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  margin: 0;
+  padding: 0 8px;
+  -webkit-app-region: no-drag;
+  border: 1px solid var(--input);
+  border-radius: var(--radius-lg);
+  corner-shape: superellipse(1.5);
+  color: var(--secondary-foreground);
+  background: var(--secondary);
+  cursor: var(--cursor-interaction, pointer);
+  text-align: center;
+  text-decoration: none;
+  white-space: nowrap;
+  user-select: none;
+  -webkit-font-smoothing: antialiased;
+}
+
+.btn:is(.btn-block, .viz-tile) {
+  inline-size: 100%;
+}
+
+.btn.viz-tile {
+  min-width: 0;
+  overflow-wrap: anywhere;
+  white-space: normal;
+}
+
+a.btn {
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.btn:not(:disabled):hover {
+  background: color-mix(in srgb, var(--foreground) 6%, var(--secondary));
+}
+
+.btn-primary {
+  border-color: transparent;
+  color: var(--primary-foreground);
+  background: var(--foreground);
+  background-clip: padding-box;
+}
+
+.btn-primary .text-muted {
+  color: color-mix(in srgb, var(--primary-foreground) 50%, transparent);
+}
+
+.btn-primary:not(:disabled):hover {
+  background: color-mix(in srgb, var(--foreground) 80%, transparent);
+  background-clip: padding-box;
+}
+
+.btn-ghost {
+  border-color: transparent;
+  color: var(--muted-foreground);
+  background: transparent;
+}
+
+.btn-ghost:not(:disabled):hover {
+  color: var(--foreground);
+  background: color-mix(in srgb, var(--foreground) 6%, var(--secondary));
+}
+
+.btn:disabled {
+  cursor: not-allowed;
+  opacity: 0.4;
+}
+
+[data-lucide] {
+  stroke-width: 1.6;
+}
+
+.form-label {
+  display: block;
+  margin-bottom: 6px;
+  color: var(--foreground);
+}
+
+.form-control {
+  display: block;
+  width: 100%;
+  min-height: 28px;
+  padding: 0 8px;
+  outline: none;
+  border: 1px solid var(--input);
+  border-radius: var(--radius-lg);
+  corner-shape: superellipse(1.5);
+  color: var(--foreground);
+  background: var(--secondary);
+}
+
+.form-control::placeholder {
+  color: var(--muted-foreground);
+}
+
+.form-control[type=&quot;file&quot;] {
+  padding: 0;
+  overflow: hidden;
+  cursor: var(--cursor-interaction, pointer);
+}
+
+.form-control[type=&quot;file&quot;]::file-selector-button {
+  min-height: 26px;
+  margin-right: 8px;
+  padding: 0 8px;
+  border: 0;
+  border-right: 1px solid var(--input);
+  color: var(--secondary-foreground);
+  background: var(--secondary);
+  cursor: inherit;
+  font: inherit;
+}
+
+.form-control[type=&quot;file&quot;]:not(:disabled):hover::file-selector-button {
+  background: color-mix(in srgb, var(--foreground) 6%, var(--secondary));
+}
+
+.form-control-color[type=&quot;color&quot;] {
+  width: 40px;
+  height: 28px;
+  padding: 3px;
+  cursor: var(--cursor-interaction, pointer);
+}
+
+.form-control-color[type=&quot;color&quot;]::-webkit-color-swatch-wrapper {
+  padding: 0;
+}
+
+.form-control-color[type=&quot;color&quot;]::-webkit-color-swatch {
+  border: 0;
+  border-radius: calc(var(--radius-lg) - 4px);
+  corner-shape: superellipse(1.5);
+}
+
+textarea.form-control {
+  height: auto;
+  min-height: 72px;
+  padding: 8px 10px;
+  resize: vertical;
+}
+
+.form-control:focus-visible {
+  border-color: var(--ring);
+  box-shadow: inset 0 0 0 1px var(--ring);
+}
+
+.form-control:disabled,
+.form-select:disabled {
+  cursor: not-allowed;
+  opacity: 0.4;
+}
+
+.form-select {
+  appearance: none;
+  display: block;
+  width: 100%;
+  min-height: 28px;
+  margin: 0;
+  padding: 0 32px 0 8px;
+  outline: none;
+  border: 1px solid var(--input);
+  border-radius: var(--radius-lg);
+  corner-shape: superellipse(1.5);
+  color: var(--foreground);
+  background-color: var(--secondary);
+  background-image:
+    linear-gradient(45deg, transparent 50%, var(--muted-foreground) 50%),
+    linear-gradient(135deg, var(--muted-foreground) 50%, transparent 50%);
+  background-position:
+    calc(100% - 14px) 50%,
+    calc(100% - 10px) 50%;
+  background-repeat: no-repeat;
+  background-size: 4px 4px;
+  cursor: var(--cursor-interaction, default);
+}
+
+.form-select:not(:disabled):hover {
+  background-color: color-mix(in srgb, var(--foreground) 6%, var(--secondary));
+}
+
+.form-select:focus-visible {
+  border-color: var(--ring);
+  box-shadow: inset 0 0 0 1px var(--ring);
+}
+
+.form-check {
+  display: flex;
+  min-height: 20px;
+  align-items: center;
+  gap: 6px;
+}
+
+.form-check-input {
+  appearance: none;
+  width: 14px;
+  height: 14px;
+  flex: 0 0 auto;
+  margin: 0;
+  border: 1px solid var(--input);
+  color: var(--primary-foreground);
+  background-color: transparent;
+  cursor: var(--cursor-interaction, default);
+  transition:
+    background-color 150ms,
+    border-color 150ms,
+    box-shadow 150ms;
+}
+
+.form-check:not(.form-switch) .form-check-input[type=&quot;checkbox&quot;] {
+  border-color: var(--input);
+  border-radius: var(--radius-sm);
+  corner-shape: superellipse(1.5);
+  background-color: var(--secondary);
+  box-shadow: var(--shadow-sm);
+}
+
+.form-check:not(.form-switch)
+  .form-check-input:not(:disabled):not(:checked):hover {
+  background-color: var(--card);
+}
+
+.form-check:not(.form-switch) .form-check-input[type=&quot;checkbox&quot;]:checked {
+  border-color: var(--primary);
+  background-color: var(--primary);
+}
+
+.form-check:not(.form-switch)
+  .form-check-input[type=&quot;checkbox&quot;]:checked::before {
+  display: block;
+  width: 100%;
+  height: 100%;
+  background: var(--primary-foreground);
+  content: &quot;&quot;;
+  mask: var(--checkmark-image) center / 12px 12px no-repeat;
+}
+
+.form-check-input[type=&quot;radio&quot;] {
+  width: 14px;
+  height: 14px;
+  border-radius: var(--radius-full);
+}
+
+.form-check-input[type=&quot;radio&quot;]:checked {
+  border: 2px solid var(--primary);
+  background:
+    radial-gradient(circle, var(--primary-foreground) 0 2.5px, transparent 3px),
+    var(--primary);
+}
+
+.form-check:not(.form-switch) .form-check-input:focus-visible {
+  outline: 2px solid var(--ring);
+  outline-offset: 2px;
+}
+
+.form-check:not(.form-switch) .form-check-input:disabled {
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+.form-check:not(.form-switch) .form-check-input:disabled + .form-check-label {
+  cursor: not-allowed;
+}
+
+.form-switch .form-check-input:disabled,
+.form-switch .form-check-input:disabled + .form-check-label {
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.form-check-label {
+  color: var(--foreground);
+  cursor: var(--cursor-interaction, default);
+}
+
+.form-switch .form-check-input {
+  position: relative;
+  width: 32px;
+  height: 20px;
+  border: 0;
+  border-radius: var(--radius-full);
+  background: var(--muted);
+  box-shadow: none;
+  transition: background-color 200ms cubic-bezier(0, 0, 0.2, 1);
+}
+
+.form-switch .form-check-input::before {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 16px;
+  height: 16px;
+  box-sizing: border-box;
+  border: 1px solid light-dark(var(--primary-foreground), var(--foreground));
+  border-radius: var(--radius-full);
+  background: light-dark(var(--primary-foreground), var(--foreground));
+  box-shadow: var(--shadow-sm);
+  content: &quot;&quot;;
+  transform: translate(2px, -50%);
+  transition: transform 200ms cubic-bezier(0, 0, 0.2, 1);
+}
+
+.form-switch .form-check-input:checked {
+  background: var(--primary);
+}
+
+.form-switch .form-check-input:checked::before {
+  transform: translate(14px, -50%);
+}
+
+.form-switch .form-check-input:focus-visible {
+  box-shadow: 0 0 0 2px var(--ring);
+}
+
+.form-range {
+  appearance: none;
+  display: block;
+  width: 100%;
+  height: 28px;
+  flex: 1;
+  margin: 0;
+  padding: 0;
+  outline: none;
+  border: 0;
+  accent-color: var(--primary);
+  background: linear-gradient(
+      color-mix(in srgb, var(--foreground) 7%, transparent),
+      color-mix(in srgb, var(--foreground) 7%, transparent)
+    )
+    center / 100% 2px no-repeat;
+}
+
+.form-range::-webkit-slider-runnable-track {
+  height: 28px;
+  background: transparent;
+}
+
+.form-range::-webkit-slider-thumb {
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  margin-top: 4px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-full);
+  background: light-dark(var(--primary-foreground), var(--foreground));
+}
+
+.form-range:focus-visible::-webkit-slider-thumb {
+  border-color: var(--ring);
+  box-shadow: inset 0 0 0 1px var(--ring);
+}
+
+.form-range::-moz-range-track {
+  height: 28px;
+  background: transparent;
+}
+
+.form-range::-moz-range-thumb {
+  width: 20px;
+  height: 20px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-full);
+  background: light-dark(var(--primary-foreground), var(--foreground));
+}
+
+.form-range:focus-visible::-moz-range-thumb {
+  border-color: var(--ring);
+  box-shadow: inset 0 0 0 1px var(--ring);
+}
+
+.form-range:disabled {
+  cursor: not-allowed;
+  opacity: 0.4;
+}
+
+.btn:not(.btn-primary, .viz-tile):is(
+  [aria-pressed=&quot;true&quot;],
+  [aria-selected=&quot;true&quot;],
+  .is-selected
+) {
+  border-color: var(--primary);
+  color: var(--primary-foreground);
+  background: var(--primary);
+}
+
+.btn.viz-tile:is([aria-pressed=&quot;true&quot;], [aria-selected=&quot;true&quot;], .is-selected) {
+  border-color: var(--primary);
+  box-shadow: inset 0 0 0 1px var(--primary);
+}
+
+.btn:focus-visible {
+  outline: 2px solid var(--ring);
+  outline-offset: 2px;
+}
+
+@media (pointer: coarse) {
+  .btn,
+  .form-control,
+  .form-select {
+    min-width: 44px;
+    min-height: 44px;
+  }
+
+  .form-control,
+  .form-select {
+    font-size: max(16px, var(--font-size-normal));
+  }
+
+  .form-control[type=&quot;file&quot;]::file-selector-button {
+    min-width: 44px;
+    min-height: 44px;
+  }
+
+  .form-control-color[type=&quot;color&quot;] {
+    width: 44px;
+    height: 44px;
+  }
+
+  .form-control:is(
+    [type=&quot;date&quot;],
+    [type=&quot;datetime-local&quot;],
+    [type=&quot;month&quot;],
+    [type=&quot;time&quot;],
+    [type=&quot;week&quot;]
+  ) {
+    min-width: 0;
+    max-width: 100%;
+    padding-block: 8px;
+  }
+
+  .form-check {
+    min-height: 44px;
+    padding-inline: 15px;
+  }
+
+  .form-check-input {
+    position: relative;
+  }
+
+  .form-check-input::after {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 44px;
+    height: 44px;
+    content: &quot;&quot;;
+    transform: translate(-50%, -50%);
+  }
+
+  .form-check-label {
+    display: inline-flex;
+    min-width: 44px;
+    min-height: 44px;
+    align-items: center;
+  }
+
+  .form-range {
+    height: 44px;
+    touch-action: pan-y;
+  }
+
+  .form-range::-webkit-slider-runnable-track {
+    height: 44px;
+  }
+
+  .form-range::-moz-range-track {
+    height: 44px;
+  }
+
+  .form-range::-webkit-slider-thumb {
+    margin-top: 12px;
+  }
+}
+
+svg {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+#widget &gt; svg {
+  width: 100%;
+}
+
+/* Model-authored chart rules can otherwise stretch icons after these styles load. */
+svg.lucide {
+  display: block;
+  width: 16px !important;
+  height: 16px !important;
+  flex: none;
+  margin: 0 !important;
+  stroke-width: 1.6;
+}
+
+.text-warning,
+.text-destructive {
+  color: var(--destructive);
+}
+
+html&gt;body{padding:0}&lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;section id=&quot;qunar-wireframes-root&quot; class=&quot;qw-root&quot; aria-labelledby=&quot;qw-heading&quot;&gt;
+  &lt;style&gt;
+    #qunar-wireframes-root {
+      color-scheme: light dark;
+      --qw-canvas: light-dark(#f4f4f2, #171817);
+      --qw-surface: light-dark(#ffffff, #232422);
+      --qw-ink: light-dark(#191a18, #f2f2ef);
+      --qw-muted: light-dark(#676963, #b8bab4);
+      --qw-line: light-dark(#b8bab4, #62645f);
+      --qw-soft: light-dark(#e9eae6, #30322f);
+      --qw-strong: light-dark(#2c2d2a, #e8e9e4);
+      --qw-on-strong: light-dark(#ffffff, #171817);
+      --qw-radius: 10px;
+      width: 100%;
+      color: var(--qw-ink);
+      font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;
+    }
+    #qunar-wireframes-root * { box-sizing: border-box; }
+    #qunar-wireframes-root .qw-toolbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      margin-bottom: 14px;
+      flex-wrap: wrap;
+    }
+    #qunar-wireframes-root h2,
+    #qunar-wireframes-root h3,
+    #qunar-wireframes-root p { margin: 0; }
+    #qunar-wireframes-root .qw-heading-group { display: grid; gap: 4px; }
+    #qunar-wireframes-root .qw-kicker,
+    #qunar-wireframes-root .qw-caption,
+    #qunar-wireframes-root .qw-meta { color: var(--qw-muted); font-size: 12px; }
+    #qunar-wireframes-root .qw-stepper {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+    #qunar-wireframes-root .qw-step {
+      min-width: 42px;
+      min-height: 38px;
+      border: 1px solid var(--qw-line);
+      border-radius: 8px;
+      background: transparent;
+      color: var(--qw-ink);
+      font: inherit;
+      cursor: pointer;
+    }
+    #qunar-wireframes-root .qw-step[aria-pressed=&quot;true&quot;] {
+      background: var(--qw-strong);
+      color: var(--qw-on-strong);
+      border-color: var(--qw-strong);
+    }
+    #qunar-wireframes-root .qw-workbench {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(220px, 280px);
+      gap: 18px;
+      align-items: start;
+    }
+    #qunar-wireframes-root .qw-window {
+      min-width: 0;
+      overflow: hidden;
+      border: 1px solid var(--qw-line);
+      border-radius: var(--qw-radius);
+      background: var(--qw-surface);
+    }
+    #qunar-wireframes-root .qw-chrome {
+      min-height: 54px;
+      padding: 12px 18px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      border-bottom: 1px solid var(--qw-line);
+    }
+    #qunar-wireframes-root .qw-brand { font-weight: 500; letter-spacing: .02em; }
+    #qunar-wireframes-root .qw-stage-label {
+      padding: 4px 8px;
+      border: 1px dashed var(--qw-line);
+      border-radius: 6px;
+      color: var(--qw-muted);
+      font-size: 12px;
+    }
+    #qunar-wireframes-root .qw-page {
+      min-height: 570px;
+      padding: 28px clamp(18px, 5vw, 54px) 34px;
+      background-image: linear-gradient(to right, color-mix(in srgb, var(--qw-line) 18%, transparent) 1px, transparent 1px), linear-gradient(to bottom, color-mix(in srgb, var(--qw-line) 18%, transparent) 1px, transparent 1px);
+      background-size: 24px 24px;
+    }
+    #qunar-wireframes-root .qw-page-inner { max-width: 720px; margin: 0 auto; display: grid; gap: 18px; }
+    #qunar-wireframes-root .qw-page-header { display: grid; gap: 8px; }
+    #qunar-wireframes-root .qw-title { font-size: clamp(22px, 3vw, 30px); font-weight: 500; }
+    #qunar-wireframes-root .qw-lead { color: var(--qw-muted); max-width: 62ch; }
+    #qunar-wireframes-root .qw-box,
+    #qunar-wireframes-root .qw-option,
+    #qunar-wireframes-root .qw-alert,
+    #qunar-wireframes-root .qw-timeline-item {
+      position: relative;
+      background: var(--qw-surface);
+      border: 1px dashed var(--qw-line);
+      border-radius: var(--qw-radius);
+      padding: 16px;
+    }
+    #qunar-wireframes-root .qw-box { display: grid; gap: 12px; }
+    #qunar-wireframes-root .qw-label {
+      position: absolute;
+      top: -9px;
+      left: 12px;
+      padding: 1px 6px;
+      background: var(--qw-surface);
+      border: 1px solid var(--qw-line);
+      border-radius: 999px;
+      color: var(--qw-muted);
+      font-size: 11px;
+    }
+    #qunar-wireframes-root .qw-choice-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; }
+    #qunar-wireframes-root .qw-choice {
+      min-height: 78px;
+      padding: 12px;
+      border: 1px solid var(--qw-line);
+      border-radius: 8px;
+      background: var(--qw-soft);
+      color: var(--qw-ink);
+      text-align: left;
+      font: inherit;
+    }
+    #qunar-wireframes-root .qw-choice strong { display: block; margin-bottom: 6px; font-weight: 500; }
+    #qunar-wireframes-root .qw-input {
+      width: 100%;
+      min-height: 82px;
+      resize: vertical;
+      border: 1px solid var(--qw-line);
+      border-radius: 8px;
+      padding: 12px;
+      background: var(--qw-surface);
+      color: var(--qw-ink);
+      font: inherit;
+    }
+    #qunar-wireframes-root .qw-order { display: grid; grid-template-columns: 76px 1fr auto; gap: 14px; align-items: center; }
+    #qunar-wireframes-root .qw-thumb { height: 64px; border-radius: 7px; background: repeating-linear-gradient(135deg, var(--qw-soft), var(--qw-soft) 7px, var(--qw-surface) 7px, var(--qw-surface) 14px); border: 1px solid var(--qw-line); }
+    #qunar-wireframes-root .qw-order-copy { display: grid; gap: 5px; }
+    #qunar-wireframes-root .qw-order-copy strong { font-weight: 500; }
+    #qunar-wireframes-root .qw-radio { width: 22px; height: 22px; border: 1px solid var(--qw-line); border-radius: 50%; }
+    #qunar-wireframes-root .qw-result { display: grid; gap: 8px; border-left: 5px solid var(--qw-strong); }
+    #qunar-wireframes-root .qw-result strong { font-size: 20px; font-weight: 500; }
+    #qunar-wireframes-root .qw-options { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+    #qunar-wireframes-root .qw-option { display: grid; gap: 8px; }
+    #qunar-wireframes-root .qw-option h3 { font-size: 16px; font-weight: 500; }
+    #qunar-wireframes-root .qw-keyvals { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px 16px; }
+    #qunar-wireframes-root .qw-keyval { display: grid; gap: 3px; }
+    #qunar-wireframes-root .qw-keyval span { color: var(--qw-muted); font-size: 12px; }
+    #qunar-wireframes-root .qw-actions { display: flex; justify-content: flex-end; gap: 10px; flex-wrap: wrap; }
+    #qunar-wireframes-root .qw-primary,
+    #qunar-wireframes-root .qw-secondary {
+      min-height: 44px;
+      padding: 10px 18px;
+      border-radius: 8px;
+      border: 1px solid var(--qw-strong);
+      font: inherit;
+      cursor: pointer;
+    }
+    #qunar-wireframes-root .qw-primary { background: var(--qw-strong); color: var(--qw-on-strong); }
+    #qunar-wireframes-root .qw-secondary { background: transparent; color: var(--qw-ink); }
+    #qunar-wireframes-root .qw-link { border: 0; background: transparent; color: var(--qw-ink); text-decoration: underline; font: inherit; padding: 4px; }
+    #qunar-wireframes-root .qw-alert { display: grid; gap: 7px; border-style: solid; }
+    #qunar-wireframes-root .qw-alert strong { font-weight: 500; }
+    #qunar-wireframes-root .qw-timeline { display: grid; gap: 10px; }
+    #qunar-wireframes-root .qw-timeline-item { display: grid; grid-template-columns: 82px 1fr; gap: 12px; }
+    #qunar-wireframes-root .qw-timeline-item[data-state=&quot;done&quot;]::before {
+      content: &quot;✓&quot;;
+      position: absolute;
+      left: -11px;
+      top: 18px;
+      width: 22px;
+      height: 22px;
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+      background: var(--qw-strong);
+      color: var(--qw-on-strong);
+      font-size: 12px;
+    }
+    #qunar-wireframes-root .qw-sidebar {
+      display: grid;
+      gap: 12px;
+      border: 1px dashed var(--qw-line);
+      border-radius: var(--qw-radius);
+      padding: 16px;
+      background: var(--qw-canvas);
+    }
+    #qunar-wireframes-root .qw-sidebar h3 { font-size: 16px; font-weight: 500; }
+    #qunar-wireframes-root .qw-note { display: grid; gap: 4px; padding-bottom: 12px; border-bottom: 1px solid var(--qw-line); }
+    #qunar-wireframes-root .qw-note:last-child { border-bottom: 0; padding-bottom: 0; }
+    #qunar-wireframes-root .qw-note dt { color: var(--qw-muted); font-size: 12px; }
+    #qunar-wireframes-root .qw-note dd { margin: 0; }
+    #qunar-wireframes-root .qw-divider { height: 1px; background: var(--qw-line); }
+    #qunar-wireframes-root details { border-top: 1px solid var(--qw-line); padding-top: 12px; }
+    #qunar-wireframes-root summary { cursor: pointer; }
+    @media (max-width: 760px) {
+      #qunar-wireframes-root .qw-workbench { grid-template-columns: 1fr; }
+      #qunar-wireframes-root .qw-page { min-height: 0; padding: 24px 16px; }
+      #qunar-wireframes-root .qw-choice-grid,
+      #qunar-wireframes-root .qw-options,
+      #qunar-wireframes-root .qw-keyvals { grid-template-columns: 1fr; }
+      #qunar-wireframes-root .qw-order { grid-template-columns: 64px 1fr; }
+      #qunar-wireframes-root .qw-radio { grid-column: 2; }
+      #qunar-wireframes-root .qw-actions { justify-content: stretch; }
+      #qunar-wireframes-root .qw-actions button { flex: 1 1 100%; }
+    }
+  &lt;/style&gt;
+
+  &lt;div class=&quot;qw-toolbar&quot;&gt;
+    &lt;div class=&quot;qw-heading-group&quot;&gt;
+      &lt;span class=&quot;qw-kicker&quot;&gt;结构验证 · 非最终 UI&lt;/span&gt;
+      &lt;h2 id=&quot;qw-heading&quot;&gt;酒店退款 Agent｜P0–P7 低保真线框图&lt;/h2&gt;
+    &lt;/div&gt;
+    &lt;nav class=&quot;qw-stepper&quot; aria-label=&quot;选择页面&quot;&gt;
+      &lt;button class=&quot;qw-step&quot; type=&quot;button&quot; data-page=&quot;0&quot; aria-pressed=&quot;true&quot;&gt;P0&lt;/button&gt;
+      &lt;button class=&quot;qw-step&quot; type=&quot;button&quot; data-page=&quot;1&quot; aria-pressed=&quot;false&quot;&gt;P1&lt;/button&gt;
+      &lt;button class=&quot;qw-step&quot; type=&quot;button&quot; data-page=&quot;2&quot; aria-pressed=&quot;false&quot;&gt;P2&lt;/button&gt;
+      &lt;button class=&quot;qw-step&quot; type=&quot;button&quot; data-page=&quot;3&quot; aria-pressed=&quot;false&quot;&gt;P3&lt;/button&gt;
+      &lt;button class=&quot;qw-step&quot; type=&quot;button&quot; data-page=&quot;4&quot; aria-pressed=&quot;false&quot;&gt;P4&lt;/button&gt;
+      &lt;button class=&quot;qw-step&quot; type=&quot;button&quot; data-page=&quot;5&quot; aria-pressed=&quot;false&quot;&gt;P5&lt;/button&gt;
+      &lt;button class=&quot;qw-step&quot; type=&quot;button&quot; data-page=&quot;6&quot; aria-pressed=&quot;false&quot;&gt;P6&lt;/button&gt;
+      &lt;button class=&quot;qw-step&quot; type=&quot;button&quot; data-page=&quot;7&quot; aria-pressed=&quot;false&quot;&gt;P7&lt;/button&gt;
+    &lt;/nav&gt;
+  &lt;/div&gt;
+
+  &lt;div class=&quot;qw-workbench&quot; aria-live=&quot;polite&quot;&gt;
+    &lt;article class=&quot;qw-window&quot; aria-label=&quot;当前页面线框图&quot;&gt;
+      &lt;header class=&quot;qw-chrome&quot;&gt;
+        &lt;span class=&quot;qw-brand&quot;&gt;去哪儿｜酒店售后&lt;/span&gt;
+        &lt;span class=&quot;qw-stage-label&quot; id=&quot;qw-stage-label&quot;&gt;P0 · 演示入口&lt;/span&gt;
+      &lt;/header&gt;
+      &lt;main class=&quot;qw-page&quot; id=&quot;qw-page&quot;&gt;&lt;/main&gt;
+    &lt;/article&gt;
+    &lt;aside class=&quot;qw-sidebar&quot; aria-label=&quot;页面设计说明&quot;&gt;
+      &lt;h3&gt;页面判断卡&lt;/h3&gt;
+      &lt;dl class=&quot;qw-note&quot;&gt;&lt;dt&gt;唯一页面目的&lt;/dt&gt;&lt;dd id=&quot;qw-purpose&quot;&gt;&lt;/dd&gt;&lt;/dl&gt;
+      &lt;dl class=&quot;qw-note&quot;&gt;&lt;dt&gt;唯一主操作&lt;/dt&gt;&lt;dd id=&quot;qw-primary-action&quot;&gt;&lt;/dd&gt;&lt;/dl&gt;
+      &lt;dl class=&quot;qw-note&quot;&gt;&lt;dt&gt;C 端用户先看到&lt;/dt&gt;&lt;dd id=&quot;qw-user-first&quot;&gt;&lt;/dd&gt;&lt;/dl&gt;
+      &lt;dl class=&quot;qw-note&quot;&gt;&lt;dt&gt;预期管理重点&lt;/dt&gt;&lt;dd id=&quot;qw-expectation&quot;&gt;&lt;/dd&gt;&lt;/dl&gt;
+      &lt;dl class=&quot;qw-note&quot;&gt;&lt;dt&gt;面试官应读出的能力&lt;/dt&gt;&lt;dd id=&quot;qw-interviewer&quot;&gt;&lt;/dd&gt;&lt;/dl&gt;
+    &lt;/aside&gt;
+  &lt;/div&gt;
+
+  &lt;script&gt;
+    (() =&gt; {
+      const root = document.getElementById(&#x27;qunar-wireframes-root&#x27;);
+      const page = root.querySelector(&#x27;#qw-page&#x27;);
+      const stageLabel = root.querySelector(&#x27;#qw-stage-label&#x27;);
+      const fields = {
+        purpose: root.querySelector(&#x27;#qw-purpose&#x27;),
+        primary: root.querySelector(&#x27;#qw-primary-action&#x27;),
+        userFirst: root.querySelector(&#x27;#qw-user-first&#x27;),
+        expectation: root.querySelector(&#x27;#qw-expectation&#x27;),
+        interviewer: root.querySelector(&#x27;#qw-interviewer&#x27;)
+      };
+
+      const screens = [
+        {
+          label: &#x27;P0 · 演示入口&#x27;, purpose: &#x27;让面试官快速选择一条可验证的业务链路。&#x27;, primary: &#x27;开始推荐场景&#x27;, userFirst: &#x27;MVP 能处理什么，以及这次将演示什么。&#x27;, expectation: &#x27;明确数据、政策与接口均为 Mock，不伪装生产能力。&#x27;, interviewer: &#x27;范围控制、演示叙事与验证意识。&#x27;,
+          html: `&lt;div class=&quot;qw-page-inner&quot;&gt;&lt;header class=&quot;qw-page-header&quot;&gt;&lt;span class=&quot;qw-meta&quot;&gt;MVP DEMO&lt;/span&gt;&lt;h3 class=&quot;qw-title&quot;&gt;选择一条酒店售后场景&lt;/h3&gt;&lt;p class=&quot;qw-lead&quot;&gt;用真实业务结构演示 Agent 如何识别问题、核对订单、给出可执行方案并闭环。&lt;/p&gt;&lt;/header&gt;&lt;section class=&quot;qw-alert&quot;&gt;&lt;span class=&quot;qw-label&quot;&gt;L1 · 能力边界&lt;/span&gt;&lt;strong&gt;本演示使用模拟订单、政策、接口与工单状态&lt;/strong&gt;&lt;p class=&quot;qw-caption&quot;&gt;用于验证产品与 Agent 设计，不代表去哪儿线上规则。&lt;/p&gt;&lt;/section&gt;&lt;section class=&quot;qw-box&quot;&gt;&lt;span class=&quot;qw-label&quot;&gt;L2 · 场景选择&lt;/span&gt;&lt;div class=&quot;qw-choice-grid&quot;&gt;&lt;button class=&quot;qw-choice&quot; type=&quot;button&quot;&gt;&lt;strong&gt;可免费取消&lt;/strong&gt;&lt;span class=&quot;qw-caption&quot;&gt;自动报价并申请退款&lt;/span&gt;&lt;/button&gt;&lt;button class=&quot;qw-choice&quot; type=&quot;button&quot;&gt;&lt;strong&gt;不可取消&lt;/strong&gt;&lt;span class=&quot;qw-caption&quot;&gt;发起酒店协商&lt;/span&gt;&lt;/button&gt;&lt;button class=&quot;qw-choice&quot; type=&quot;button&quot;&gt;&lt;strong&gt;到店无房&lt;/strong&gt;&lt;span class=&quot;qw-caption&quot;&gt;优先恢复今晚住宿&lt;/span&gt;&lt;/button&gt;&lt;/div&gt;&lt;/section&gt;&lt;div class=&quot;qw-actions&quot;&gt;&lt;button class=&quot;qw-primary&quot; type=&quot;button&quot;&gt;开始推荐场景&lt;/button&gt;&lt;/div&gt;&lt;/div&gt;`
+        },
+        {
+          label: &#x27;P1 · 售后入口&#x27;, purpose: &#x27;让用户用最低成本说清当前问题。&#x27;, primary: &#x27;发送问题&#x27;, userFirst: &#x27;三个高频任务入口和自然语言输入。&#x27;, expectation: &#x27;先判断问题与紧急度，不提前承诺退款结果。&#x27;, interviewer: &#x27;意图收敛、任务分类和紧急入口设计。&#x27;,
+          html: `&lt;div class=&quot;qw-page-inner&quot;&gt;&lt;header class=&quot;qw-page-header&quot;&gt;&lt;h3 class=&quot;qw-title&quot;&gt;这笔酒店订单遇到了什么问题？&lt;/h3&gt;&lt;p class=&quot;qw-lead&quot;&gt;可以直接选择，也可以用自己的话描述。&lt;/p&gt;&lt;/header&gt;&lt;section class=&quot;qw-box&quot;&gt;&lt;span class=&quot;qw-label&quot;&gt;L1 · 高频意图&lt;/span&gt;&lt;div class=&quot;qw-choice-grid&quot;&gt;&lt;button class=&quot;qw-choice&quot; type=&quot;button&quot;&gt;&lt;strong&gt;取消并退款&lt;/strong&gt;&lt;span class=&quot;qw-caption&quot;&gt;查看是否可退与金额&lt;/span&gt;&lt;/button&gt;&lt;button class=&quot;qw-choice&quot; type=&quot;button&quot;&gt;&lt;strong&gt;查询退款进度&lt;/strong&gt;&lt;span class=&quot;qw-caption&quot;&gt;查看当前处理节点&lt;/span&gt;&lt;/button&gt;&lt;button class=&quot;qw-choice&quot; type=&quot;button&quot;&gt;&lt;strong&gt;酒店无法入住&lt;/strong&gt;&lt;span class=&quot;qw-caption&quot;&gt;到店无房或拒绝接待&lt;/span&gt;&lt;/button&gt;&lt;/div&gt;&lt;/section&gt;&lt;section class=&quot;qw-box&quot;&gt;&lt;span class=&quot;qw-label&quot;&gt;L2 · 自由表达&lt;/span&gt;&lt;label for=&quot;qw-message&quot; class=&quot;qw-caption&quot;&gt;补充发生了什么&lt;/label&gt;&lt;textarea id=&quot;qw-message&quot; class=&quot;qw-input&quot; placeholder=&quot;例如：我今晚到店，但前台说没有房间……&quot;&gt;&lt;/textarea&gt;&lt;/section&gt;&lt;section class=&quot;qw-alert&quot;&gt;&lt;span class=&quot;qw-label&quot;&gt;紧急入口&lt;/span&gt;&lt;strong&gt;今晚无法入住？&lt;/strong&gt;&lt;p class=&quot;qw-caption&quot;&gt;进入紧急恢复流程，优先协助找到可入住方案。&lt;/p&gt;&lt;div&gt;&lt;button class=&quot;qw-link&quot; type=&quot;button&quot;&gt;立即处理今晚住宿&lt;/button&gt;&lt;/div&gt;&lt;/section&gt;&lt;div class=&quot;qw-actions&quot;&gt;&lt;button class=&quot;qw-primary&quot; type=&quot;button&quot;&gt;发送问题&lt;/button&gt;&lt;/div&gt;&lt;/div&gt;`
+        },
+        {
+          label: &#x27;P2 · 确认订单&#x27;, purpose: &#x27;把自然语言问题绑定到唯一订单。&#x27;, primary: &#x27;确认处理这笔订单&#x27;, userFirst: &#x27;订单关键识别信息，而非政策判断。&#x27;, expectation: &#x27;确认前不查询敏感详情、不执行任何售后动作。&#x27;, interviewer: &#x27;身份边界、订单消歧和防误操作。&#x27;,
+          html: `&lt;div class=&quot;qw-page-inner&quot;&gt;&lt;header class=&quot;qw-page-header&quot;&gt;&lt;h3 class=&quot;qw-title&quot;&gt;确认要处理的订单&lt;/h3&gt;&lt;p class=&quot;qw-lead&quot;&gt;我找到 2 笔可能相关的订单，请选择一笔。&lt;/p&gt;&lt;/header&gt;&lt;section class=&quot;qw-box&quot;&gt;&lt;span class=&quot;qw-label&quot;&gt;L1 · 候选订单&lt;/span&gt;&lt;div class=&quot;qw-order&quot;&gt;&lt;div class=&quot;qw-thumb&quot; aria-hidden=&quot;true&quot;&gt;&lt;/div&gt;&lt;div class=&quot;qw-order-copy&quot;&gt;&lt;strong&gt;上海静安示例酒店&lt;/strong&gt;&lt;span class=&quot;qw-caption&quot;&gt;9月12日–9月14日 · 大床房 · ¥1,268&lt;/span&gt;&lt;span class=&quot;qw-caption&quot;&gt;待入住 · 上海&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;qw-radio&quot; aria-hidden=&quot;true&quot;&gt;&lt;/div&gt;&lt;/div&gt;&lt;div class=&quot;qw-divider&quot;&gt;&lt;/div&gt;&lt;div class=&quot;qw-order&quot;&gt;&lt;div class=&quot;qw-thumb&quot; aria-hidden=&quot;true&quot;&gt;&lt;/div&gt;&lt;div class=&quot;qw-order-copy&quot;&gt;&lt;strong&gt;杭州西湖示例酒店&lt;/strong&gt;&lt;span class=&quot;qw-caption&quot;&gt;10月2日–10月3日 · 双床房 · ¥698&lt;/span&gt;&lt;span class=&quot;qw-caption&quot;&gt;待入住 · 杭州&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;qw-radio&quot; aria-hidden=&quot;true&quot;&gt;&lt;/div&gt;&lt;/div&gt;&lt;/section&gt;&lt;section class=&quot;qw-alert&quot;&gt;&lt;span class=&quot;qw-label&quot;&gt;预期说明&lt;/span&gt;&lt;p&gt;下一步只会读取所选订单的成交政策与售后状态。&lt;/p&gt;&lt;/section&gt;&lt;div class=&quot;qw-actions&quot;&gt;&lt;button class=&quot;qw-primary&quot; type=&quot;button&quot;&gt;确认处理这笔订单&lt;/button&gt;&lt;/div&gt;&lt;/div&gt;`
+        },
+        {
+          label: &#x27;P3 · 方案说明&#x27;, purpose: &#x27;让用户看懂结论，并在有限选项中做决定。&#x27;, primary: &#x27;选择推荐方案&#x27;, userFirst: &#x27;能否退款、可退金额、当前状态和时间预期。&#x27;, expectation: &#x27;分清确定事实与条件性结果；最多展示两个方案。&#x27;, interviewer: &#x27;规则可解释性与决策降噪。&#x27;,
+          html: `&lt;div class=&quot;qw-page-inner&quot;&gt;&lt;header class=&quot;qw-page-header&quot;&gt;&lt;h3 class=&quot;qw-title&quot;&gt;这笔订单可以免费取消&lt;/h3&gt;&lt;p class=&quot;qw-lead&quot;&gt;依据下单时的成交政策，当前取消预计退回全部房费。&lt;/p&gt;&lt;/header&gt;&lt;section class=&quot;qw-box qw-result&quot;&gt;&lt;span class=&quot;qw-label&quot;&gt;L1 · 结论&lt;/span&gt;&lt;strong&gt;预计退款 ¥1,268&lt;/strong&gt;&lt;span&gt;取消费 ¥0 · 原支付渠道退回&lt;/span&gt;&lt;span class=&quot;qw-caption&quot;&gt;提交后约 1–3 个工作日到账，具体以支付渠道为准。&lt;/span&gt;&lt;/section&gt;&lt;section class=&quot;qw-options&quot;&gt;&lt;article class=&quot;qw-option&quot;&gt;&lt;span class=&quot;qw-label&quot;&gt;推荐&lt;/span&gt;&lt;h3&gt;现在取消并退款&lt;/h3&gt;&lt;p&gt;立即提交申请，房间将不再保留。&lt;/p&gt;&lt;button class=&quot;qw-primary&quot; type=&quot;button&quot;&gt;选择推荐方案&lt;/button&gt;&lt;/article&gt;&lt;article class=&quot;qw-option&quot;&gt;&lt;h3&gt;暂不取消&lt;/h3&gt;&lt;p&gt;订单保持不变，可稍后回来处理。&lt;/p&gt;&lt;button class=&quot;qw-secondary&quot; type=&quot;button&quot;&gt;保留订单&lt;/button&gt;&lt;/article&gt;&lt;/section&gt;&lt;details&gt;&lt;summary&gt;查看政策依据与订单摘要&lt;/summary&gt;&lt;p class=&quot;qw-caption&quot;&gt;成交政策版本、免费取消截止时间、适用房型与订单号。&lt;/p&gt;&lt;/details&gt;&lt;/div&gt;`
+        },
+        {
+          label: &#x27;P4 · 操作确认&#x27;, purpose: &#x27;在不可逆写操作前获得清晰、有效的用户确认。&#x27;, primary: &#x27;确认取消并申请退款&#x27;, userFirst: &#x27;将发生什么、退多少钱、多久到以及不可逆后果。&#x27;, expectation: &#x27;点击后房间不再保留；金额与到账时间使用“预计”。&#x27;, interviewer: &#x27;高风险动作防错、二次确认和幂等意识。&#x27;,
+          html: `&lt;div class=&quot;qw-page-inner&quot;&gt;&lt;header class=&quot;qw-page-header&quot;&gt;&lt;h3 class=&quot;qw-title&quot;&gt;确认取消并申请退款&lt;/h3&gt;&lt;p class=&quot;qw-lead&quot;&gt;请最后核对。提交成功后，这笔订单将无法恢复。&lt;/p&gt;&lt;/header&gt;&lt;section class=&quot;qw-box&quot;&gt;&lt;span class=&quot;qw-label&quot;&gt;L1 · 操作对象&lt;/span&gt;&lt;div class=&quot;qw-keyvals&quot;&gt;&lt;div class=&quot;qw-keyval&quot;&gt;&lt;span&gt;酒店&lt;/span&gt;&lt;strong&gt;上海静安示例酒店&lt;/strong&gt;&lt;/div&gt;&lt;div class=&quot;qw-keyval&quot;&gt;&lt;span&gt;入住日期&lt;/span&gt;&lt;strong&gt;9月12日–14日&lt;/strong&gt;&lt;/div&gt;&lt;div class=&quot;qw-keyval&quot;&gt;&lt;span&gt;预计退款&lt;/span&gt;&lt;strong&gt;¥1,268&lt;/strong&gt;&lt;/div&gt;&lt;div class=&quot;qw-keyval&quot;&gt;&lt;span&gt;预计到账&lt;/span&gt;&lt;strong&gt;1–3 个工作日&lt;/strong&gt;&lt;/div&gt;&lt;/div&gt;&lt;/section&gt;&lt;section class=&quot;qw-alert&quot;&gt;&lt;span class=&quot;qw-label&quot;&gt;L2 · 不可逆提示&lt;/span&gt;&lt;strong&gt;提交后房间立即释放，订单不能恢复&lt;/strong&gt;&lt;p class=&quot;qw-caption&quot;&gt;退款将原路退回。实际到账时间取决于支付渠道。&lt;/p&gt;&lt;/section&gt;&lt;div class=&quot;qw-actions&quot;&gt;&lt;button class=&quot;qw-secondary&quot; type=&quot;button&quot;&gt;返回修改&lt;/button&gt;&lt;button class=&quot;qw-primary&quot; type=&quot;button&quot;&gt;确认取消并申请退款&lt;/button&gt;&lt;/div&gt;&lt;/div&gt;`
+        },
+        {
+          label: &#x27;P5 · 处理进度&#x27;, purpose: &#x27;让用户知道事情推进到哪、在等谁、何时再更新。&#x27;, primary: &#x27;查看最新进度&#x27;, userFirst: &#x27;业务状态时间线和下一次更新时间。&#x27;, expectation: &#x27;不用虚假百分比；明确外部等待与超时兜底。&#x27;, interviewer: &#x27;长流程状态设计和闭环运营意识。&#x27;,
+          html: `&lt;div class=&quot;qw-page-inner&quot;&gt;&lt;header class=&quot;qw-page-header&quot;&gt;&lt;h3 class=&quot;qw-title&quot;&gt;退款申请处理中&lt;/h3&gt;&lt;p class=&quot;qw-lead&quot;&gt;当前无需你操作。我们正在等待支付渠道返回结果。&lt;/p&gt;&lt;/header&gt;&lt;section class=&quot;qw-timeline&quot;&gt;&lt;article class=&quot;qw-timeline-item&quot; data-state=&quot;done&quot;&gt;&lt;strong&gt;10:18&lt;/strong&gt;&lt;div&gt;&lt;strong&gt;取消申请已提交&lt;/strong&gt;&lt;p class=&quot;qw-caption&quot;&gt;系统已收到申请，订单不可恢复。&lt;/p&gt;&lt;/div&gt;&lt;/article&gt;&lt;article class=&quot;qw-timeline-item&quot; data-state=&quot;done&quot;&gt;&lt;strong&gt;10:19&lt;/strong&gt;&lt;div&gt;&lt;strong&gt;退款已发起&lt;/strong&gt;&lt;p class=&quot;qw-caption&quot;&gt;¥1,268 已提交至原支付渠道。&lt;/p&gt;&lt;/div&gt;&lt;/article&gt;&lt;article class=&quot;qw-timeline-item&quot;&gt;&lt;strong&gt;当前&lt;/strong&gt;&lt;div&gt;&lt;strong&gt;等待支付渠道处理&lt;/strong&gt;&lt;p class=&quot;qw-caption&quot;&gt;预计 1–3 个工作日到账。&lt;/p&gt;&lt;/div&gt;&lt;/article&gt;&lt;/section&gt;&lt;section class=&quot;qw-alert&quot;&gt;&lt;span class=&quot;qw-label&quot;&gt;下一节点&lt;/span&gt;&lt;strong&gt;最晚 9月7日 18:00 前更新&lt;/strong&gt;&lt;p class=&quot;qw-caption&quot;&gt;若届时仍无结果，将自动创建人工工单，无需重复联系客服。&lt;/p&gt;&lt;/section&gt;&lt;div class=&quot;qw-actions&quot;&gt;&lt;button class=&quot;qw-primary&quot; type=&quot;button&quot;&gt;查看最新进度&lt;/button&gt;&lt;/div&gt;&lt;/div&gt;`
+        },
+        {
+          label: &#x27;P6 · 紧急恢复&#x27;, purpose: &#x27;到店无法入住时，先恢复今晚住宿，再处理退款责任。&#x27;, primary: &#x27;联系紧急专员&#x27;, userFirst: &#x27;当前保障目标和可以立刻执行的动作。&#x27;, expectation: &#x27;不把协商中说成已解决；说明替代方案与费用确认边界。&#x27;, interviewer: &#x27;目标重排、危机场景与 Human-in-the-loop。&#x27;,
+          html: `&lt;div class=&quot;qw-page-inner&quot;&gt;&lt;header class=&quot;qw-page-header&quot;&gt;&lt;span class=&quot;qw-meta&quot;&gt;紧急场景 · 今晚入住&lt;/span&gt;&lt;h3 class=&quot;qw-title&quot;&gt;先帮你解决今晚住哪里&lt;/h3&gt;&lt;p class=&quot;qw-lead&quot;&gt;退款责任稍后处理；现在优先核实酒店并寻找可入住方案。&lt;/p&gt;&lt;/header&gt;&lt;section class=&quot;qw-alert&quot;&gt;&lt;span class=&quot;qw-label&quot;&gt;L1 · 当前状态&lt;/span&gt;&lt;strong&gt;酒店无法确认原房间&lt;/strong&gt;&lt;p&gt;紧急专员预计 3 分钟内接入。你无需重新描述订单信息。&lt;/p&gt;&lt;/section&gt;&lt;section class=&quot;qw-box&quot;&gt;&lt;span class=&quot;qw-label&quot;&gt;L2 · 并行处理&lt;/span&gt;&lt;div class=&quot;qw-keyvals&quot;&gt;&lt;div class=&quot;qw-keyval&quot;&gt;&lt;span&gt;酒店核实&lt;/span&gt;&lt;strong&gt;正在联系前台&lt;/strong&gt;&lt;/div&gt;&lt;div class=&quot;qw-keyval&quot;&gt;&lt;span&gt;替代住宿&lt;/span&gt;&lt;strong&gt;搜索同区域可住房&lt;/strong&gt;&lt;/div&gt;&lt;div class=&quot;qw-keyval&quot;&gt;&lt;span&gt;费用边界&lt;/span&gt;&lt;strong&gt;确认后再产生额外费用&lt;/strong&gt;&lt;/div&gt;&lt;div class=&quot;qw-keyval&quot;&gt;&lt;span&gt;原单处理&lt;/span&gt;&lt;strong&gt;住宿稳定后继续&lt;/strong&gt;&lt;/div&gt;&lt;/div&gt;&lt;/section&gt;&lt;section class=&quot;qw-alert&quot;&gt;&lt;span class=&quot;qw-label&quot;&gt;请准备&lt;/span&gt;&lt;p&gt;若方便，可上传前台告知无房的聊天或现场凭证；没有凭证也可先求助。&lt;/p&gt;&lt;/section&gt;&lt;div class=&quot;qw-actions&quot;&gt;&lt;button class=&quot;qw-primary&quot; type=&quot;button&quot;&gt;联系紧急专员&lt;/button&gt;&lt;/div&gt;&lt;/div&gt;`
+        },
+        {
+          label: &#x27;P7 · 人工接管&#x27;, purpose: &#x27;完成可追踪、上下文不丢失的人工移交。&#x27;, primary: &#x27;查看工单进度&#x27;, userFirst: &#x27;已移交什么、为什么移交、多久响应。&#x27;, expectation: &#x27;人工接入不等于问题已解决；给出 SLA 与下一动作。&#x27;, interviewer: &#x27;Agent 边界、失败兜底和上下文交接协议。&#x27;,
+          html: `&lt;div class=&quot;qw-page-inner&quot;&gt;&lt;header class=&quot;qw-page-header&quot;&gt;&lt;h3 class=&quot;qw-title&quot;&gt;已为你转交人工专员&lt;/h3&gt;&lt;p class=&quot;qw-lead&quot;&gt;专员会接着当前进度处理，你不需要再次说明情况。&lt;/p&gt;&lt;/header&gt;&lt;section class=&quot;qw-box qw-result&quot;&gt;&lt;span class=&quot;qw-label&quot;&gt;L1 · 移交回执&lt;/span&gt;&lt;strong&gt;工单 QNR-260904-0186&lt;/strong&gt;&lt;span&gt;预计 10 分钟内首次响应&lt;/span&gt;&lt;span class=&quot;qw-caption&quot;&gt;移交原因：供应商协商超时，需要人工判断例外处理。&lt;/span&gt;&lt;/section&gt;&lt;section class=&quot;qw-box&quot;&gt;&lt;span class=&quot;qw-label&quot;&gt;L2 · 已携带上下文&lt;/span&gt;&lt;div class=&quot;qw-keyvals&quot;&gt;&lt;div class=&quot;qw-keyval&quot;&gt;&lt;span&gt;订单&lt;/span&gt;&lt;strong&gt;上海静安示例酒店&lt;/strong&gt;&lt;/div&gt;&lt;div class=&quot;qw-keyval&quot;&gt;&lt;span&gt;用户诉求&lt;/span&gt;&lt;strong&gt;取消并全额退款&lt;/strong&gt;&lt;/div&gt;&lt;div class=&quot;qw-keyval&quot;&gt;&lt;span&gt;已核实&lt;/span&gt;&lt;strong&gt;成交政策、酒店回复&lt;/strong&gt;&lt;/div&gt;&lt;div class=&quot;qw-keyval&quot;&gt;&lt;span&gt;待处理&lt;/span&gt;&lt;strong&gt;例外退款授权&lt;/strong&gt;&lt;/div&gt;&lt;/div&gt;&lt;/section&gt;&lt;section class=&quot;qw-alert&quot;&gt;&lt;span class=&quot;qw-label&quot;&gt;下一步&lt;/span&gt;&lt;p&gt;专员接入后会在当前会话回复；超过预计时间将自动升级，无需重复提交。&lt;/p&gt;&lt;/section&gt;&lt;div class=&quot;qw-actions&quot;&gt;&lt;button class=&quot;qw-primary&quot; type=&quot;button&quot;&gt;查看工单进度&lt;/button&gt;&lt;/div&gt;&lt;/div&gt;`
+        }
+      ];
+
+      function render(index) {
+        const item = screens[index];
+        stageLabel.textContent = item.label;
+        page.innerHTML = item.html;
+        fields.purpose.textContent = item.purpose;
+        fields.primary.textContent = item.primary;
+        fields.userFirst.textContent = item.userFirst;
+        fields.expectation.textContent = item.expectation;
+        fields.interviewer.textContent = item.interviewer;
+        root.querySelectorAll(&#x27;.qw-step&#x27;).forEach((button) =&gt; {
+          button.setAttribute(&#x27;aria-pressed&#x27;, String(Number(button.dataset.page) === index));
+        });
+      }
+
+      root.querySelectorAll(&#x27;.qw-step&#x27;).forEach((button) =&gt; {
+        button.addEventListener(&#x27;click&#x27;, () =&gt; render(Number(button.dataset.page)));
+      });
+      render(0);
+    })();
+  &lt;/script&gt;
+&lt;/section&gt;
+
+&lt;script src=&quot;https://unpkg.com/@floating-ui/core@1.7.3/dist/floating-ui.core.umd.min.js&quot;&gt;&lt;/script&gt;
+&lt;script src=&quot;https://unpkg.com/@floating-ui/dom@1.7.4/dist/floating-ui.dom.umd.min.js&quot;&gt;&lt;/script&gt;
+&lt;script&gt;
+(() =&gt; {
+  if (window.FloatingUIDOM == null) {
+    return;
+  }
+  const { autoUpdate, computePosition, flip, offset, shift, size } =
+    window.FloatingUIDOM;
+  const tooltipPlacements = new Set([&quot;top&quot;, &quot;right&quot;, &quot;bottom&quot;, &quot;left&quot;]);
+  const tooltipId = `codex-visualization-tooltip-${
+    window.crypto?.randomUUID?.() ?? Date.now().toString(36)
+  }`;
+  const tooltipGap = 5;
+  const hoverDelay = 700;
+  const skipDelay = 300;
+  let activeTrigger = null;
+  let pendingTrigger = null;
+  let tooltip = null;
+  let openTimeout = null;
+  let autoUpdateCleanup = null;
+  let positionRequest = 0;
+  let skipDelayUntil = 0;
+  let lastPointerWasTouch = false;
+  let pinnedByTouch = false;
+
+  const getTrigger = (target) =&gt;
+    target?.nodeType === Node.ELEMENT_NODE
+      ? target.closest(&quot;[data-tooltip]&quot;)
+      : null;
+  const containsTarget = (trigger, target) =&gt;
+    target?.nodeType != null &amp;&amp; trigger.contains(target);
+  const getContent = (trigger) =&gt;
+    trigger.getAttribute(&quot;data-tooltip&quot;)?.trim() ?? &quot;&quot;;
+  const getPlacement = (trigger) =&gt; {
+    const placement = trigger.getAttribute(&quot;data-tooltip-placement&quot;);
+    return tooltipPlacements.has(placement) ? placement : &quot;top&quot;;
+  };
+  const getTooltip = () =&gt; {
+    if (tooltip == null) {
+      tooltip = document.createElement(&quot;div&quot;);
+      tooltip.id = tooltipId;
+      tooltip.className = &quot;tooltip&quot;;
+      tooltip.setAttribute(&quot;role&quot;, &quot;tooltip&quot;);
+    }
+    return tooltip;
+  };
+  const setDescribedBy = (trigger, described) =&gt; {
+    const ids = new Set(
+      (trigger.getAttribute(&quot;aria-describedby&quot;) ?? &quot;&quot;)
+        .split(/\s+/)
+        .filter(Boolean),
+    );
+    if (described) {
+      ids.add(tooltipId);
+    } else {
+      ids.delete(tooltipId);
+    }
+    if (ids.size === 0) {
+      trigger.removeAttribute(&quot;aria-describedby&quot;);
+    } else {
+      trigger.setAttribute(&quot;aria-describedby&quot;, [...ids].join(&quot; &quot;));
+    }
+  };
+  const clearOpenTimeout = () =&gt; {
+    if (openTimeout != null) {
+      window.clearTimeout(openTimeout);
+      openTimeout = null;
+    }
+    pendingTrigger = null;
+  };
+  const closeTooltip = (activateSkipDelay = true) =&gt; {
+    clearOpenTimeout();
+    pinnedByTouch = false;
+    positionRequest += 1;
+    autoUpdateCleanup?.();
+    autoUpdateCleanup = null;
+    if (activeTrigger == null) {
+      return;
+    }
+    setDescribedBy(activeTrigger, false);
+    activeTrigger = null;
+    tooltip?.remove();
+    if (activateSkipDelay) {
+      skipDelayUntil = Date.now() + skipDelay;
+    }
+  };
+  const updatePosition = (trigger, floating) =&gt; {
+    const request = ++positionRequest;
+    void computePosition(trigger, floating, {
+      middleware: [
+        offset(tooltipGap),
+        flip({ padding: tooltipGap }),
+        shift({ padding: tooltipGap }),
+        size({
+          padding: tooltipGap,
+          apply({ availableHeight, availableWidth, elements }) {
+            elements.floating.style.setProperty(
+              &quot;--tooltip-available-width&quot;,
+              `${Math.max(0, availableWidth)}px`,
+            );
+            elements.floating.style.setProperty(
+              &quot;--tooltip-available-height&quot;,
+              `${Math.max(0, availableHeight)}px`,
+            );
+          },
+        }),
+      ],
+      placement: getPlacement(trigger),
+      strategy: &quot;fixed&quot;,
+    })
+      .then(({ x, y }) =&gt; {
+        if (activeTrigger !== trigger || request !== positionRequest) {
+          return;
+        }
+        const scale = window.devicePixelRatio || 1;
+        floating.style.transform = `translate(${Math.round(x * scale) / scale}px, ${Math.round(y * scale) / scale}px)`;
+        floating.style.visibility = &quot;visible&quot;;
+      })
+      .catch(() =&gt; {
+        if (activeTrigger === trigger &amp;&amp; request === positionRequest) {
+          closeTooltip(false);
+        }
+      });
+  };
+  const openTooltip = (trigger) =&gt; {
+    const content = getContent(trigger);
+    if (!trigger.isConnected || content.length === 0) {
+      return;
+    }
+    clearOpenTimeout();
+    if (activeTrigger === trigger) {
+      return;
+    }
+    closeTooltip();
+    const floating = getTooltip();
+    floating.textContent = content;
+    floating.style.visibility = &quot;hidden&quot;;
+    floating.style.transform = &quot;translate(0, 0)&quot;;
+    document.body.appendChild(floating);
+    activeTrigger = trigger;
+    setDescribedBy(trigger, true);
+    autoUpdateCleanup = autoUpdate(trigger, floating, () =&gt; {
+      updatePosition(trigger, floating);
+    });
+  };
+  const requestOpen = (trigger, immediate = false) =&gt; {
+    if (
+      getContent(trigger).length === 0 ||
+      activeTrigger === trigger ||
+      pendingTrigger === trigger
+    ) {
+      return;
+    }
+    clearOpenTimeout();
+    pendingTrigger = trigger;
+    const delay =
+      immediate || activeTrigger != null || Date.now() &lt; skipDelayUntil
+        ? 0
+        : hoverDelay;
+    if (delay === 0) {
+      openTooltip(trigger);
+      return;
+    }
+    openTimeout = window.setTimeout(() =&gt; {
+      openTimeout = null;
+      pendingTrigger = null;
+      openTooltip(trigger);
+    }, delay);
+  };
+  const handlePointerOpen = (event) =&gt; {
+    if (event.pointerType === &quot;touch&quot;) {
+      return;
+    }
+    const trigger = getTrigger(event.target);
+    if (trigger == null || containsTarget(trigger, event.relatedTarget)) {
+      return;
+    }
+    requestOpen(trigger);
+  };
+  const handlePointer = (event) =&gt; {
+    lastPointerWasTouch =
+      event.type === &quot;pointerdown&quot; &amp;&amp; event.pointerType === &quot;touch&quot;;
+  };
+  const handleTouchClick = (event) =&gt; {
+    const isTouch = event.pointerType === &quot;touch&quot; || lastPointerWasTouch;
+    lastPointerWasTouch = false;
+    if (!isTouch || event.detail === 0) {
+      return;
+    }
+    const trigger = getTrigger(event.target);
+    if (
+      trigger == null ||
+      !trigger.isConnected ||
+      getContent(trigger).length === 0 ||
+      (pinnedByTouch &amp;&amp; activeTrigger === trigger)
+    ) {
+      if (pinnedByTouch) {
+        closeTooltip();
+      }
+      return;
+    }
+    openTooltip(trigger);
+    pinnedByTouch = activeTrigger === trigger;
+    window.setTimeout(() =&gt; {
+      if (activeTrigger === trigger &amp;&amp; !trigger.isConnected) {
+        closeTooltip(false);
+      }
+    }, 0);
+  };
+  const handleLeave = (event) =&gt; {
+    if (pinnedByTouch) {
+      return;
+    }
+    const trigger = getTrigger(event.target);
+    if (trigger == null || containsTarget(trigger, event.relatedTarget)) {
+      return;
+    }
+    if (activeTrigger === trigger || pendingTrigger === trigger) {
+      closeTooltip();
+    }
+  };
+  const handleFocusIn = (event) =&gt; {
+    const trigger = getTrigger(event.target);
+    if (trigger?.matches(&quot;:focus-visible&quot;)) {
+      requestOpen(trigger, true);
+    }
+  };
+  const handleKeyDown = (event) =&gt; {
+    if (event.key === &quot;Escape&quot;) {
+      closeTooltip();
+    }
+  };
+  const handleContextMenu = (event) =&gt; {
+    lastPointerWasTouch = false;
+    const trigger = getTrigger(event.target);
+    if (activeTrigger === trigger || pendingTrigger === trigger) {
+      closeTooltip();
+    }
+  };
+  const destroy = () =&gt; {
+    closeTooltip(false);
+    lastPointerWasTouch = false;
+    document.removeEventListener(&quot;pointerover&quot;, handlePointerOpen);
+    document.removeEventListener(&quot;pointerdown&quot;, handlePointer);
+    document.removeEventListener(&quot;pointercancel&quot;, handlePointer);
+    document.removeEventListener(&quot;click&quot;, handleTouchClick);
+    document.removeEventListener(&quot;pointerout&quot;, handleLeave);
+    document.removeEventListener(&quot;focusin&quot;, handleFocusIn);
+    document.removeEventListener(&quot;focusout&quot;, handleLeave);
+    document.removeEventListener(&quot;keydown&quot;, handleKeyDown);
+    document.removeEventListener(&quot;contextmenu&quot;, handleContextMenu);
+    tooltip = null;
+  };
+
+  document.addEventListener(&quot;pointerover&quot;, handlePointerOpen);
+  document.addEventListener(&quot;pointerdown&quot;, handlePointer);
+  document.addEventListener(&quot;pointercancel&quot;, handlePointer);
+  document.addEventListener(&quot;click&quot;, handleTouchClick);
+  document.addEventListener(&quot;pointerout&quot;, handleLeave);
+  document.addEventListener(&quot;focusin&quot;, handleFocusIn);
+  document.addEventListener(&quot;focusout&quot;, handleLeave);
+  document.addEventListener(&quot;keydown&quot;, handleKeyDown);
+  document.addEventListener(&quot;contextmenu&quot;, handleContextMenu);
+  window.addEventListener(&quot;pagehide&quot;, destroy, { once: true });
+})();
+&lt;/script&gt;
+&lt;script id=&quot;codex-visualization-lucide&quot; async src=&quot;https://unpkg.com/lucide@1.17.0/dist/umd/lucide.js&quot;&gt;&lt;/script&gt;
+&lt;script&gt;
+(() =&gt; {
+  const initialize = () =&gt; {
+    globalThis.lucide?.createIcons({ attrs: { width: 16, height: 16 } });
+  };
+  if (globalThis.lucide != null) {
+    initialize();
+    return;
+  }
+  document
+    .getElementById(&quot;codex-visualization-lucide&quot;)
+    ?.addEventListener(&quot;load&quot;, initialize, { once: true });
+})();
+&lt;/script&gt;
+
+&lt;/body&gt;
+&lt;/html&gt;
+"></iframe>
+</body>
+</html>

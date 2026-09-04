@@ -1,0 +1,670 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>酒店退款 Agent · 前端视觉提案</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --bg: oklch(0.985 0.004 250);
+      --surface: oklch(0.998 0.002 250);
+      --soft: oklch(0.968 0.006 250);
+      --ink: oklch(0.225 0.018 250);
+      --muted: oklch(0.505 0.018 250);
+      --line: oklch(0.905 0.009 250);
+      --primary: oklch(0.525 0.165 252);
+      --primary-hover: oklch(0.47 0.16 252);
+      --primary-fg: oklch(0.985 0.004 250);
+      --success: oklch(0.50 0.12 155);
+      --success-bg: oklch(0.96 0.035 155);
+      --warning: oklch(0.54 0.12 72);
+      --warning-bg: oklch(0.965 0.045 82);
+      --danger: oklch(0.52 0.17 28);
+      --danger-bg: oklch(0.965 0.035 28);
+      --info-bg: oklch(0.955 0.025 250);
+      --shadow: 0 12px 32px oklch(0.22 0.02 250 / 0.08);
+      --radius: 8px;
+      --radius-lg: 12px;
+      font-family: Inter, "PingFang SC", "Microsoft YaHei", system-ui, sans-serif;
+      font-synthesis: none;
+    }
+
+    * { box-sizing: border-box; }
+    body { margin: 0; background: var(--bg); color: var(--ink); min-width: 320px; }
+    button { font: inherit; }
+    button:focus-visible, summary:focus-visible { outline: 2px solid var(--primary); outline-offset: 2px; }
+    [hidden] { display: none !important; }
+
+    .app-header {
+      position: sticky; top: 0; z-index: 20; height: 58px; display: grid;
+      grid-template-columns: minmax(220px, 1fr) auto minmax(220px, 1fr); align-items: center;
+      padding: 0 28px; background: oklch(0.998 0.002 250 / 0.96); border-bottom: 1px solid var(--line);
+    }
+    .brand { display: flex; align-items: center; gap: 10px; min-width: 0; }
+    .brand-mark { width: 24px; height: 24px; display: grid; place-items: center; border-radius: 7px; background: var(--ink); color: var(--primary-fg); font-size: 12px; font-weight: 700; }
+    .brand-copy { display: flex; align-items: baseline; gap: 8px; white-space: nowrap; overflow: hidden; }
+    .brand-copy strong { font-size: 14px; }
+    .top-nav { display: flex; gap: 4px; padding: 3px; border-radius: 10px; background: var(--soft); }
+    .top-nav button { border: 0; border-radius: 7px; padding: 7px 13px; background: transparent; color: var(--muted); font-size: 13px; cursor: pointer; transition: 150ms ease-out; }
+    .top-nav button:hover { color: var(--ink); }
+    .top-nav button[aria-selected="true"] { background: var(--surface); color: var(--ink); box-shadow: 0 1px 2px oklch(0.22 0.02 250 / 0.08); }
+    .header-end { justify-self: end; display: flex; align-items: center; gap: 8px; }
+    .mock-badge, .tag { display: inline-flex; align-items: center; min-height: 22px; border: 1px solid var(--line); border-radius: 999px; padding: 2px 8px; color: var(--muted); background: var(--surface); font-size: 11px; font-weight: 600; }
+
+    main { max-width: 1440px; margin: 0 auto; padding: 42px 32px 72px; }
+    h2, h3, p { margin-top: 0; }
+    h2 { font-size: 18px; line-height: 1.45; }
+    h3 { font-size: 14px; line-height: 1.5; }
+
+    .primary, .secondary, .ghost {
+      min-height: 36px; border-radius: var(--radius); padding: 0 14px; font-size: 13px; font-weight: 600;
+      cursor: pointer; transition: background 150ms ease-out, border-color 150ms ease-out, opacity 150ms ease-out;
+    }
+    .primary { border: 1px solid var(--primary); background: var(--primary); color: var(--primary-fg); box-shadow: 0 1px 2px oklch(0.22 0.02 250 / .12); }
+    .primary:hover { background: var(--primary-hover); border-color: var(--primary-hover); }
+    .secondary { border: 1px solid var(--line); background: var(--surface); color: var(--ink); }
+    .secondary:hover, .ghost:hover { background: var(--soft); }
+    .ghost { border: 1px solid transparent; background: transparent; color: var(--muted); }
+    .primary:disabled, .secondary:disabled { cursor: default; opacity: .55; }
+
+    .workflow-shell { border: 1px solid var(--line); border-radius: var(--radius-lg); overflow: hidden; background: var(--surface); box-shadow: var(--shadow); }
+    .workflow-legend { display: flex; align-items: center; justify-content: space-between; gap: 18px; min-height: 48px; padding: 9px 14px; border-bottom: 1px solid var(--line); background: var(--soft); }
+    .workflow-legend strong { font-size: 12px; }
+    .legend-items { display: flex; flex-wrap: wrap; gap: 12px; color: var(--muted); font-size: 10px; }
+    .legend-item { display: inline-flex; align-items: center; gap: 5px; }
+    .legend-dot { width: 7px; height: 7px; border-radius: 2px; background: var(--primary); }
+    .legend-dot[data-kind="tool"] { background: var(--success); }
+    .legend-dot[data-kind="guard"] { background: var(--danger); }
+    .legend-dot[data-kind="memory"] { background: var(--warning); }
+    .flow-phases { display: grid; grid-template-columns: repeat(5, 1fr); border-bottom: 1px solid var(--line); }
+    .flow-phase { padding: 8px 14px; border-right: 1px solid var(--line); color: var(--muted); font-size: 10px; font-weight: 700; letter-spacing: .04em; }
+    .flow-phase:last-child { border-right: 0; }
+    .flow-main { display: grid; grid-template-columns: repeat(5, minmax(150px, 1fr)); gap: 28px; padding: 26px 24px 22px; overflow-x: auto; }
+    .flow-node { position: relative; min-width: 150px; min-height: 126px; border: 1px solid var(--line); border-radius: var(--radius); padding: 14px; background: var(--surface); color: var(--ink); text-align: left; cursor: pointer; transition: border-color 150ms ease-out, background 150ms ease-out, box-shadow 150ms ease-out; }
+    .flow-node:not(:last-child)::after { content: '→'; position: absolute; top: 50%; right: -22px; transform: translateY(-50%); color: oklch(0.67 0.02 250); font-size: 17px; pointer-events: none; }
+    .flow-node:hover { border-color: oklch(0.78 0.04 252); }
+    .flow-node:focus-visible { outline: 2px solid var(--primary); outline-offset: 2px; }
+    .flow-node[data-active="true"] { border-color: var(--primary); background: var(--info-bg); box-shadow: 0 0 0 1px var(--primary); }
+    .node-index { display: flex; align-items: center; justify-content: space-between; margin-bottom: 18px; color: var(--muted); font-size: 10px; font-weight: 700; }
+    .node-kind { display: inline-flex; min-height: 21px; align-items: center; border-radius: 999px; padding: 1px 7px; color: var(--primary); background: var(--info-bg); font-size: 9px; }
+    .flow-node h3 { margin: 0 0 6px; font-size: 14px; }
+    .flow-node p { margin: 0; color: var(--muted); font-size: 11px; line-height: 1.55; }
+    .route-section { position: relative; padding: 42px 24px 22px; border-top: 1px solid var(--line); background: oklch(0.985 0.004 250); }
+    .route-section::before { content: ''; position: absolute; top: 0; left: 50%; width: 1px; height: 25px; background: oklch(0.75 0.03 252); }
+    .route-section::after { content: '规则命中后进入一条路径'; position: absolute; top: 13px; left: 50%; transform: translateX(-50%); padding: 0 8px; background: oklch(0.985 0.004 250); color: var(--muted); font-size: 10px; white-space: nowrap; }
+    .route-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+    .route-card { display: grid; grid-template-rows: auto auto 1fr; min-height: 152px; border: 1px solid var(--line); border-radius: var(--radius); padding: 14px 15px; background: var(--surface); }
+    .route-head { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-bottom: 7px; }
+    .route-head strong { font-size: 13px; }
+    .route-badge { border-radius: 999px; padding: 2px 7px; background: var(--success-bg); color: var(--success); font-size: 9px; font-weight: 700; }
+    .route-badge[data-mode="write"] { background: var(--warning-bg); color: var(--warning); }
+    .route-copy { margin: 0 0 12px; color: var(--muted); font-size: 11px; line-height: 1.55; }
+    .route-steps { display: flex; align-items: center; flex-wrap: wrap; gap: 6px; align-self: end; color: var(--muted); font-size: 10px; }
+    .route-step { border: 1px solid var(--line); border-radius: 5px; padding: 4px 6px; background: var(--soft); }
+    .route-arrow { color: oklch(0.67 0.02 250); }
+    .closure-rail { display: grid; grid-template-columns: 1fr auto 1fr; gap: 14px; align-items: center; padding: 13px 18px; border-top: 1px solid var(--line); background: var(--surface); }
+    .closure-item { display: flex; align-items: center; gap: 9px; min-width: 0; }
+    .closure-item:last-child { justify-self: end; text-align: right; }
+    .closure-item strong { display: block; font-size: 11px; }
+    .closure-item span { display: block; color: var(--muted); font-size: 10px; }
+    .closure-icon { width: 28px; height: 28px; display: grid; flex: 0 0 auto; place-items: center; border-radius: 7px; background: var(--info-bg); color: var(--primary); font-size: 11px; font-weight: 700; }
+    .closure-arrow { color: oklch(0.67 0.02 250); }
+    .node-detail { display: grid; grid-template-columns: 1.2fr .8fr; gap: 24px; padding: 17px 20px; border-top: 1px solid var(--line); background: var(--surface); }
+    .node-detail strong { font-size: 13px; }
+    .node-detail p { margin: 5px 0 0; color: var(--muted); font-size: 12px; line-height: 1.6; }
+    .permission-list { display: flex; gap: 7px; flex-wrap: wrap; align-content: start; }
+    .permission-list .tag { border-color: oklch(0.79 0.05 252); color: oklch(0.42 0.11 252); background: var(--info-bg); }
+    .dflow-shell { border: 1px solid var(--line); border-radius: var(--radius-lg); overflow: hidden; background: var(--surface); box-shadow: var(--shadow); }
+    .dflow-toolbar { position: sticky; left: 0; z-index: 3; display: flex; align-items: center; justify-content: space-between; gap: 16px; min-height: 50px; padding: 10px 14px; border-bottom: 1px solid var(--line); background: var(--soft); }
+    .dflow-toolbar strong { font-size: 12px; }
+    .dflow-toolbar p { margin: 2px 0 0; color: var(--muted); font-size: 10px; }
+    .dflow-legend { display: flex; flex-wrap: wrap; gap: 11px; color: var(--muted); font-size: 10px; }
+    .dflow-key { display: inline-flex; align-items: center; gap: 5px; }
+    .dflow-key::before { content: ''; width: 7px; height: 7px; border-radius: 2px; background: var(--primary); }
+    .dflow-key[data-tone="tool"]::before { background: var(--success); }
+    .dflow-key[data-tone="guard"]::before { background: var(--danger); }
+    .dflow-key[data-tone="memory"]::before { background: var(--warning); }
+    .dflow-viewport { overflow: auto; background: var(--surface); }
+    .dflow-canvas { position: relative; width: 1180px; height: 2460px; margin: 0 auto; zoom: .82; }
+    .dflow-lines { position: absolute; inset: 0; z-index: 0; width: 1180px; height: 2460px; overflow: visible; }
+    .dflow-lines path { fill: none; stroke: oklch(0.68 0.025 250); stroke-width: 1.5; marker-end: url(#flow-arrow); }
+    .dflow-lines path[data-tone="main"] { stroke: var(--primary); stroke-width: 2; }
+    .dflow-lines path[data-tone="guard"] { stroke: var(--danger); }
+    .dflow-lines path[data-tone="loop"] { stroke-dasharray: 6 5; }
+    .dflow-lines text { fill: var(--muted); font-size: 11px; font-family: inherit; paint-order: stroke; stroke: var(--surface); stroke-width: 6px; stroke-linejoin: round; }
+    .dnode { position: absolute; z-index: 1; width: 300px; min-height: 92px; border: 1px solid var(--line); border-radius: 10px; padding: 12px 14px; background: var(--surface); color: var(--ink); text-align: left; box-shadow: 0 3px 12px oklch(0.22 0.02 250 / .05); }
+    .dnode[data-tone="tool"] { border-color: oklch(0.82 0.05 155); background: oklch(0.985 0.014 155); }
+    .dnode[data-tone="guard"] { border-color: oklch(0.84 0.055 28); background: var(--danger-bg); }
+    .dnode[data-tone="memory"] { border-color: oklch(0.84 0.055 72); background: var(--warning-bg); }
+    .dnode[data-tone="agent"] { border-color: oklch(0.80 0.055 252); background: var(--info-bg); }
+    .dnode-kicker { display: flex; justify-content: space-between; gap: 8px; margin-bottom: 6px; color: var(--muted); font-size: 10px; font-weight: 700; }
+    .dnode-kicker b { color: var(--primary); font-weight: 700; }
+    .dnode h3 { margin: 0 0 4px; font-size: 14px; }
+    .dnode p { margin: 0; color: var(--muted); font-size: 11px; line-height: 1.45; }
+    .dnode code { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 10px; }
+    .dnode.decision { width: 180px; height: 180px; min-height: 0; display: grid; place-items: center; border-radius: 12px; padding: 0; transform: rotate(45deg); }
+    .dnode.decision .dnode-content { width: 136px; transform: rotate(-45deg); text-align: center; }
+    .dnode.decision .dnode-kicker { display: block; margin-bottom: 5px; }
+    .dnode.decision h3 { font-size: 13px; }
+    .dnode.decision p { font-size: 10px; line-height: 1.35; }
+    .dflow-phase { position: absolute; z-index: 0; left: 20px; right: 20px; height: 1px; border-top: 1px dashed oklch(0.84 0.02 250); }
+    .dflow-phase span { position: absolute; top: -11px; left: 0; padding-right: 8px; background: var(--surface); color: var(--muted); font-size: 10px; font-weight: 700; }
+    .dflow-summary { display: grid; grid-template-columns: repeat(4, 1fr); border-top: 1px solid var(--line); background: var(--surface); }
+    .dflow-summary div { padding: 13px 15px; border-right: 1px solid var(--line); }
+    .dflow-summary div:last-child { border-right: 0; }
+    .dflow-summary span { display: block; color: var(--muted); font-size: 9px; font-weight: 700; }
+    .dflow-summary strong { display: block; margin-top: 4px; font-size: 11px; }
+    .page-action { display: flex; justify-content: flex-end; margin-top: 26px; }
+
+    .sim-layout { display: grid; grid-template-columns: 240px minmax(500px, 1fr) 350px; min-height: 660px; border: 1px solid var(--line); border-radius: var(--radius-lg); overflow: hidden; background: var(--surface); box-shadow: var(--shadow); }
+    .scenario-rail { padding: 12px; border-right: 1px solid var(--line); background: var(--soft); overflow: auto; }
+    .scenario-group + .scenario-group { margin-top: 14px; }
+    .scenario-group h2 { margin: 0 8px 5px; color: var(--muted); font-size: 11px; font-weight: 700; }
+    .scenario-button { width: 100%; min-height: 40px; display: grid; grid-template-columns: 22px 1fr auto; gap: 7px; align-items: center; border: 0; border-radius: 7px; padding: 6px 8px; background: transparent; color: var(--ink); text-align: left; cursor: pointer; }
+    .scenario-button:hover { background: oklch(0.998 0.002 250 / .7); }
+    .scenario-button[aria-selected="true"] { background: var(--surface); box-shadow: 0 1px 2px oklch(0.22 0.02 250 / .08); }
+    .scenario-id { color: var(--muted); font-size: 11px; font-weight: 700; }
+    .scenario-name { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 12px; font-weight: 600; }
+    .risk { color: var(--muted); font-size: 10px; font-variant-numeric: tabular-nums; }
+
+    .customer { min-width: 0; display: flex; flex-direction: column; }
+    .panel-bar { height: 48px; display: flex; align-items: center; justify-content: space-between; padding: 0 20px; border-bottom: 1px solid var(--line); }
+    .panel-bar strong { font-size: 12px; }
+    .customer-body { flex: 1; display: flex; flex-direction: column; padding: 26px clamp(22px, 4vw, 52px); }
+    .user-query { align-self: flex-end; max-width: 78%; margin-bottom: 28px; padding: 10px 12px; border-radius: 10px 10px 3px 10px; background: var(--soft); font-size: 13px; line-height: 1.55; }
+    .answer-kicker { display: flex; gap: 8px; align-items: center; color: var(--muted); font-size: 11px; font-weight: 600; }
+    .status-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--primary); }
+    .answer h2 { margin: 12px 0 6px; font-size: 21px; letter-spacing: -.015em; }
+    .money-line { display: flex; flex-wrap: wrap; gap: 18px; margin: 18px 0 22px; }
+    .money-item { min-width: 120px; }
+    .money-item span { display: block; margin-bottom: 4px; color: var(--muted); font-size: 11px; }
+    .money-item strong { font-size: 18px; font-variant-numeric: tabular-nums; }
+    .solution-card { border: 1px solid var(--line); border-radius: var(--radius-lg); overflow: hidden; background: var(--surface); }
+    .solution-card[data-complete="true"] { border-color: oklch(0.80 0.05 155); }
+    .solution-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 14px; padding: 15px 16px 13px; border-bottom: 1px solid var(--line); }
+    .solution-label { display: inline-flex; align-items: center; gap: 6px; color: var(--primary); font-size: 10px; font-weight: 700; }
+    .solution-label::before { content: '✓'; width: 17px; height: 17px; display: grid; place-items: center; border-radius: 50%; background: var(--info-bg); }
+    .solution-card[data-complete="true"] .solution-label { color: var(--success); }
+    .solution-card[data-complete="true"] .solution-label::before { background: var(--success-bg); }
+    .solution-head h3 { margin: 7px 0 4px; font-size: 17px; }
+    .solution-head p { max-width: 58ch; margin: 0; color: var(--muted); font-size: 12px; line-height: 1.6; }
+    .solution-status { flex: 0 0 auto; border-radius: 999px; padding: 3px 8px; background: var(--info-bg); color: var(--primary); font-size: 10px; font-weight: 700; }
+    .solution-card[data-complete="true"] .solution-status { background: var(--success-bg); color: var(--success); }
+    .solution-facts { display: grid; grid-template-columns: repeat(3, 1fr); background: var(--line); gap: 1px; }
+    .solution-fact { min-width: 0; padding: 12px 15px; background: var(--surface); }
+    .solution-fact span { display: block; color: var(--muted); font-size: 10px; }
+    .solution-fact strong { display: block; margin-top: 4px; font-size: 12px; line-height: 1.5; }
+    .solution-note { display: flex; gap: 8px; padding: 11px 15px; border-top: 1px solid var(--line); color: var(--muted); font-size: 11px; line-height: 1.6; }
+    .solution-note::before { content: 'i'; width: 17px; height: 17px; display: grid; flex: 0 0 auto; place-items: center; margin-top: 1px; border: 1px solid var(--line); border-radius: 50%; color: var(--muted); font-size: 9px; font-weight: 700; }
+    .task-action { margin-top: auto; display: flex; justify-content: flex-end; gap: 8px; padding-top: 28px; }
+
+    .trace { border-left: 1px solid var(--line); background: oklch(0.985 0.004 250); }
+    .trace-body { padding: 10px 14px 20px; }
+    .trace-step { display: grid; grid-template-columns: 24px 1fr; gap: 9px; padding: 11px 8px; border-bottom: 1px solid var(--line); }
+    .trace-step:last-child { border-bottom: 0; }
+    .trace-index { width: 21px; height: 21px; display: grid; place-items: center; border-radius: 50%; background: var(--surface); border: 1px solid var(--line); color: var(--muted); font-size: 10px; font-weight: 700; }
+    .trace-step[data-current="true"] .trace-index { border-color: var(--primary); color: var(--primary); }
+    .trace-step strong { display: block; font-size: 12px; }
+    .trace-step p { margin: 3px 0 0; color: var(--muted); font-size: 11px; line-height: 1.55; }
+    .actor { display: inline-flex; margin-top: 6px; color: var(--primary); font-size: 10px; font-weight: 700; }
+
+    .dashboard-toolbar { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 10px; margin: 0 0 20px; padding: 10px 12px; border: 1px solid var(--line); border-radius: var(--radius); background: var(--surface); }
+    .filter-group { display: flex; flex-wrap: wrap; gap: 8px; }
+    .filter-field { display: grid; gap: 4px; color: var(--muted); font-size: 10px; font-weight: 700; }
+    .filter-select { height: 32px; border: 1px solid var(--line); border-radius: 7px; padding: 0 28px 0 10px; background: var(--surface); color: var(--ink); font-size: 12px; }
+    .data-note { display: flex; align-items: center; gap: 7px; color: var(--muted); font-size: 11px; }
+    .data-note::before { content: ''; width: 7px; height: 7px; border-radius: 50%; background: var(--warning); }
+    .overview-grid { display: grid; grid-template-columns: minmax(340px, .85fr) minmax(420px, 1.15fr); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); background: var(--surface); }
+    .metric-definition { padding: 25px 28px; border-right: 1px solid var(--line); }
+    .metric-label { color: var(--muted); font-size: 11px; font-weight: 700; }
+    .metric-value { margin: 7px 0; font-size: 34px; line-height: 1.1; font-variant-numeric: tabular-nums; letter-spacing: -.035em; }
+    .metric-definition p { margin: 0; color: var(--muted); font-size: 12px; line-height: 1.65; }
+    .metric-fraction { display: flex; gap: 16px; margin-top: 15px; color: var(--muted); font-size: 11px; font-variant-numeric: tabular-nums; }
+    .health-summary { padding: 24px 28px; }
+    .health-summary h2 { margin-bottom: 8px; }
+    .health-summary > p { max-width: 68ch; margin-bottom: 18px; color: var(--muted); font-size: 12px; line-height: 1.7; }
+    .health-signals { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; border: 1px solid var(--line); background: var(--line); }
+    .health-signal { padding: 12px; background: var(--surface); }
+    .health-signal span { display: block; color: var(--muted); font-size: 10px; }
+    .health-signal strong { display: block; margin-top: 4px; font-size: 13px; }
+    .health-signal[data-tone="good"] strong { color: var(--success); }
+    .health-signal[data-tone="risk"] strong { color: var(--danger); }
+
+    .dashboard-section { margin-top: 30px; }
+    .section-head { display: flex; align-items: end; justify-content: space-between; gap: 20px; margin-bottom: 12px; }
+    .section-head h2 { margin: 0 0 3px; }
+    .section-head p { margin: 0; color: var(--muted); font-size: 11px; line-height: 1.5; }
+    .section-meta { color: var(--muted); font-size: 11px; font-variant-numeric: tabular-nums; }
+    .funnel { border: 1px solid var(--line); background: var(--surface); }
+    .funnel-row { display: grid; grid-template-columns: 190px minmax(220px, 1fr) 90px 78px 250px; gap: 14px; align-items: center; min-height: 52px; padding: 8px 14px; border-top: 1px solid var(--line); font-size: 11px; }
+    .funnel-row:first-child { border-top: 0; }
+    .funnel-name { font-weight: 600; }
+    .funnel-track { height: 8px; border-radius: 999px; background: var(--soft); overflow: hidden; }
+    .funnel-fill { display: block; height: 100%; border-radius: inherit; background: var(--primary); }
+    .funnel-count, .funnel-rate, .funnel-loss { font-variant-numeric: tabular-nums; }
+    .funnel-count, .funnel-rate { text-align: right; }
+    .funnel-loss { color: var(--muted); }
+    .funnel-loss strong { color: var(--danger); font-weight: 600; }
+
+    .metric-tabs { display: flex; flex-wrap: wrap; gap: 5px; }
+    .metric-tabs button { min-height: 28px; border: 1px solid var(--line); border-radius: 7px; padding: 0 9px; background: var(--surface); color: var(--muted); font-size: 11px; cursor: pointer; }
+    .metric-tabs button[aria-pressed="true"] { border-color: oklch(0.76 0.06 252); background: var(--info-bg); color: var(--primary); }
+    .dashboard-table { width: 100%; border-collapse: collapse; background: var(--surface); border: 1px solid var(--line); font-size: 12px; }
+    .dashboard-table th { padding: 10px 12px; background: var(--soft); color: var(--muted); text-align: left; font-size: 11px; }
+    .dashboard-table td { height: 44px; padding: 8px 12px; border-top: 1px solid var(--line); }
+    .dashboard-table .num { text-align: right; font-variant-numeric: tabular-nums; }
+    .metric-group-cell { color: var(--muted); font-size: 11px; }
+    .trend-up { color: var(--success); }
+    .trend-down { color: var(--danger); }
+    .metric-status { display: inline-flex; align-items: center; gap: 5px; min-height: 22px; border-radius: 999px; padding: 1px 7px; font-size: 10px; font-weight: 700; }
+    .metric-status::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: currentColor; }
+    .metric-status[data-status="正常"] { color: var(--success); background: var(--success-bg); }
+    .metric-status[data-status="关注"] { color: var(--warning); background: var(--warning-bg); }
+    .metric-status[data-status="风险"] { color: var(--danger); background: var(--danger-bg); }
+
+    .badcase-summary { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1px; border: 1px solid var(--line); background: var(--line); }
+    .badcase-stat { padding: 15px 18px; background: var(--surface); }
+    .badcase-stat span { display: block; color: var(--muted); font-size: 10px; }
+    .badcase-stat strong { display: block; margin-top: 4px; font-size: 17px; font-variant-numeric: tabular-nums; }
+    .lifecycle { display: grid; grid-template-columns: repeat(6, 1fr); margin: 12px 0; border: 1px solid var(--line); background: var(--surface); }
+    .lifecycle-step { position: relative; padding: 11px 12px; border-right: 1px solid var(--line); color: var(--muted); font-size: 11px; }
+    .lifecycle-step:last-child { border-right: 0; }
+    .lifecycle-step strong { display: block; margin-top: 2px; color: var(--ink); }
+    .badcase-button { border: 0; padding: 0; background: none; color: var(--primary); font: inherit; font-weight: 600; cursor: pointer; text-align: left; }
+    .dashboard-table tr[data-selected="true"] td { background: var(--info-bg); }
+    .badcase-detail { margin-top: 12px; border: 1px solid var(--line); background: var(--surface); }
+    .badcase-detail-head { display: flex; align-items: start; justify-content: space-between; gap: 16px; padding: 16px 18px; border-bottom: 1px solid var(--line); }
+    .badcase-detail-head h3 { margin: 0 0 3px; }
+    .badcase-detail-head p { margin: 0; color: var(--muted); font-size: 11px; }
+    .badcase-detail-grid { display: grid; grid-template-columns: repeat(3, 1fr); }
+    .badcase-detail-item { min-height: 104px; padding: 15px 18px; border-right: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+    .badcase-detail-item:nth-child(3n) { border-right: 0; }
+    .badcase-detail-item:nth-last-child(-n+3) { border-bottom: 0; }
+    .badcase-detail-item span { color: var(--muted); font-size: 10px; font-weight: 700; }
+    .badcase-detail-item p { margin: 7px 0 0; font-size: 12px; line-height: 1.65; }
+
+    .mobile-scenario { display: none; width: 100%; min-height: 44px; border: 1px solid var(--line); border-radius: var(--radius); padding: 0 12px; background: var(--surface); color: var(--ink); }
+
+    @media (max-width: 1120px) {
+      .app-header { grid-template-columns: 1fr auto; }
+      .top-nav { position: fixed; left: 50%; bottom: 14px; transform: translateX(-50%); z-index: 30; box-shadow: var(--shadow); border: 1px solid var(--line); background: var(--surface); }
+      .header-end { display: none; }
+      .flow-main { grid-template-columns: repeat(5, 180px); }
+      .sim-layout { grid-template-columns: 220px minmax(0, 1fr); }
+      .trace { display: none; }
+    }
+
+    @media (max-width: 760px) {
+      .app-header { height: 54px; padding: 0 16px; }
+      main { padding: 86px 16px 92px; }
+      .workflow-legend { align-items: flex-start; flex-direction: column; gap: 6px; }
+      .dflow-toolbar { align-items: flex-start; flex-direction: column; }
+      .dflow-canvas { margin: 0; }
+      .dflow-summary { grid-template-columns: repeat(2, 1fr); }
+      .dflow-summary div:nth-child(2) { border-right: 0; }
+      .dflow-summary div:nth-child(-n+2) { border-bottom: 1px solid var(--line); }
+      .flow-phases { display: none; }
+      .flow-main { grid-template-columns: repeat(5, 176px); padding: 18px; }
+      .flow-node { min-height: 118px; }
+      .route-section { padding-inline: 18px; }
+      .route-grid { grid-template-columns: 1fr; }
+      .route-card { min-height: 132px; }
+      .closure-rail { grid-template-columns: 1fr; }
+      .closure-item:last-child { justify-self: start; text-align: left; }
+      .closure-arrow { transform: rotate(90deg); justify-self: center; }
+      .node-detail, .overview-grid, .badcase-detail-grid { grid-template-columns: 1fr; }
+      .metric-definition { border-right: 0; border-bottom: 1px solid var(--line); }
+      [data-panel="design"] .page-action .primary { min-height: 44px; }
+      .mobile-scenario { display: block; margin: 0 0 18px; }
+      .sim-layout { display: block; min-height: 0; border-radius: 0; margin: 0 -16px; border-left: 0; border-right: 0; box-shadow: none; }
+      .scenario-rail { display: none; }
+      .panel-bar { padding: 0 16px; }
+      .customer-body { padding: 22px 18px 92px; min-height: 640px; }
+      .user-query { max-width: 90%; }
+      .solution-head { flex-direction: column; }
+      .solution-facts { grid-template-columns: 1fr; }
+      .task-action { position: fixed; left: 0; right: 0; bottom: 0; z-index: 25; padding: 10px 16px max(10px, env(safe-area-inset-bottom)); border-top: 1px solid var(--line); background: var(--surface); }
+      .task-action .primary { width: 100%; min-height: 44px; }
+      .task-action .secondary { display: none; }
+      .top-nav { width: calc(100% - 28px); justify-content: space-between; top: 62px; bottom: auto; }
+      .top-nav button { flex: 1; padding-inline: 8px; }
+      .metric-definition { border-right: 0; border-bottom: 1px solid var(--line); }
+      .health-signals, .badcase-summary { grid-template-columns: 1fr; }
+      .filter-field { flex: 1 1 132px; }
+      .filter-select { width: 100%; height: 44px; }
+      .section-head { align-items: start; flex-direction: column; }
+      .funnel { overflow-x: auto; }
+      .funnel-row { min-width: 860px; }
+      .dashboard-table { display: block; overflow-x: auto; white-space: nowrap; }
+      .lifecycle { grid-template-columns: repeat(3, 1fr); }
+      .lifecycle-step:nth-child(3) { border-right: 0; }
+      .lifecycle-step:nth-child(-n+3) { border-bottom: 1px solid var(--line); }
+      .badcase-detail-item { border-right: 0; border-bottom: 1px solid var(--line) !important; }
+      .badcase-detail-item:last-child { border-bottom: 0 !important; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { scroll-behavior: auto !important; transition: none !important; animation: none !important; }
+    }
+  </style>
+</head>
+<body>
+  <header class="app-header">
+    <div class="brand">
+      <span class="brand-mark" aria-hidden="true">旅</span>
+      <div class="brand-copy"><strong>酒店退款 Agent</strong></div>
+    </div>
+    <nav class="top-nav" role="tablist" aria-label="主要页面">
+      <button type="button" role="tab" aria-selected="true" data-page="design">Agent 设计</button>
+      <button type="button" role="tab" aria-selected="false" data-page="simulation">场景模拟</button>
+      <button type="button" role="tab" aria-selected="false" data-page="dashboard">运营看板</button>
+    </nav>
+    <div class="header-end"><span class="mock-badge">Mock 数据</span></div>
+  </header>
+
+  <main>
+    <section data-panel="design">
+      <section class="dflow-shell" aria-label="Agent 完整工作流程">
+        <div class="dflow-toolbar">
+          <div><strong>完整 Workflow</strong><p>从接收问题到业务闭环，包含权限门、判断、回环和三条执行路径</p></div>
+          <div class="dflow-legend" aria-label="技术角色图例"><span class="dflow-key">LLM / 规则</span><span class="dflow-key" data-tone="tool">Tool</span><span class="dflow-key" data-tone="guard">权限 / 人工</span><span class="dflow-key" data-tone="memory">Memory / Trace</span></div>
+        </div>
+        <div class="dflow-viewport" tabindex="0" aria-label="可横向滚动查看完整流程图">
+          <div class="dflow-canvas">
+            <div class="dflow-phase" style="top:410px"><span>02 · 核实订单与事实</span></div>
+            <div class="dflow-phase" style="top:990px"><span>03 · 决策与路由</span></div>
+            <div class="dflow-phase" style="top:2160px"><span>04 · 结果闭环</span></div>
+            <svg class="dflow-lines" viewBox="0 0 1180 2460" aria-hidden="true">
+              <defs><marker id="flow-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="context-stroke"/></marker></defs>
+              <path data-tone="main" d="M590 122 V150"/><path data-tone="main" d="M590 242 V280"/><path data-tone="main" d="M590 372 V393"/>
+              <path data-tone="main" d="M717 520 H770 V496 H810"/><text x="748" y="506">允许</text>
+              <path data-tone="guard" d="M463 520 H28 V1756 H70"/><text x="34" y="540">拒绝</text>
+              <path data-tone="main" d="M960 542 V580"/><path data-tone="main" d="M960 672 V698"/>
+              <path data-tone="loop" d="M843 825 H380"/><text x="602" y="813">否</text>
+              <path data-tone="loop" d="M80 806 H28 V520 H463"/>
+              <path data-tone="main" d="M970 952 V975 H590 V973"/><text x="944" y="970">是</text>
+              <path d="M463 1100 H190 V1230"/><text x="292" y="1088">只需查询</text>
+              <path data-tone="main" d="M590 1227 V1240"/><text x="604" y="1233">可生成确定方案</text>
+              <path data-tone="guard" d="M717 1100 H780 V1740 H717"/><text x="790" y="1120">需协同或高风险</text>
+              <path d="M190 1322 V2236 H440"/>
+              <path data-tone="main" d="M590 1332 V1370"/><path data-tone="main" d="M590 1462 V1500"/><path data-tone="main" d="M590 1592 V1623"/>
+              <path data-tone="guard" d="M463 1740 H370"/><text x="395" y="1728">拒绝</text>
+              <path data-tone="main" d="M590 1867 V1880"/><text x="604" y="1875">交易写入</text>
+              <path data-tone="guard" d="M717 1740 H970 V1880"/><text x="825" y="1728">流程写入</text>
+              <path data-tone="main" d="M590 1972 V2010"/><path data-tone="main" d="M590 2102 V2190"/>
+              <path d="M970 1972 V2010"/><path d="M970 2102 V2140 H740 V2236"/>
+              <path data-tone="main" d="M590 2282 V2320"/>
+            </svg>
+
+            <article class="dnode" style="left:440px;top:30px"><div class="dnode-kicker"><span>会话入口</span><b>Session Memory</b></div><h3>接收用户问题</h3><p>创建 <code>session_id</code> 与 <code>trace_id</code></p></article>
+            <article class="dnode" data-tone="agent" style="left:440px;top:150px"><div class="dnode-kicker"><span>理解层</span><b>LLM + 安全分类器</b></div><h3>理解诉求与紧急度</h3><p>意图、原因、风险、订单线索</p></article>
+            <article class="dnode" style="left:440px;top:280px"><div class="dnode-kicker"><span>订单选择组件</span><b>UI</b></div><h3>用户确认唯一订单</h3><p><code>confirmed_order_id</code> 写入状态</p></article>
+            <article class="dnode decision" data-tone="guard" style="left:500px;top:430px"><div class="dnode-content"><div class="dnode-kicker"><b>READ Gate</b></div><h3>是否允许读取？</h3><p>身份、归属、状态白名单、脱敏</p></div></article>
+            <article class="dnode" data-tone="tool" style="left:810px;top:450px"><div class="dnode-kicker"><span>查询类 Tool</span><b>READ</b></div><h3>读取可信业务事实</h3><p>订单、政策、退款、支付、工单、责任链</p></article>
+            <article class="dnode" data-tone="agent" style="left:810px;top:580px"><div class="dnode-kicker"><span>结构化过滤</span><b>RAG</b></div><h3>匹配政策并辅助解释</h3><p>RAG 不决定金额与权限</p></article>
+            <article class="dnode decision" data-tone="agent" style="left:880px;top:735px"><div class="dnode-content"><div class="dnode-kicker"><b>LLM + 必填规则</b></div><h3>信息是否足够？</h3><p>只检查会改变结论的信息</p></div></article>
+            <article class="dnode" data-tone="memory" style="left:80px;top:760px"><div class="dnode-kicker"><span>对话补全</span><b>LLM + Session Memory</b></div><h3>最少追问</h3><p>只问会改变处理结论的信息，再回到读取权限门</p></article>
+            <article class="dnode decision" data-tone="agent" style="left:500px;top:1010px"><div class="dnode-content"><div class="dnode-kicker"><b>Rules + Workflow</b></div><h3>选择处理路径</h3><p>规则决定金额、权限、风险和路由</p></div></article>
+            <article class="dnode" data-tone="tool" style="left:40px;top:1230px"><div class="dnode-kicker"><span>查询类 Tool</span><b>READ</b></div><h3>查询当前业务状态</h3><p>退款进度、支付事件、工单进度</p></article>
+            <article class="dnode" data-tone="tool" style="left:440px;top:1240px"><div class="dnode-kicker"><span>计算 / 决策 Tool</span><b>READ</b></div><h3>生成可执行方案</h3><p>退款报价、变更报价、保障预览、权限校验</p></article>
+            <article class="dnode" data-tone="agent" style="left:440px;top:1370px"><div class="dnode-kicker"><span>结构化组件</span><b>LLM</b></div><h3>展示方案与预期</h3><p>金额沿用 Tool 回执，LLM 只负责解释</p></article>
+            <article class="dnode" data-tone="guard" style="left:440px;top:1500px"><div class="dnode-kicker"><span>前端确认组件</span><b>安全机制</b></div><h3>用户二次确认</h3><p>明确金额、后果和操作对象</p></article>
+            <article class="dnode decision" data-tone="guard" style="left:500px;top:1650px"><div class="dnode-content"><div class="dnode-kicker"><b>WRITE Gate</b></div><h3>允许改变业务状态？</h3><p>鉴权、状态、风险、确认、版本、幂等</p></div></article>
+            <article class="dnode" data-tone="guard" style="left:70px;top:1710px"><div class="dnode-kicker"><span>安全机制</span><b>Human-in-the-loop</b></div><h3>阻断或转人工核验</h3><p>不暴露订单，不把失败改写成成功</p></article>
+            <article class="dnode" data-tone="guard" style="left:440px;top:1880px"><div class="dnode-kicker"><span>交易写权限</span><b>WRITE Auth</b></div><h3>校验确认、版本和风险</h3><p><code>confirmation_token</code> + <code>expected_version</code></p></article>
+            <article class="dnode" data-tone="tool" style="left:440px;top:2010px"><div class="dnode-kicker"><span>交易类 Tool</span><b>WRITE</b></div><h3>执行取消或订单变更</h3><p><code>submit_cancellation</code> / <code>submit_order_change</code></p></article>
+            <article class="dnode" data-tone="guard" style="left:820px;top:1880px"><div class="dnode-kicker"><span>协同写权限</span><b>L3 / L4 硬转人工</b></div><h3>允许创建协作任务</h3><p>只能创建工单，不得裁决退款金额</p></article>
+            <article class="dnode" data-tone="tool" style="left:820px;top:2010px"><div class="dnode-kicker"><span>协同类 Tool</span><b>WRITE</b></div><h3>创建并跟踪协作任务</h3><p>供应商、支付调查、材料、人工专席</p></article>
+            <article class="dnode" data-tone="agent" style="left:440px;top:2190px"><div class="dnode-kicker"><span>事实校验器</span><b>Verifier + LLM</b></div><h3>返回结果与下一步</h3><p>校验金额、动作词、状态、SLA 与允许按钮</p></article>
+            <article class="dnode" data-tone="memory" style="left:440px;top:2320px"><div class="dnode-kicker"><span>案件持久化</span><b>Case Memory + Trace Log</b></div><h3>保存案件状态</h3><p>支持后续查询、恢复会话、审计和 Badcase 回放</p></article>
+          </div>
+        </div>
+        <div class="dflow-summary" aria-label="四层流程摘要"><div><span>01 理解</span><strong>识别诉求、原因和紧急度</strong></div><div><span>02 核实</span><strong>确认订单并读取可信事实</strong></div><div><span>03 决策</span><strong>规则选择查询、交易或协同</strong></div><div><span>04 闭环</span><strong>校验结果并持久化案件</strong></div></div>
+      </section>
+      <div class="page-action"><button class="primary" type="button" data-go="simulation">开始场景模拟</button></div>
+    </section>
+
+    <section data-panel="simulation" hidden>
+      <select class="mobile-scenario" id="mobile-scenario" aria-label="选择演示场景"></select>
+      <section class="sim-layout">
+        <aside class="scenario-rail" id="scenario-rail" aria-label="A 到 L 场景"></aside>
+        <section class="customer" aria-label="C 端用户任务">
+          <div class="panel-bar"><strong>用户体验</strong><span class="mock-badge" id="scenario-goal"></span></div>
+          <div class="customer-body" id="customer-body" aria-live="polite"></div>
+        </section>
+        <aside class="trace" aria-label="Agent 决策轨迹">
+          <div class="panel-bar"><strong>Agent 决策轨迹</strong><span class="mock-badge">用户不可见</span></div>
+          <div class="trace-body" id="trace-body"></div>
+        </aside>
+      </section>
+    </section>
+
+    <section data-panel="dashboard" hidden>
+      <div class="dashboard-toolbar" aria-label="看板筛选">
+        <div class="filter-group">
+          <label class="filter-field"><span>时间</span><select class="filter-select"><option>近 8 周</option><option>近 30 天</option><option>本周</option></select></label>
+          <label class="filter-field"><span>退款类型</span><select class="filter-select"><option>全部 A–L 场景</option><option>取消与变更</option><option>退款与支付</option><option>履约与住宿</option><option>特殊审核</option></select></label>
+          <label class="filter-field"><span>供应商</span><select class="filter-select"><option>全部供应商</option><option>平台直连</option><option>国内代理</option><option>海外供应商</option></select></label>
+          <label class="filter-field"><span>风险等级</span><select class="filter-select"><option>全部风险等级</option><option>L0–L1</option><option>L2</option><option>L3–L4</option></select></label>
+        </div>
+        <span class="data-note">模拟运营数据，不代表去哪儿真实表现</span>
+      </div>
+
+      <section class="overview-grid">
+        <div class="metric-definition">
+          <span class="metric-label">北极星指标 · 近 8 周 · 环比 +2.8pp</span>
+          <div class="metric-value">62.4%</div>
+          <h2>正确退款任务闭环率</h2>
+          <p>结果、金额、权限和流程均正确，且取消、退款或明确替代方案得到系统或用户确认。</p>
+          <div class="metric-fraction"><span>正确闭环 6,240</span><span>有效案件 10,000</span><span>目标 ≥65%</span></div>
+        </div>
+        <div class="health-summary">
+          <h2>本期健康结论</h2>
+          <p>整体闭环持续改善，但“业务状态完成 → 到账或结果确认”仍损失 530 件；一次解决率和人工改判率未达目标，需优先处理支付等待承诺与高风险路由 Badcase。</p>
+          <div class="health-signals">
+            <div class="health-signal" data-tone="good"><span>闭环率趋势</span><strong>连续 4 周改善</strong></div>
+            <div class="health-signal" data-tone="risk"><span>最大环节流失</span><strong>协同未完成 1,310</strong></div>
+            <div class="health-signal" data-tone="risk"><span>风险预警</span><strong>3 项超出目标</strong></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="dashboard-section">
+        <div class="section-head"><div><h2>退款处理链路漏斗</h2></div><span class="section-meta">分母：10,000 个有效退款案件</span></div>
+        <div class="funnel">
+          <div class="funnel-row"><span class="funnel-name">有效退款案件</span><span class="funnel-track"><i class="funnel-fill" style="width:100%"></i></span><strong class="funnel-count">10,000</strong><span class="funnel-rate">100%</span><span class="funnel-loss">统计起点</span></div>
+          <div class="funnel-row"><span class="funnel-name">首次有效决定</span><span class="funnel-track"><i class="funnel-fill" style="width:92.1%"></i></span><strong class="funnel-count">9,210</strong><span class="funnel-rate">92.1%</span><span class="funnel-loss"><strong>−790</strong> 订单或事实不足</span></div>
+          <div class="funnel-row"><span class="funnel-name">方案确认 / 明确替代方案</span><span class="funnel-track"><i class="funnel-fill" style="width:84.2%"></i></span><strong class="funnel-count">8,420</strong><span class="funnel-rate">84.2%</span><span class="funnel-loss"><strong>−790</strong> 扣费未接受或材料未补</span></div>
+          <div class="funnel-row"><span class="funnel-name">业务状态完成</span><span class="funnel-track"><i class="funnel-fill" style="width:71.1%"></i></span><strong class="funnel-count">7,110</strong><span class="funnel-rate">71.1%</span><span class="funnel-loss"><strong>−1,310</strong> 供应商或人工协同未完成</span></div>
+          <div class="funnel-row"><span class="funnel-name">到账 / 结果确认</span><span class="funnel-track"><i class="funnel-fill" style="width:65.8%"></i></span><strong class="funnel-count">6,580</strong><span class="funnel-rate">65.8%</span><span class="funnel-loss"><strong>−530</strong> 渠道处理中或缺少确认</span></div>
+          <div class="funnel-row"><span class="funnel-name">正确退款任务闭环</span><span class="funnel-track"><i class="funnel-fill" style="width:62.4%"></i></span><strong class="funnel-count">6,240</strong><span class="funnel-rate">62.4%</span><span class="funnel-loss"><strong>−340</strong> 重复进线或事实不一致</span></div>
+        </div>
+      </section>
+
+      <section class="dashboard-section">
+        <div class="section-head">
+          <div><h2>核心指标矩阵</h2></div>
+          <div class="metric-tabs" id="metric-tabs" aria-label="指标分组"></div>
+        </div>
+        <table class="dashboard-table">
+          <thead><tr><th>维度</th><th>指标</th><th class="num">当前值</th><th class="num">目标</th><th class="num">环比</th><th>状态</th><th>诊断</th></tr></thead>
+          <tbody id="core-metric-rows"></tbody>
+        </table>
+      </section>
+
+      <section class="dashboard-section">
+        <div class="section-head"><div><h2>Badcase 闭环工作台</h2></div></div>
+        <div class="badcase-summary">
+          <div class="badcase-stat"><span>Badcase 闭环率</span><strong>78.6%</strong></div>
+          <div class="badcase-stat"><span>超过修复 SLA</span><strong>7 个</strong></div>
+          <div class="badcase-stat"><span>关闭后 14 天复发率</span><strong>4.1%</strong></div>
+        </div>
+        <div class="lifecycle" aria-label="Badcase 生命周期">
+          <div class="lifecycle-step">01<strong>发现</strong></div><div class="lifecycle-step">02<strong>归因</strong></div><div class="lifecycle-step">03<strong>修复</strong></div><div class="lifecycle-step">04<strong>回归验证</strong></div><div class="lifecycle-step">05<strong>上线观察</strong></div><div class="lifecycle-step">06<strong>关闭</strong></div>
+        </div>
+        <table class="dashboard-table">
+          <thead><tr><th>Badcase 类型</th><th class="num">影响案件</th><th>风险</th><th>当前阶段</th><th>Owner</th><th>SLA</th><th>最近进展</th></tr></thead>
+          <tbody id="badcase-rows"></tbody>
+        </table>
+        <div class="badcase-detail" id="badcase-detail" aria-live="polite"></div>
+      </section>
+    </section>
+  </main>
+
+  <script>
+    const flows = [
+      { kind: 'Session Memory', title: '接收用户问题', summary: '建立可追踪会话', copy: '接收退款、变更或履约问题，创建 session_id 与 trace_id，只保留完成当前任务需要的上下文。', permissions: ['session_id', 'trace_id', '最少必要信息'] },
+      { kind: 'LLM + Safety', title: '理解诉求与风险', summary: '抽取意图、原因与紧急度', copy: 'LLM 将自然语言整理为结构化意图；安全分类器独立识别到店无房、支付异常等高风险信号。', permissions: ['提示注入检测', '敏感信息保护', 'L0–L4 风险'] },
+      { kind: 'UI + READ Gate', title: '确认订单并读取事实', summary: '先确认对象，再访问数据', copy: '用户显式选择唯一订单后，读取权限门检查登录身份、订单归属、Workflow 状态和字段脱敏。', permissions: ['confirmed_order_id', '订单归属', '状态白名单'] },
+      { kind: 'RAG + Rules', title: '匹配政策并选择路径', summary: '规则决定金额、权限与路由', copy: 'READ Tool 提供订单级事实，RAG 只辅助解释；规则引擎与状态机决定查询、交易或协同路径。', permissions: ['政策快照', '订单版本', '信息完整度'] },
+      { kind: 'Verifier + Memory', title: '校验结果并持续追踪', summary: '结果可验证、可恢复、可审计', copy: '事实校验器核对金额、状态、动作词和 SLA；Case Memory 保存案件状态，Trace Log 记录依据与迁移。', permissions: ['结果事实校验', 'Case Memory', 'Trace Log'] }
+    ];
+
+    const scenarios = [
+      { id:'A', group:'取消与变更', name:'条款内免费取消', goal:'验证确定性退款', query:'帮我取消明天去杭州的酒店。', title:'可以免费取消', money:['预计退回','¥688'], fee:['取消费','¥0'], status:'需要你确认', occurred:'已读取订单和成交政策，尚未取消', waiting:'等待你的确认', update:'确认后立即提交退款', action:'确认取消并申请退款', policy:'9 月 4 日 18:00 前可免费取消，退款原路返回。', route:'确定性交易', risk:'L1', trace:[['LLM','识别取消退款意图'],['READ Tool','读取订单与政策快照'],['规则引擎','计算退款 ¥688，扣费 ¥0'],['WRITE Gate','等待确认令牌和订单版本']] },
+      { id:'B', group:'取消与变更', name:'明确扣费取消', goal:'验证损失透明', query:'今天不去了，取消要扣多少钱？', title:'可以取消，但会扣除首晚房费', money:['预计退回','¥600'], fee:['取消费','¥600'], status:'需要你选择', occurred:'已按成交政策计算当前取消结果', waiting:'等待你确认是否接受扣费', update:'报价 10 分钟内有效', action:'接受扣费并取消', policy:'当前时点取消扣除首晚房费 600 元。', route:'确定性交易', risk:'L1', trace:[['LLM','识别扣费查询与取消意图'],['READ Tool','读取订单版本 3'],['规则引擎','命中阶梯扣费档'],['WRITE Gate','绑定报价与用户确认']] },
+      { id:'F', group:'取消与变更', name:'不可取消例外协商', goal:'推荐演示 · 验证外部协同', query:'临时有事去不了了，酒店说不能退，能帮我争取吗？', title:'不能直接退款，可以替你发起协商', money:['订单金额','¥1,280'], fee:['当前可直接退','¥0'], status:'提交前确认', occurred:'已核对不可取消条款和历史售后记录', waiting:'提交后等待酒店或供应商', update:'预计明天 14:00 前首次回复', action:'确认提交协商', policy:'协商不是退款承诺，可能结果包括部分退款、免费改期或拒绝。', route:'供应商协同', risk:'L2', trace:[['LLM','确认原因和期望结果'],['READ Tool','核对不可取消政策'],['规则引擎','禁止直接退款，允许例外协商'],['协同 Tool','生成待用户确认的协商摘要']] },
+      { id:'I', group:'取消与变更', name:'日期或房型改错', goal:'验证替代方案', query:'日期订错了一天，能改吗？', title:'可以改到 9 月 13 日入住', money:['需要补差','¥80'], fee:['取消对比扣费','¥300'], status:'需要你确认', occurred:'已检查目标日期库存并生成改期报价', waiting:'等待你选择改期或返回', update:'报价 10 分钟内有效', action:'补 ¥80 并确认改期', policy:'改期成功后订单版本更新，原报价失效。', route:'确定性交易', risk:'L1', trace:[['LLM','识别日期修改'],['库存 Tool','检查目标日期'],['规则引擎','生成改期与取消对比'],['WRITE Gate','等待用户确认新日期和补差']] },
+      { id:'C', group:'退款与支付', name:'已退款未到账', goal:'验证预期管理', query:'三天前说退了，怎么还没收到？', title:'退款已发起，资金尚未到账', money:['退款金额','¥860'], fee:['当前阶段','渠道处理中'], status:'无需重复申请', occurred:'平台已于 9 月 2 日 14:30 提交退款', waiting:'微信支付渠道', update:'最晚 9 月 7 日 18:00', action:'查看最新进度', policy:'超过预计时间将自动创建支付调查，不会重复发起退款。', route:'只读查询', risk:'L1', trace:[['LLM','识别退款进度查询'],['退款 Tool','读取退款单状态'],['支付 Tool','确认渠道处理中'],['状态机','设置 SLA 到期检查']] },
+      { id:'J', group:'退款与支付', name:'重复扣款或押金异常', goal:'验证支付语义', query:'同一笔房费扣了两次，押金也没退。', title:'目前确认一笔实扣和一笔预授权冻结', money:['实际扣款','¥1,600'], fee:['预授权冻结','¥500'], status:'财务核验中', occurred:'已区分实扣和预授权，尚未发现第二笔实扣', waiting:'财务专席', update:'明天 18:00 前', action:'查看财务工单', policy:'预授权冻结不等于重复实扣；超过释放期限后升级调查。', route:'支付协同', risk:'L3', trace:[['LLM','识别支付异常'],['支付 Tool','读取交易事件'],['规则引擎','区分 CAPTURE 与 HOLD'],['协同 Tool','创建财务核验工单']] },
+      { id:'D', group:'履约与住宿', name:'入住前无房或加价', goal:'验证履约恢复', query:'酒店刚通知没房，让我加 300 元换房。', title:'先确认今晚可住的替代方案', money:['原订单','¥780'], fee:['替代差价上限','¥140'], status:'紧急协同', occurred:'已核实入住前履约异常并找到附近房源', waiting:'紧急专员确认保障', update:'预计 5 分钟内接入', action:'联系紧急专员', policy:'任何额外费用都会先征得你的确认。', route:'履约恢复', risk:'L3', trace:[['安全分类器','识别高紧急履约失败'],['房源 Tool','搜索同区域替代住宿'],['规则引擎','计算差价保障预览'],['人工协同','携带事实转紧急专员']] },
+      { id:'E', group:'履约与住宿', name:'到店后无房', goal:'验证目标重排', query:'我已经在前台了，他们说没有我的房间。', title:'先帮你解决今晚住哪里', money:['附近可住房源','1 家'], fee:['专员接入','约 3 分钟'], status:'最高优先级', occurred:'已确认你在酒店现场且无法入住', waiting:'紧急住宿专员', update:'3 分钟内首次响应', action:'立即联系紧急专员', policy:'住宿恢复优先，退款与责任在你安顿后继续处理。', route:'紧急人工', risk:'L3', trace:[['安全分类器','识别用户已到店'],['状态机','目标切换为恢复住宿'],['房源 Tool','找到 1 家附近可住房源'],['人工协同','紧急专员接管']] },
+      { id:'H', group:'履约与住宿', name:'描述不符或服务问题', goal:'验证证据与人工', query:'房间和图片完全不一样，还很脏，我要退款。', title:'先处理当前入住问题，再核实退款责任', money:['已收材料','2 项'], fee:['赔付结果','待核实'], status:'人工审核', occurred:'已记录房间照片和酒店沟通结果', waiting:'酒店与售后专员', update:'今天 18:30 前', action:'查看服务争议工单', policy:'当前不承诺赔付金额，审核会继承已提交材料。', route:'服务争议', risk:'L3', trace:[['LLM','识别描述与卫生争议'],['证据 Tool','收集最少必要材料'],['规则引擎','优先解决当前入住'],['人工协同','创建服务争议工单']] },
+      { id:'G', group:'特殊审核', name:'疾病、灾害或交通中断', goal:'验证特殊审核', query:'航班取消了，能不能凭证明免费退？', title:'材料可以触发特殊审核，但不保证全额退款', money:['订单金额','¥520'], fee:['自动退款','未授权'], status:'等待审核', occurred:'已提取航班取消证明的必要字段', waiting:'特殊事件审核专员', update:'明天 18:00 前', action:'查看审核进度', policy:'材料仅用于资格判断，原始敏感文件不进入模型上下文。', route:'特殊审核', risk:'L2', trace:[['LLM','识别交通中断'],['证据 Tool','提取最少必要字段'],['规则引擎','禁止自动承诺全退'],['协同 Tool','创建特殊审核']] },
+      { id:'K', group:'特殊审核', name:'跨境多供应商订单', goal:'验证责任链', query:'海外酒店说找代理，代理又让我找平台，到底谁负责？', title:'平台受理并跟踪，海外供应商负责退款执行', money:['交易币种','USD'], fee:['供应商链路','2 层'], status:'跨境专席处理', occurred:'已确认交易主体、供应商链路和酒店时区', waiting:'跨境专席', update:'明天 09:00 前', action:'查看跨境工单', policy:'退款按原交易币种和酒店当地时间处理，人民币估算不是最终到账额。', route:'跨境专席', risk:'L3', trace:[['LLM','识别责任方争议'],['责任链 Tool','读取两层供应商'],['规则引擎','限定原币种与当地时间'],['人工协同','转跨境专席']] },
+      { id:'L', group:'特殊审核', name:'企业多房部分取消', goal:'验证复杂订单阻断', query:'公司订了 8 间房，只取消其中 3 间，发票怎么处理？', title:'已生成 3 间房的取消预览，需要团体专席确认', money:['预计退回','¥3,000'], fee:['预计扣费','¥300'], status:'自动写入已阻断', occurred:'已核对操作人权限、房间拆分和优惠重算', waiting:'企业团体专席', update:'明天 10:00 前', action:'提交团体专席确认', policy:'退款与发票影响均为预览，专席确认前不会修改订单。', route:'企业专席', risk:'L3', trace:[['LLM','识别部分取消与发票影响'],['拆分 Tool','读取 8 间房明细'],['权限规则','允许预览，阻断自动写入'],['人工协同','转企业团体专席']] }
+    ];
+
+    const presentationByScenario = {
+      A:{ planTitle:'免费取消并原路退款', planCopy:'确认后立即取消订单，预计退回 ¥688，不收取消费。', impact:'订单将取消', riskNote:'取消成功后订单不可恢复。', resultTitle:'取消与退款申请已提交', afterTitle:'等待原路退款', resultCopy:'无需重复操作，退款状态更新后会在这里同步。' },
+      B:{ planTitle:'接受 ¥600 取消费并退款', planCopy:'确认后取消订单，扣除首晚房费 ¥600，预计退回 ¥600。', impact:'订单取消，扣费 ¥600', riskNote:'提交后订单不可恢复；当前报价 10 分钟内有效。', resultTitle:'扣费取消申请已提交', afterTitle:'等待剩余款项退回', resultCopy:'退款将按原支付路径处理，无需重复申请。' },
+      F:{ planTitle:'申请例外退款协商', planCopy:'平台代你向酒店或供应商争取部分退款、免费改期等可行方案。', impact:'暂不取消订单', riskNote:'协商结果可能为部分退款、免费改期或拒绝，不承诺成功。', resultTitle:'协商请求已提交', afterTitle:'等待酒店或供应商回复', resultCopy:'无需重复联系，结果返回后会在这里更新。' },
+      I:{ planTitle:'改至 9 月 13 日入住', planCopy:'补差 ¥80，确认后提交订单日期变更。', impact:'入住日期将变更', riskNote:'报价 10 分钟内有效；变更成功后原日期不可恢复。', resultTitle:'改期申请已提交', afterTitle:'等待订单变更结果', resultCopy:'变更完成后会同步新的入住日期与订单信息。' },
+      C:{ planTitle:'继续等待原路退款', planCopy:'退款已经提交，目前无需重新申请。', impact:'订单退款已发起', riskNote:'超过预计时间仍未到账，平台会自动创建支付调查。', resultTitle:'退款状态已刷新', afterTitle:'预计最晚 9 月 7 日到账', resultCopy:'当前仍由支付渠道处理，尚未到账。' },
+      J:{ planTitle:'继续财务核验', planCopy:'已区分一笔实扣和一笔预授权，财务专席将核验异常交易。', impact:'暂不重复退款', riskNote:'预授权冻结不等于第二笔实扣。', resultTitle:'财务工单状态已刷新', afterTitle:'等待财务核验结论', resultCopy:'核验结果预计明天 18:00 前更新。' },
+      D:{ planTitle:'由紧急专员确认替代住宿', planCopy:'优先确认今晚可住的房源，差价保障上限 ¥140。', impact:'原订单暂不取消', riskNote:'任何额外费用都会先征得你的确认。', resultTitle:'紧急专员已接入', afterTitle:'正在确认替代住宿', resultCopy:'预计 5 分钟内给出可选房源与费用方案。' },
+      E:{ planTitle:'立即安排今晚的替代住宿', planCopy:'已找到 1 家附近可住房源，由紧急专员优先协助入住。', impact:'先保障今晚入住', riskNote:'退款与责任认定会在你安顿后继续处理。', resultTitle:'紧急住宿请求已提交', afterTitle:'专员正在联系你', resultCopy:'预计 3 分钟内首次响应，请保持电话畅通。' },
+      H:{ planTitle:'继续服务争议审核', planCopy:'已继承照片与沟通记录，无需重复提交材料。', impact:'赔付金额待核实', riskNote:'审核完成前不承诺具体退款或赔付金额。', resultTitle:'服务争议工单已刷新', afterTitle:'等待审核结果', resultCopy:'预计今天 18:30 前更新处理方案。' },
+      G:{ planTitle:'提交特殊事件审核', planCopy:'航班取消证明符合送审条件，将申请例外退款方案。', impact:'订单暂不自动退款', riskNote:'材料可触发审核，但不代表一定全额退款。', resultTitle:'特殊审核状态已刷新', afterTitle:'等待资格与退款方案', resultCopy:'预计明天 18:00 前更新审核结论。' },
+      K:{ planTitle:'由平台继续跟进跨境退款', planCopy:'平台统一受理，跨境专席将联系海外供应商执行退款。', impact:'按原交易币种处理', riskNote:'人民币金额仅为估算，最终以原币种退款和入账汇率为准。', resultTitle:'跨境工单状态已刷新', afterTitle:'等待海外供应商回复', resultCopy:'预计明天 09:00 前更新责任确认结果。' },
+      L:{ planTitle:'提交 3 间房部分取消审核', planCopy:'预计退回 ¥3,000、扣费 ¥300，并同步核对发票影响。', impact:'其余 5 间保持不变', riskNote:'当前为预览，专席确认前不会修改订单。', resultTitle:'团体专席申请已提交', afterTitle:'等待最终取消预览', resultCopy:'预计明天 10:00 前更新退款与发票方案。' }
+    };
+
+    const coreMetrics = [
+      { group:'业务结果', name:'正确解决率', value:'94.8%', target:'≥96.0%', trend:'+0.7pp', direction:'up', status:'关注', note:'抽检中 52 件与政策或权限不一致' },
+      { group:'业务结果', name:'实际到账闭环率', value:'92.5%', target:'≥95.0%', trend:'+1.1pp', direction:'up', status:'关注', note:'支付渠道缺少终态回传' },
+      { group:'效率', name:'首次有效决定时间 P50', value:'42 秒', target:'≤45 秒', trend:'−6 秒', direction:'up', status:'正常', note:'订单匹配提速贡献最大' },
+      { group:'效率', name:'最终到账时间 P50', value:'2.1 天', target:'≤2.0 天', trend:'+0.2 天', direction:'down', status:'关注', note:'微信渠道处理时长上升' },
+      { group:'自动化', name:'自动完成率', value:'58.7%', target:'≥60.0%', trend:'+2.4pp', direction:'up', status:'关注', note:'F/G 例外场景仍依赖协同' },
+      { group:'体验', name:'一次解决率', value:'81.3%', target:'≥85.0%', trend:'−0.9pp', direction:'down', status:'风险', note:'退款进度重复进线增加' },
+      { group:'体验', name:'用户操作次数', value:'1.6 次', target:'≤1.5 次', trend:'−0.1 次', direction:'up', status:'关注', note:'特殊审核仍有重复补材料' },
+      { group:'协作', name:'供应商首次响应 P50', value:'18 分钟', target:'≤20 分钟', trend:'−3 分钟', direction:'up', status:'正常', note:'国内代理响应改善' },
+      { group:'协作', name:'供应商 SLA 达成率', value:'87.6%', target:'≥90.0%', trend:'+1.6pp', direction:'up', status:'关注', note:'海外供应商拖累整体' },
+      { group:'质量', name:'人工改判率', value:'4.2%', target:'≤3.0%', trend:'+0.5pp', direction:'down', status:'风险', note:'不可取消例外的金额改判集中' },
+      { group:'风险', name:'承诺失真率', value:'0.36%', target:'≤0.20%', trend:'−0.08pp', direction:'up', status:'风险', note:'14 件将“已发起”表述为“已到账”' },
+      { group:'风险', name:'错误退款 / 重复赔付率', value:'0.03%', target:'≤0.02%', trend:'持平', direction:'flat', status:'风险', note:'3 件幂等或版本冲突相关' },
+      { group:'风险', name:'该转人工未转率', value:'0.8%', target:'≤0.5%', trend:'−0.2pp', direction:'up', status:'风险', note:'支付异常与服务争议漏转' }
+    ];
+
+    const badcases = [
+      { id:'BC-041', type:'声称退款到账但支付状态不支持', count:14, risk:'高', stage:'回归验证', owner:'Agent 质量', sla:'剩余 6 小时', progress:'12/14 用例已通过', evidence:'14 条回复与 payment_status=CHANNEL_PROCESSING 冲突，均可追溯至 Tool 回执。', root:'响应生成层把“退款已发起”压缩成“退款已到账”，事实校验未覆盖完成态动词。', fix:'扩充最终事实校验器的动作词白名单；支付终态缺失时强制使用“尚未到账”。', eval:'新增 18 条退款状态对抗用例，覆盖微信、支付宝和状态未知。', observe:'灰度 10%，连续观察 7 天；承诺失真率需低于 0.20%。', close:'回归 100% 通过，线上 7 天无同类复发，相关投诉为 0。' },
+      { id:'BC-038', type:'L3 服务争议未及时转人工', count:8, risk:'高', stage:'修复中', owner:'Workflow', sla:'已逾期 1 天', progress:'路由规则开发中', evidence:'8 个 H/J 场景停留在 DECISION_READY，未创建 human_handoff。', root:'多意图情况下风险等级被次要意图覆盖，导致 L3 路由降为 L1。', fix:'风险聚合改为取最高等级；L3/L4 在 Tool 调用前再次硬校验。', eval:'新增 12 条多意图和情绪干扰回归用例。', observe:'修复上线后观察高风险召回率和错误自动写入数。', close:'该转人工未转率连续 14 天 ≤0.5%，无高风险自动写入。' },
+      { id:'BC-033', type:'供应商协商超过首次响应 SLA', count:126, risk:'中', stage:'上线观察', owner:'供应商运营', sla:'剩余 3 天', progress:'提醒策略已灰度', evidence:'海外和国内代理共 126 单超过各自首次响应时限。', root:'定时任务只按统一 4 小时触发，未读取供应商与场景级 SLA。', fix:'改为 supplier_id × scenario 的 SLA 配置，并在超时前 30 分钟预警。', eval:'补充 9 组供应商时区、节假日和场景级 SLA 用例。', observe:'观察 14 天供应商 SLA 达成率，目标 ≥90%。', close:'SLA 达成率达到目标，且超时未升级案件为 0。' },
+      { id:'BC-029', type:'退款进度重复进线', count:204, risk:'中', stage:'归因完成', owner:'体验策略', sla:'剩余 2 天', progress:'等待方案评审', evidence:'204 个 C 场景案件在 72 小时内因同一问题再次进线。', root:'页面只有预计到账范围，没有下一更新时间、等待方和超时自动动作。', fix:'统一接入五字段预期管理组件，并在 SLA 节点主动通知。', eval:'建立退款进度文案完整度与重复进线关联实验。', observe:'A/B 两组观察 2 周，重点看一次解决率和通知退订率。', close:'C 场景重复进线率下降 20%，无承诺失真增长。' },
+      { id:'BC-017', type:'重复赔付写入', count:3, risk:'严重', stage:'关闭待审', owner:'Tool 平台', sla:'今日到期', progress:'14 天无复发', evidence:'3 个请求在超时重试时生成新幂等键，产生重复退款风险。', root:'写 Tool 超时后客户端误判失败，没有先调用 get_action_result。', fix:'幂等键绑定用户动作；未知写结果强制查询，禁止客户端重新生成 key。', eval:'并发、超时和重放共 24 条测试全部通过。', observe:'100% 上线后观察 14 天，重复赔付数为 0。', close:'人工复核测试与线上观察记录后关闭，保留永久回归用例。' }
+    ];
+
+    const flowRoot = document.querySelector('#flow');
+    const detailTitle = document.querySelector('#detail-title');
+    const detailCopy = document.querySelector('#detail-copy');
+    const detailPermissions = document.querySelector('#detail-permissions');
+    function selectFlow(index) {
+      if (!flowRoot || !detailTitle || !detailCopy || !detailPermissions) return;
+      document.querySelectorAll('.flow-node').forEach((node, i) => {
+        node.dataset.active = String(i === index);
+        node.setAttribute('aria-pressed', String(i === index));
+      });
+      detailTitle.textContent = flows[index].title;
+      detailCopy.textContent = flows[index].copy;
+      detailPermissions.innerHTML = flows[index].permissions.map(item => `<span class="tag">${item}</span>`).join('');
+    }
+    if (flowRoot) {
+      flowRoot.innerHTML = flows.map((item, index) => `<button type="button" class="flow-node" data-flow="${index}" data-active="${index === 0}" aria-pressed="${index === 0}"><span class="node-index"><span>0${index + 1}</span><span class="node-kind">${item.kind}</span></span><h3>${item.title}</h3><p>${item.summary}</p></button>`).join('');
+      flowRoot.addEventListener('click', event => { const button = event.target.closest('[data-flow]'); if (button) selectFlow(Number(button.dataset.flow)); });
+      selectFlow(0);
+    }
+
+    const groups = [...new Set(scenarios.map(item => item.group))];
+    const rail = document.querySelector('#scenario-rail');
+    const mobile = document.querySelector('#mobile-scenario');
+    rail.innerHTML = groups.map(group => `<section class="scenario-group"><h2>${group}</h2>${scenarios.filter(item => item.group === group).map(item => `<button type="button" class="scenario-button" data-scenario="${item.id}" aria-selected="${item.id === 'F'}"><span class="scenario-id">${item.id}</span><span class="scenario-name">${item.name}</span><span class="risk">${item.risk}</span></button>`).join('')}</section>`).join('');
+    mobile.innerHTML = scenarios.map(item => `<option value="${item.id}" ${item.id === 'F' ? 'selected' : ''}>${item.id} · ${item.name}</option>`).join('');
+
+    function renderScenario(id, complete = false) {
+      const item = scenarios.find(scene => scene.id === id);
+      const presentation = presentationByScenario[id];
+      document.querySelectorAll('[data-scenario]').forEach(button => button.setAttribute('aria-selected', String(button.dataset.scenario === id)));
+      mobile.value = id;
+      document.querySelector('#scenario-goal').textContent = item.goal;
+      document.querySelector('#customer-body').innerHTML = `
+        <div class="user-query">${item.query}</div>
+        <article class="answer">
+          <div class="answer-kicker"><span class="status-dot"></span><span>酒店售后 Agent</span><span class="tag">${complete ? '处理结果' : '已生成方案'}</span></div>
+          <h2>${complete ? presentation.resultTitle : item.title}</h2>
+          <section class="solution-card" data-complete="${complete}" aria-label="${complete ? '处理结果' : '推荐方案'}">
+            <div class="solution-head"><div><span class="solution-label">${complete ? '处理结果' : '推荐方案'}</span><h3>${complete ? presentation.afterTitle : presentation.planTitle}</h3><p>${complete ? presentation.resultCopy : presentation.planCopy}</p></div><span class="solution-status">${complete ? '已提交' : item.status}</span></div>
+            <div class="solution-facts">
+              <div class="solution-fact"><span>${item.money[0]}</span><strong>${item.money[1]}</strong></div>
+              <div class="solution-fact"><span>${item.fee[0]}</span><strong>${item.fee[1]}</strong></div>
+              <div class="solution-fact"><span>${complete ? '下次更新' : '方案影响'}</span><strong>${complete ? item.update : presentation.impact}</strong></div>
+            </div>
+            <div class="solution-note">${complete ? '系统已记录本次操作，无需重复提交。' : presentation.riskNote}</div>
+          </section>
+        </article>
+        <div class="task-action"><button class="primary" type="button" id="scenario-action" ${complete ? 'disabled' : ''}>${complete ? '已提交' : item.action}</button></div>`;
+      const trace = [...item.trace];
+      if (complete) trace.push(['状态机', '业务状态已推进并写入 Case Memory']);
+      document.querySelector('#trace-body').innerHTML = trace.map((step, index) => `<div class="trace-step" data-current="${index === trace.length - 1}"><span class="trace-index">${index + 1}</span><div><strong>${step[1]}</strong><p>${index === trace.length - 1 ? '当前执行节点' : '已完成并记录依据'}</p><span class="actor">${step[0]}</span></div></div>`).join('');
+      const action = document.querySelector('#scenario-action');
+      if (action) action.addEventListener('click', () => renderScenario(id, true));
+    }
+    rail.addEventListener('click', event => { const button = event.target.closest('[data-scenario]'); if (button) renderScenario(button.dataset.scenario); });
+    mobile.addEventListener('change', () => renderScenario(mobile.value));
+    renderScenario('F');
+
+    const metricGroups = ['全部', ...new Set(coreMetrics.map(item => item.group))];
+    const metricTabs = document.querySelector('#metric-tabs');
+    const metricRows = document.querySelector('#core-metric-rows');
+    metricTabs.innerHTML = metricGroups.map((group, index) => `<button type="button" data-metric-group="${group}" aria-pressed="${index === 0}">${group}</button>`).join('');
+    function renderMetrics(group = '全部') {
+      const visible = group === '全部' ? coreMetrics : coreMetrics.filter(item => item.group === group);
+      metricRows.innerHTML = visible.map(item => `<tr><td class="metric-group-cell">${item.group}</td><td><strong>${item.name}</strong></td><td class="num">${item.value}</td><td class="num">${item.target}</td><td class="num ${item.direction === 'up' ? 'trend-up' : item.direction === 'down' ? 'trend-down' : ''}">${item.trend}</td><td><span class="metric-status" data-status="${item.status}">${item.status}</span></td><td>${item.note}</td></tr>`).join('');
+      metricTabs.querySelectorAll('button').forEach(button => button.setAttribute('aria-pressed', String(button.dataset.metricGroup === group)));
+    }
+    metricTabs.addEventListener('click', event => { const button = event.target.closest('[data-metric-group]'); if (button) renderMetrics(button.dataset.metricGroup); });
+    renderMetrics();
+
+    const badcaseRows = document.querySelector('#badcase-rows');
+    const badcaseDetail = document.querySelector('#badcase-detail');
+    badcaseRows.innerHTML = badcases.map((item, index) => `<tr data-badcase-row="${item.id}" data-selected="${index === 0}"><td><button class="badcase-button" type="button" data-badcase="${item.id}">${item.type}</button></td><td class="num">${item.count}</td><td>${item.risk}</td><td>${item.stage}</td><td>${item.owner}</td><td>${item.sla}</td><td>${item.progress}</td></tr>`).join('');
+    function renderBadcase(id) {
+      const item = badcases.find(badcase => badcase.id === id);
+      badcaseRows.querySelectorAll('tr').forEach(row => row.dataset.selected = String(row.dataset.badcaseRow === id));
+      badcaseDetail.innerHTML = `<div class="badcase-detail-head"><div><h3>${item.id} · ${item.type}</h3><p>影响 ${item.count} 件 · ${item.risk}风险 · Owner：${item.owner}</p></div><span class="metric-status" data-status="${item.risk === '中' ? '关注' : '风险'}">${item.stage}</span></div><div class="badcase-detail-grid"><div class="badcase-detail-item"><span>事实证据</span><p>${item.evidence}</p></div><div class="badcase-detail-item"><span>根因归属</span><p>${item.root}</p></div><div class="badcase-detail-item"><span>修复动作</span><p>${item.fix}</p></div><div class="badcase-detail-item"><span>回归验证</span><p>${item.eval}</p></div><div class="badcase-detail-item"><span>上线观察</span><p>${item.observe}</p></div><div class="badcase-detail-item"><span>关闭标准</span><p>${item.close}</p></div></div>`;
+    }
+    badcaseRows.addEventListener('click', event => { const button = event.target.closest('[data-badcase]'); if (button) renderBadcase(button.dataset.badcase); });
+    renderBadcase('BC-041');
+
+    const tabs = [...document.querySelectorAll('[data-page]')];
+    const panels = [...document.querySelectorAll('[data-panel]')];
+    function showPage(page) {
+      tabs.forEach(tab => tab.setAttribute('aria-selected', String(tab.dataset.page === page)));
+      panels.forEach(panel => panel.hidden = panel.dataset.panel !== page);
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+    tabs.forEach(tab => tab.addEventListener('click', () => showPage(tab.dataset.page)));
+    document.querySelectorAll('[data-go]').forEach(button => button.addEventListener('click', () => showPage(button.dataset.go)));
+  </script>
+</body>
+</html>

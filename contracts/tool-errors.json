@@ -1,0 +1,25 @@
+{
+  "schema_version":"1.0",
+  "errors":[
+    {"code":"AUTH_REQUIRED","http_status":401,"retryable":false,"agent_action":"Ask the user to authenticate; do not expose order data."},
+    {"code":"FORBIDDEN_ORDER","http_status":403,"retryable":false,"agent_action":"Block access and offer human verification."},
+    {"code":"ORDER_NOT_CONFIRMED","http_status":409,"retryable":false,"agent_action":"Return to explicit order confirmation."},
+    {"code":"VERSION_CONFLICT","http_status":409,"retryable":false,"agent_action":"Refresh order and quote; do not reuse the old confirmation."},
+    {"code":"QUOTE_EXPIRED","http_status":409,"retryable":false,"agent_action":"Recalculate and show the changed amount before asking for confirmation again."},
+    {"code":"CONFIRMATION_REQUIRED","http_status":412,"retryable":false,"agent_action":"Render the exact action, amount and consequence for confirmation."},
+    {"code":"IDEMPOTENCY_CONFLICT","http_status":409,"retryable":false,"agent_action":"Query get_action_result; never generate a second key for the same user action."},
+    {"code":"POLICY_SNAPSHOT_MISSING","http_status":424,"retryable":false,"agent_action":"Stop money calculation and create a human handoff."},
+    {"code":"POLICY_VERSION_MISMATCH","http_status":409,"retryable":false,"agent_action":"Display that the booking-time rule needs verification; stop writes."},
+    {"code":"TOOL_TIMEOUT_READ","http_status":504,"retryable":true,"agent_action":"Retry once, then explain which fact could not be read."},
+    {"code":"TOOL_TIMEOUT_WRITE_UNKNOWN","http_status":504,"retryable":false,"agent_action":"Call get_action_result before any retry and tell the user the result is being verified."},
+    {"code":"EXTERNAL_PENDING","http_status":202,"retryable":false,"agent_action":"Show waiting_for, response_due_at and timeout fallback."},
+    {"code":"PAYMENT_STATUS_UNKNOWN","http_status":424,"retryable":false,"agent_action":"Create a payment investigation; do not say refunded or failed."},
+    {"code":"SLA_NOT_BREACHED","http_status":409,"retryable":false,"agent_action":"Do not create an investigation; show the remaining normal SLA."},
+    {"code":"RISK_REQUIRES_HUMAN","http_status":403,"retryable":false,"agent_action":"Block automated write and create the appropriate specialist handoff."},
+    {"code":"EVIDENCE_TOO_SENSITIVE","http_status":422,"retryable":false,"agent_action":"Ask for a redacted or minimum-necessary version and explain what not to upload."},
+    {"code":"INVENTORY_CHANGED","http_status":409,"retryable":false,"agent_action":"Refresh alternatives or change quote before user reconfirms."},
+    {"code":"SUPPLIER_OFFER_EXPIRED","http_status":409,"retryable":false,"agent_action":"Refresh supplier case; do not execute the expired offer."},
+    {"code":"UNSUPPORTED_COMPLEX_ORDER","http_status":422,"retryable":false,"agent_action":"Create cross-border, corporate or group specialist handoff."},
+    {"code":"INTERNAL_ERROR","http_status":500,"retryable":true,"agent_action":"Do not claim success; retry only safe reads, otherwise hand off with trace_id."}
+  ]
+}
