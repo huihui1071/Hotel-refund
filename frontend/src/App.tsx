@@ -1,5 +1,5 @@
-import { FormEvent, useEffect, useRef, useState, type ReactNode } from 'react'
-import { checkApi, runMessage, runScenario } from './api'
+import { useEffect, useRef, useState, type ReactNode } from 'react'
+import { runScenario } from './api'
 import { badcases, funnel, metrics, scenarioGroups, scenarios } from './data'
 import type { Metric, PageKey, RunResponse, Scenario, WorkflowStep } from './types'
 
@@ -116,12 +116,11 @@ function stepSummary(step: WorkflowStep) {
   return `${step.state_before} → ${step.state_after}`
 }
 
-function Simulation({ apiMode }: { apiMode: 'api' | 'browser-mock' }) {
+function Simulation() {
   const [selected, setSelected] = useState<Scenario>(scenarios.find((item) => item.id === 'F') ?? scenarios[0])
   const [run, setRun] = useState<RunResponse | null>(null)
   const [loading, setLoading] = useState(false)
   const [complete, setComplete] = useState(false)
-  const [message, setMessage] = useState('临时有事去不了了，酒店说不能退，能帮我争取吗？')
   const [notice, setNotice] = useState('')
   const initialized = useRef(false)
 
@@ -137,22 +136,8 @@ function Simulation({ apiMode }: { apiMode: 'api' | 'browser-mock' }) {
     void executeScenario(selected)
   }, [])
 
-  async function submitMessage(event: FormEvent) {
-    event.preventDefault()
-    if (message.trim().length < 2) return
-    setLoading(true); setComplete(false); setNotice('')
-    const response = await runMessage(message.trim())
-    setSelected(response.scenario); setRun(response.run); setNotice(response.run.notice ?? ''); setLoading(false)
-  }
-
-  const shownMode = run?.mode ?? apiMode
   return (
     <>
-      <form className="message-bar" onSubmit={submitMessage}>
-        <label htmlFor="agent-message">模拟用户问题</label>
-        <div><input id="agent-message" value={message} onChange={(event) => setMessage(event.target.value)} maxLength={500} /><button className="primary" disabled={loading}>{loading ? '处理中' : '发送'}</button></div>
-        <span className="mode-note" data-mode={shownMode}>{shownMode === 'api' ? 'FastAPI Workflow' : 'GitHub Pages 浏览器 Mock'}</span>
-      </form>
       {notice && <div className="inline-notice" role="status">{notice}</div>}
       <select className="mobile-scenario" aria-label="选择演示场景" value={selected.id} onChange={(event) => void executeScenario(scenarios.find((item) => item.id === event.target.value) ?? selected)}>
         {scenarios.map((item) => <option key={item.id} value={item.id}>{item.id} · {item.name}</option>)}
@@ -209,7 +194,7 @@ function Dashboard() {
   return <>
     <div className="dashboard-toolbar"><div className="filters">
       <label><span>时间</span><select><option>近 8 周</option><option>近 30 天</option><option>本周</option></select></label>
-      <label><span>退款类型</span><select><option>全部 A–L 场景</option><option>取消与变更</option><option>退款与支付</option><option>履约与住宿</option><option>特殊审核</option></select></label>
+      <label><span>退款类型</span><select><option>全部类型</option><option>取消与变更</option><option>退款与支付</option><option>履约与住宿</option><option>特殊审核</option></select></label>
       <label><span>供应商</span><select><option>全部供应商</option><option>平台直连</option><option>国内代理</option><option>海外供应商</option></select></label>
       <label><span>风险等级</span><select><option>全部风险等级</option><option>L0–L1</option><option>L2</option><option>L3–L4</option></select></label>
     </div><span className="data-note">模拟运营数据，不代表真实表现</span></div>
@@ -222,10 +207,8 @@ function Dashboard() {
 
 export default function App() {
   const [page, setPage] = useState<PageKey>('design')
-  const [apiMode, setApiMode] = useState<'api' | 'browser-mock'>('browser-mock')
-  useEffect(() => { void checkApi().then(setApiMode) }, [])
   return <>
     <header className="app-header"><div className="brand"><span>旅</span><strong>酒店退款 Agent</strong></div><nav aria-label="主要页面">{navItems.map((item) => <button key={item.id} aria-current={page === item.id} onClick={() => setPage(item.id)}>{item.label}</button>)}</nav><div className="mock-badge">Mock 数据</div></header>
-    <main>{page === 'design' && <AgentDesign onStart={() => setPage('simulation')} />}{page === 'simulation' && <Simulation apiMode={apiMode} />}{page === 'dashboard' && <Dashboard />}</main>
+    <main>{page === 'design' && <AgentDesign onStart={() => setPage('simulation')} />}{page === 'simulation' && <Simulation />}{page === 'dashboard' && <Dashboard />}</main>
   </>
 }

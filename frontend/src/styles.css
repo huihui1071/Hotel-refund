@@ -90,14 +90,6 @@ main { max-width: 1440px; min-height: calc(100vh - 58px); margin: 0 auto; paddin
 .dflow-summary span { display: block; color: var(--muted); font-size: 9px; font-weight: 700; }
 .dflow-summary strong { display: block; margin-top: 4px; font-size: 11px; }
 
-.message-bar { position: relative; display: grid; grid-template-columns: 120px 1fr auto; gap: 12px; align-items: center; margin-bottom: 16px; padding: 12px; border: 1px solid var(--line); border-radius: 10px; background: var(--surface); }
-.message-bar > label { color: var(--muted); font-size: 11px; font-weight: 700; }
-.message-bar > div { display: flex; min-width: 0; }
-.message-bar input { width: 100%; height: 38px; border: 1px solid var(--line); border-right: 0; border-radius: 8px 0 0 8px; padding: 0 12px; background: var(--surface); color: var(--ink); font-size: 13px; }
-.message-bar button { min-width: 68px; border-radius: 0 8px 8px 0; white-space: nowrap; }
-.mode-note { display: inline-flex; align-items: center; gap: 6px; color: var(--muted); font-size: 10px; white-space: nowrap; }
-.mode-note::before { content:""; width: 7px; height: 7px; border-radius: 50%; background: var(--warning); }
-.mode-note[data-mode="api"]::before { background: var(--success); }
 .inline-notice { margin: -8px 0 14px; color: var(--warning); font-size: 11px; }
 .mobile-scenario { display: none; width: 100%; height: 44px; border: 1px solid var(--line); border-radius: 8px; padding: 0 12px; background: var(--surface); }
 .simulation-layout { display: grid; grid-template-columns: 240px minmax(500px,1fr) 350px; min-height: 660px; overflow: hidden; border: 1px solid var(--line); border-radius: 12px; background: var(--surface); box-shadow: var(--shadow); }
@@ -211,10 +203,6 @@ td { height: 44px; padding: 8px 12px; border-top: 1px solid var(--line); }
   .dflow-summary { grid-template-columns: repeat(2, 1fr); }
   .dflow-summary div:nth-child(2) { border-right: 0; }
   .dflow-summary div:nth-child(-n+2) { border-bottom: 1px solid var(--line); }
-  .message-bar { grid-template-columns: 1fr; }
-  .message-bar > div { grid-column: 1; }
-  .message-bar input, .message-bar button { height: 44px; }
-  .mode-note { justify-self: start; }
   .mobile-scenario { display: block; margin-bottom: 16px; }
   .simulation-layout { display: block; min-height: 0; margin: 0 -16px; border-radius: 0; border-inline: 0; box-shadow: none; }
   .scenario-rail { display: none; }
