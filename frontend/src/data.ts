@@ -17,22 +17,6 @@ export const scenarios: Scenario[] = [
 
 export const scenarioGroups = [...new Set(scenarios.map((scenario) => scenario.group))]
 
-export const workflowStages = [
-  { type:'Session Memory', title:'接收用户问题', copy:'创建 session_id 与 trace_id，恢复必要会话状态。', tone:'memory' },
-  { type:'LLM + Safety', title:'理解诉求与风险', copy:'抽取意图、原因、订单线索与紧急度。', tone:'agent' },
-  { type:'UI', title:'确认唯一订单', copy:'用户显式选择操作对象，避免查错订单。', tone:'neutral' },
-  { type:'READ Gate', title:'读取权限校验', copy:'核验身份、订单归属、状态白名单与字段脱敏。', tone:'guard' },
-  { type:'READ Tool + RAG', title:'读取可信业务事实', copy:'订单、成交政策、退款、支付与售后记录。', tone:'tool' },
-  { type:'LLM + Rules', title:'检查信息完整度', copy:'仅追问会改变金额、权限或结论的信息。', tone:'agent' },
-  { type:'Rules + Workflow', title:'选择处理路径', copy:'规则决定金额、权限、风险与路由。', tone:'agent' },
-]
-
-export const workflowBranches = [
-  { mode:'READ', title:'查询路径', copy:'读取退款、支付或工单状态，不改变业务数据。', steps:'查询 Tool → 结果校验 → 返回状态' },
-  { mode:'WRITE', title:'确定性交易', copy:'低风险取消或改期，必须经过二次确认和写权限门。', steps:'方案 → 用户确认 → WRITE Gate → 交易 Tool' },
-  { mode:'HITL', title:'协同与人工', copy:'不可取消协商、履约异常及 L3/L4 风险案件。', steps:'创建工单 → SLA → 人工或供应商 → 结果回写' },
-]
-
 export const metrics: Metric[] = [
   {group:'业务结果',name:'正确解决率',value:'94.8%',target:'≥96.0%',trend:'+0.7pp',status:'关注',note:'52 件与政策或权限不一致'},
   {group:'业务结果',name:'实际到账闭环率',value:'92.5%',target:'≥95.0%',trend:'+1.1pp',status:'关注',note:'支付渠道缺少终态回传'},

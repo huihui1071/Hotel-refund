@@ -1,6 +1,6 @@
-import { FormEvent, useEffect, useRef, useState } from 'react'
+import { FormEvent, useEffect, useRef, useState, type ReactNode } from 'react'
 import { checkApi, runMessage, runScenario } from './api'
-import { badcases, funnel, metrics, scenarioGroups, scenarios, workflowBranches, workflowStages } from './data'
+import { badcases, funnel, metrics, scenarioGroups, scenarios } from './data'
 import type { Metric, PageKey, RunResponse, Scenario, WorkflowStep } from './types'
 
 const navItems: { id: PageKey; label: string }[] = [
@@ -9,45 +9,103 @@ const navItems: { id: PageKey; label: string }[] = [
   { id:'dashboard', label:'运营看板' },
 ]
 
+type FlowTone = 'agent' | 'tool' | 'guard' | 'memory'
+
+function DiagramNode({
+  left, top, role, type, title, children, tone, decision = false,
+}: {
+  left: number
+  top: number
+  role?: string
+  type: string
+  title: string
+  children: ReactNode
+  tone?: FlowTone
+  decision?: boolean
+}) {
+  const content = (
+    <>
+      <div className="dnode-kicker">{role && <span>{role}</span>}<b>{type}</b></div>
+      <h2>{title}</h2><p>{children}</p>
+    </>
+  )
+  return (
+    <article className={`dnode${decision ? ' decision' : ''}`} data-tone={tone} style={{ left, top }}>
+      {decision ? <div className="dnode-content">{content}</div> : content}
+    </article>
+  )
+}
+
 function AgentDesign({ onStart }: { onStart: () => void }) {
   return (
-    <section className="workflow-shell" aria-label="Agent 完整工作流程">
-      <div className="workflow-toolbar">
-        <div><strong>完整 Workflow</strong><p>从用户问题到可验证结果</p></div>
-        <div className="legend" aria-label="技术角色图例">
-          <span data-tone="agent">LLM / 规则</span><span data-tone="tool">Tool</span>
-          <span data-tone="guard">权限 / 人工</span><span data-tone="memory">Memory / Trace</span>
+    <>
+      <section className="dflow-shell" aria-label="Agent 完整工作流程">
+        <div className="dflow-toolbar">
+          <div><strong>完整 Workflow</strong><p>从接收问题到业务闭环，包含权限门、判断、回环和三条执行路径</p></div>
+          <div className="dflow-legend" aria-label="技术角色图例">
+            <span className="dflow-key">LLM / 规则</span><span className="dflow-key" data-tone="tool">Tool</span>
+            <span className="dflow-key" data-tone="guard">权限 / 人工</span><span className="dflow-key" data-tone="memory">Memory / Trace</span>
+          </div>
         </div>
-      </div>
-      <div className="workflow-canvas">
-        <div className="workflow-main">
-          {workflowStages.map((stage, index) => (
-            <div className="flow-step" key={stage.title}>
-              <article className="flow-node" data-tone={stage.tone}>
-                <div className="node-meta"><span>{String(index + 1).padStart(2, '0')}</span><b>{stage.type}</b></div>
-                <h2>{stage.title}</h2><p>{stage.copy}</p>
-              </article>
-              {index < workflowStages.length - 1 && <span className="flow-arrow" aria-hidden="true">→</span>}
-            </div>
-          ))}
+        <div className="dflow-viewport" tabIndex={0} aria-label="可滚动查看完整流程图">
+          <div className="dflow-canvas">
+            <div className="dflow-phase" style={{ top: 410 }}><span>02 · 核实订单与事实</span></div>
+            <div className="dflow-phase" style={{ top: 990 }}><span>03 · 决策与路由</span></div>
+            <div className="dflow-phase" style={{ top: 2160 }}><span>04 · 结果闭环</span></div>
+            <svg className="dflow-lines" viewBox="0 0 1180 2460" aria-hidden="true">
+              <defs><marker id="flow-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="context-stroke" /></marker></defs>
+              <path data-tone="main" d="M590 122 V150"/><path data-tone="main" d="M590 242 V280"/><path data-tone="main" d="M590 372 V393"/>
+              <path data-tone="main" d="M717 520 H770 V496 H810"/><text x="748" y="506">允许</text>
+              <path data-tone="guard" d="M463 520 H28 V1756 H70"/><text x="34" y="540">拒绝</text>
+              <path data-tone="main" d="M960 542 V580"/><path data-tone="main" d="M960 672 V698"/>
+              <path data-tone="loop" d="M843 825 H380"/><text x="602" y="813">否</text>
+              <path data-tone="loop" d="M80 806 H28 V520 H463"/>
+              <path data-tone="main" d="M970 952 V975 H590 V973"/><text x="944" y="970">是</text>
+              <path d="M463 1100 H190 V1230"/><text x="292" y="1088">只需查询</text>
+              <path data-tone="main" d="M590 1227 V1240"/><text x="604" y="1233">可生成确定方案</text>
+              <path data-tone="guard" d="M717 1100 H780 V1740 H717"/><text x="790" y="1120">需协同或高风险</text>
+              <path d="M190 1322 V2236 H440"/>
+              <path data-tone="main" d="M590 1332 V1370"/><path data-tone="main" d="M590 1462 V1500"/><path data-tone="main" d="M590 1592 V1623"/>
+              <path data-tone="guard" d="M463 1740 H370"/><text x="395" y="1728">拒绝</text>
+              <path data-tone="main" d="M590 1867 V1880"/><text x="604" y="1875">交易写入</text>
+              <path data-tone="guard" d="M717 1740 H970 V1880"/><text x="825" y="1728">流程写入</text>
+              <path data-tone="main" d="M590 1972 V2010"/><path data-tone="main" d="M590 2102 V2190"/>
+              <path d="M970 1972 V2010"/><path d="M970 2102 V2140 H740 V2236"/>
+              <path data-tone="main" d="M590 2282 V2320"/>
+            </svg>
+
+            <DiagramNode left={440} top={30} role="会话入口" type="Session Memory" title="接收用户问题">创建 <code>session_id</code> 与 <code>trace_id</code></DiagramNode>
+            <DiagramNode left={440} top={150} role="理解层" type="LLM + 安全分类器" title="理解诉求与紧急度" tone="agent">意图、原因、风险、订单线索</DiagramNode>
+            <DiagramNode left={440} top={280} role="订单选择组件" type="UI" title="用户确认唯一订单"><code>confirmed_order_id</code> 写入状态</DiagramNode>
+            <DiagramNode left={500} top={430} type="READ Gate" title="是否允许读取？" tone="guard" decision>身份、归属、状态白名单、脱敏</DiagramNode>
+            <DiagramNode left={810} top={450} role="查询类 Tool" type="READ" title="读取可信业务事实" tone="tool">订单、政策、退款、支付、工单、责任链</DiagramNode>
+            <DiagramNode left={810} top={580} role="结构化过滤" type="RAG" title="匹配政策并辅助解释" tone="agent">RAG 不决定金额与权限</DiagramNode>
+            <DiagramNode left={880} top={735} type="LLM + 必填规则" title="信息是否足够？" tone="agent" decision>只检查会改变结论的信息</DiagramNode>
+            <DiagramNode left={80} top={760} role="对话补全" type="LLM + Session Memory" title="最少追问" tone="memory">只问会改变处理结论的信息，再回到读取权限门</DiagramNode>
+            <DiagramNode left={500} top={1010} type="Rules + Workflow" title="选择处理路径" tone="agent" decision>规则决定金额、权限、风险和路由</DiagramNode>
+            <DiagramNode left={40} top={1230} role="查询类 Tool" type="READ" title="查询当前业务状态" tone="tool">退款进度、支付事件、工单进度</DiagramNode>
+            <DiagramNode left={440} top={1240} role="计算 / 决策 Tool" type="READ" title="生成可执行方案" tone="tool">退款报价、变更报价、保障预览、权限校验</DiagramNode>
+            <DiagramNode left={440} top={1370} role="结构化组件" type="LLM" title="展示方案与预期" tone="agent">金额沿用 Tool 回执，LLM 只负责解释</DiagramNode>
+            <DiagramNode left={440} top={1500} role="前端确认组件" type="安全机制" title="用户二次确认" tone="guard">明确金额、后果和操作对象</DiagramNode>
+            <DiagramNode left={500} top={1650} type="WRITE Gate" title="允许改变业务状态？" tone="guard" decision>鉴权、状态、风险、确认、版本、幂等</DiagramNode>
+            <DiagramNode left={70} top={1710} role="安全机制" type="Human-in-the-loop" title="阻断或转人工核验" tone="guard">不暴露订单，不把失败改写成成功</DiagramNode>
+            <DiagramNode left={440} top={1880} role="交易写权限" type="WRITE Auth" title="校验确认、版本和风险" tone="guard"><code>confirmation_token</code> + <code>expected_version</code></DiagramNode>
+            <DiagramNode left={440} top={2010} role="交易类 Tool" type="WRITE" title="执行取消或订单变更" tone="tool"><code>submit_cancellation</code> / <code>submit_order_change</code></DiagramNode>
+            <DiagramNode left={820} top={1880} role="协同写权限" type="L3 / L4 硬转人工" title="允许创建协作任务" tone="guard">只能创建工单，不得裁决退款金额</DiagramNode>
+            <DiagramNode left={820} top={2010} role="协同类 Tool" type="WRITE" title="创建并跟踪协作任务" tone="tool">供应商、支付调查、材料、人工专席</DiagramNode>
+            <DiagramNode left={440} top={2190} role="事实校验器" type="Verifier + LLM" title="返回结果与下一步" tone="agent">校验金额、动作词、状态、SLA 与允许按钮</DiagramNode>
+            <DiagramNode left={440} top={2320} role="案件持久化" type="Case Memory + Trace Log" title="保存案件状态" tone="memory">支持后续查询、恢复会话、审计和 Badcase 回放</DiagramNode>
+          </div>
         </div>
-        <div className="route-label"><span>规则命中后进入一条处理路径</span></div>
-        <div className="branch-grid">
-          {workflowBranches.map((branch) => (
-            <article className="branch" key={branch.title}>
-              <div><span className="mode-badge">{branch.mode}</span><h2>{branch.title}</h2></div>
-              <p>{branch.copy}</p><strong>{branch.steps}</strong>
-            </article>
-          ))}
+        <div className="dflow-summary" aria-label="四层流程摘要">
+          <div><span>01 理解</span><strong>识别诉求、原因和紧急度</strong></div>
+          <div><span>02 核实</span><strong>确认订单并读取可信事实</strong></div>
+          <div><span>03 决策</span><strong>规则选择查询、交易或协同</strong></div>
+          <div><span>04 闭环</span><strong>校验结果并持久化案件</strong></div>
         </div>
-        <div className="closure-row">
-          <div><span>Verifier + LLM</span><strong>校验金额、状态、动作词与 SLA</strong></div>
-          <span aria-hidden="true">→</span>
-          <div><span>Case Memory + Trace Log</span><strong>保存状态、依据和工具审计</strong></div>
-        </div>
-      </div>
+      </section>
       <div className="page-action"><button className="primary" type="button" onClick={onStart}>开始场景模拟</button></div>
-    </section>
+    </>
   )
 }
 
